@@ -1,0 +1,9 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "tag": "forge:sand"
+  },
+  "output": "minecraft:dirt",
+  "count": 1,
+  "time": 150
+}

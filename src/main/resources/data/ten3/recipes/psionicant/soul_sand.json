@@ -1,0 +1,11 @@
+{
+  "type": "ten3:psionicant",
+  "ingredient0": {
+    "tag": "forge:sand"
+  },
+  "ingredient1": {
+    "item": "minecraft:nether_wart"
+  },
+  "output": "minecraft:soul_sand",
+  "time": 100
+}

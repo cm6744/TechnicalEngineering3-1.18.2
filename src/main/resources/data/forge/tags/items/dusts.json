@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:dusts/tin",
+    "#forge:dusts/powered_tin",
+    "#forge:dusts/chlorium",
+    "#forge:dusts/gold",
+    "#forge:dusts/iron",
+    "#forge:dusts/copper",
+    "#forge:dusts/nickel"
+  ]
+}

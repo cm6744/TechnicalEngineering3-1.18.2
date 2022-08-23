@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    " A ",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:bizarrerie"
+    }
+  },
+  "result": {
+    "item": "minecraft:emerald",
+    "count": 2
+  }
+}

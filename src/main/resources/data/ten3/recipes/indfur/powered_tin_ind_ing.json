@@ -1,0 +1,16 @@
+{
+  "type": "ten3:induction_furnace",
+  "ingredient0": {
+    "tag": "forge:ingots/tin"
+  },
+  "ingredient1": {
+    "tag": "forge:ingots/copper"
+  },
+  "ingredient2": {
+    "item": "minecraft:redstone",
+    "count": 2
+  },
+  "output": "ten3:powered_tin_ingot",
+  "count": 3,
+  "time": 300
+}

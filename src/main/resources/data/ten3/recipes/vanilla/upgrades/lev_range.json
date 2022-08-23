@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DBD",
+    "CAC",
+    "DBD"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:plates/gold"
+    },
+    "B": {
+      "tag": "forge:gears/gold"
+    },
+    "C": {
+      "tag": "forge:glass"
+    },
+    "D": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "result": {
+    "item": "ten3:range_levelup"
+  }
+}

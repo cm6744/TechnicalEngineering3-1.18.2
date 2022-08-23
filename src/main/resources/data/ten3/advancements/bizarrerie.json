@@ -1,0 +1,35 @@
+{
+  "parent": "ten3:psionic",
+  "display": {
+    "icon": {
+      "item": "ten3:bizarrerie"
+    },
+    "title": {
+      "translate": "ten3.adv.bizarrerie"
+    },
+    "description": {
+      "translate": "ten3.adv.bizarrerie.0"
+    },
+    "frame": "challenge",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "change": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ten3:bizarrerie"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "change"
+    ]
+  ]
+}

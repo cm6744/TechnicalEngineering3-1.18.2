@@ -1,0 +1,8 @@
+{
+  "type": "ten3:compressor",
+  "ingredient": {
+    "tag": "forge:ingots/chlorium"
+  },
+  "output": "ten3:chlorium_plate",
+  "time": 100
+}

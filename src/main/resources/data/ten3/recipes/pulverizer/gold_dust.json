@@ -1,0 +1,8 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "tag": "forge:ingots/gold"
+  },
+  "output": "ten3:gold_dust",
+  "time": 150
+}

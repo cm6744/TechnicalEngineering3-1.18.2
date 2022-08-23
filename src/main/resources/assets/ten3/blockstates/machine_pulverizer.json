@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=east,active=false": {
+      "model": "ten3:block/mac/pulverizer",
+      "y": 90
+    },
+    "facing=east,active=true": {
+      "model": "ten3:block/mac/pulverizer_active",
+      "y": 90
+    },
+    "facing=north,active=false": {
+      "model": "ten3:block/mac/pulverizer"
+    },
+    "facing=north,active=true": {
+      "model": "ten3:block/mac/pulverizer_active"
+    },
+    "facing=south,active=false": {
+      "model": "ten3:block/mac/pulverizer",
+      "y": 180
+    },
+    "facing=south,active=true": {
+      "model": "ten3:block/mac/pulverizer_active",
+      "y": 180
+    },
+    "facing=west,active=false": {
+      "model": "ten3:block/mac/pulverizer",
+      "y": 270
+    },
+    "facing=west,active=true": {
+      "model": "ten3:block/mac/pulverizer_active",
+      "y": 270
+    }
+  }
+}

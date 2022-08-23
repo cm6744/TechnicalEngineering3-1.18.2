@@ -1,0 +1,8 @@
+{
+  "type": "ten3:compressor",
+  "ingredient": {
+    "tag": "forge:ingots/nickel"
+  },
+  "output": "ten3:nickel_plate",
+  "time": 100
+}

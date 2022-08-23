@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "C C",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:ingots/nickel"
+    }
+  },
+  "result": {
+    "item": "ten3:nickel_gear"
+  }
+}

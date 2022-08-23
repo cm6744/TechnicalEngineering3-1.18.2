@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DBD",
+    "CAC",
+    "DBD"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:plates/chlorium"
+    },
+    "B": {
+      "tag": "forge:gears/chlorium"
+    },
+    "C": {
+      "tag": "forge:glass"
+    },
+    "D": {
+      "tag": "forge:dusts/chlorium"
+    }
+  },
+  "result": {
+    "item": "ten3:photosyn_levelup"
+  }
+}

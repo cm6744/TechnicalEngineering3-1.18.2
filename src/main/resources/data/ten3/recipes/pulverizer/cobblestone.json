@@ -1,0 +1,9 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "item": "minecraft:stone"
+  },
+  "output": "minecraft:cobblestone",
+  "count": 1,
+  "time": 150
+}

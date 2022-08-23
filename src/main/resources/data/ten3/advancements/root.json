@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "ten3:pedia"
+    },
+    "title": {
+      "translate": "ten3.adv.root"
+    },
+    "description": {
+      "translate": "ten3.adv.root.0"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "ten3:textures/machine/machine_bottom.png"
+  },
+  "criteria": {
+    "always": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "always"
+    ]
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:glass"
+    },
+    "B": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "ten3:cable_glass",
+    "count": 4
+  }
+}

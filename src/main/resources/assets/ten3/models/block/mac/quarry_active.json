@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "ten3:machine/machine_side",
+    "north": "ten3:machine/quarry_active",
+    "south": "ten3:machine/machine_side",
+    "east": "ten3:machine/machine_side",
+    "west": "ten3:machine/machine_side",
+    "up": "ten3:machine/machine_top",
+    "down": "ten3:machine/machine_bottom"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "ten3:psionicant",
+  "ingredient0": {
+    "item": "minecraft:clay"
+  },
+  "ingredient1": {
+    "tag": "forge:dyes/white"
+  },
+  "output": "minecraft:quartz",
+  "time": 100
+}

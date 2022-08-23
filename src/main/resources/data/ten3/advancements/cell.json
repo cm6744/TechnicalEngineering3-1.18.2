@@ -1,0 +1,35 @@
+{
+  "parent": "ten3:cable",
+  "display": {
+    "icon": {
+      "item": "ten3:cell_glass"
+    },
+    "title": {
+      "translate": "ten3.adv.cell"
+    },
+    "description": {
+      "translate": "ten3.adv.cell.0"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "change": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ten3:cell_glass"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "change"
+    ]
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "tag": "forge:ingots/nickel"
+  },
+  "output": "ten3:nickel_dust",
+  "time": 150
+}

@@ -1,0 +1,9 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "tag": "forge:netherrack"
+  },
+  "output": "minecraft:soul_sand",
+  "count": 1,
+  "time": 150
+}

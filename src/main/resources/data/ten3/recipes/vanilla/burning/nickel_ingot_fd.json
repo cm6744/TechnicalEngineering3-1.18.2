@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "ten3:nickel_dust"
+  },
+  "result": "ten3:nickel_ingot",
+  "experience": 0,
+  "cookingtime": 200
+}

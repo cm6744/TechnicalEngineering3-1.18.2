@@ -1,0 +1,12 @@
+{
+  "type": "ten3:psionicant",
+  "ingredient0": {
+    "tag": "forge:dusts"
+  },
+  "ingredient1": {
+    "item": "ten3:bizarrerie",
+    "count": 3
+  },
+  "output": "ten3:starlight_dust",
+  "time": 400
+}

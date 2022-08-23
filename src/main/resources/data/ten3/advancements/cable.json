@@ -1,0 +1,35 @@
+{
+  "parent": "ten3:engine",
+  "display": {
+    "icon": {
+      "item": "ten3:cable_glass"
+    },
+    "title": {
+      "translate": "ten3.adv.cable"
+    },
+    "description": {
+      "translate": "ten3.adv.cable.0"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "change": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ten3:cable_glass"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "change"
+    ]
+  ]
+}

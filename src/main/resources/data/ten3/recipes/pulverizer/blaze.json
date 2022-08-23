@@ -1,0 +1,11 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "item": "minecraft:blaze_rod"
+  },
+  "output": "minecraft:blaze_powder",
+  "count": 3,
+  "addition": "minecraft:blaze_powder",
+  "chance": 0.5,
+  "time": 150
+}

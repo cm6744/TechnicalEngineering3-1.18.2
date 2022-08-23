@@ -1,0 +1,8 @@
+{
+  "type": "ten3:compressor",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "output": "ten3:iron_plate",
+  "time": 100
+}

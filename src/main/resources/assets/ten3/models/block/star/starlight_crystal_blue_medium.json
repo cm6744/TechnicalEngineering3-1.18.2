@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "ten3:block/starlight/starlight_crystal_blue_medium"
+  }
+}

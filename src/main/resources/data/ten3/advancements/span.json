@@ -1,0 +1,35 @@
+{
+  "parent": "ten3:copper",
+  "display": {
+    "icon": {
+      "item": "ten3:spanner"
+    },
+    "title": {
+      "translate": "ten3.adv.span"
+    },
+    "description": {
+      "translate": "ten3.adv.span.0"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "change": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ten3:spanner"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "change"
+    ]
+  ]
+}

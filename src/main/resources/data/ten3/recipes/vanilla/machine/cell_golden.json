@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA",
+    "BCB",
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:plates/gold"
+    },
+    "B": {
+      "item": "ten3:redstone_storer"
+    },
+    "C": {
+      "item": "ten3:cell_glass"
+    }
+  },
+  "result": {
+    "item": "ten3:cell_golden"
+  }
+}

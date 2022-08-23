@@ -1,0 +1,8 @@
+1.继承CmTileMachine，创建方块实体类
+2.继承CmScreenMachine，创建GUI
+3.注册tileentity，container，block，item
+4.在ContInit.doBinding里绑定Screen和设置渲染模式
+5.本地化、模型、blockstate
+6.如有recipe，注册Recipe，改为继承CmTileMachineProcessedSingle
+7.编写recipe的json
+8.启动！

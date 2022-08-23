@@ -1,0 +1,11 @@
+{
+  "starlight": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "ten3:starlight",
+        "stream": false
+      }
+    ]
+  }
+}

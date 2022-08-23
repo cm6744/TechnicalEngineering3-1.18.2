@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A A",
+    " B ",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:ingots/tin"
+    },
+    "B": {
+      "item": "ten3:redstone_storer"
+    }
+  },
+  "result": {
+    "item": "ten3:spanner"
+  }
+}

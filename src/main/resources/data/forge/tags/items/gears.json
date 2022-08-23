@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:gears/tin",
+    "#forge:gears/powered_tin",
+    "#forge:gears/chlorium",
+    "#forge:gears/gold",
+    "#forge:gears/iron",
+    "#forge:gears/copper",
+    "#forge:gears/nickel"
+  ]
+}

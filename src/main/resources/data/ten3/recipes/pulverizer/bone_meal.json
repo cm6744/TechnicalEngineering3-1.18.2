@@ -1,0 +1,11 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "item": "minecraft:bone"
+  },
+  "output": "minecraft:bone_meal",
+  "count": 4,
+  "addition": "minecraft:bone_meal",
+  "chance": 0.5,
+  "time": 150
+}

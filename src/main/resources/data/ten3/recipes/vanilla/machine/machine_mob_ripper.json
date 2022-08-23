@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "ACA",
+    "BVB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:cactus"
+    },
+    "B": {
+      "tag": "forge:plates/tin"
+    },
+    "C": {
+      "item": "ten3:redstone_storer"
+    },
+    "V": {
+      "item": "minecraft:iron_sword"
+    },
+    "D": {
+      "item": "ten3:redstone_conductor"
+    }
+  },
+  "result": {
+    "item": "ten3:machine_mob_ripper"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "item": "minecraft:sandstone"
+  },
+  "output": "minecraft:sand",
+  "count": 1,
+  "time": 150
+}

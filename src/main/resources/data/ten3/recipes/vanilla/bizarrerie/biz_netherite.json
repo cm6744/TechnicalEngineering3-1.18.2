@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "A A",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:bizarrerie"
+    }
+  },
+  "result": {
+    "item": "minecraft:netherite_scrap"
+  }
+}

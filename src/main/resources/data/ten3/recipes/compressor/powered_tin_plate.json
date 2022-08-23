@@ -1,0 +1,8 @@
+{
+  "type": "ten3:compressor",
+  "ingredient": {
+    "tag": "forge:ingots/powered_tin"
+  },
+  "output": "ten3:powered_tin_plate",
+  "time": 100
+}

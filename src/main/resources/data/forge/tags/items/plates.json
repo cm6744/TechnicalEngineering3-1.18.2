@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:plates/tin",
+    "#forge:plates/powered_tin",
+    "#forge:plates/chlorium",
+    "#forge:plates/gold",
+    "#forge:plates/iron",
+    "#forge:plates/copper",
+    "#forge:plates/nickel"
+  ]
+}

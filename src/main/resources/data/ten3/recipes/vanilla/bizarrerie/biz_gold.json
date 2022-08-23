@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "   ",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:bizarrerie"
+    }
+  },
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": 4
+  }
+}

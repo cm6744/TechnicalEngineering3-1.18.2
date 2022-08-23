@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "ten3:chlorium_dust"
+  },
+  "result": "ten3:chlorium_ingot",
+  "experience": 0,
+  "cookingtime": 100
+}

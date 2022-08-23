@@ -1,0 +1,9 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "item": "minecraft:ice"
+  },
+  "output": "minecraft:snow_block",
+  "count": 1,
+  "time": 150
+}

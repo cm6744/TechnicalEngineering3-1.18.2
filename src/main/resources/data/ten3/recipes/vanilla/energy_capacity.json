@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CDC",
+    "AAA",
+    "CDC"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:redstone_storer"
+    },
+    "C": {
+      "item": "minecraft:redstone"
+    },
+    "D": {
+      "tag": "forge:plates/tin"
+    }
+  },
+  "result": {
+    "item": "ten3:energy_capacity"
+  }
+}

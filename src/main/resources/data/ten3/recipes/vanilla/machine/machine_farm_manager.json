@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "ACA",
+    "BVB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:iron_hoe"
+    },
+    "B": {
+      "tag": "forge:plates/chlorium"
+    },
+    "C": {
+      "item": "ten3:redstone_storer"
+    },
+    "V": {
+      "tag": "forge:chests/wooden"
+    },
+    "D": {
+      "item": "ten3:redstone_conductor"
+    }
+  },
+  "result": {
+    "item": "ten3:machine_farm_manager"
+  }
+}

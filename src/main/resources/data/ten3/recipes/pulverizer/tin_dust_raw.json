@@ -1,0 +1,11 @@
+{
+  "type": "ten3:pulverizer",
+  "ingredient": {
+    "tag": "forge:raw_materials/tin"
+  },
+  "output": "ten3:tin_dust",
+  "count": 1,
+  "addition": "ten3:tin_dust",
+  "chance": 0.4,
+  "time": 120
+}

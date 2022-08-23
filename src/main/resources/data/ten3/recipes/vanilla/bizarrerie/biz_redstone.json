@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "AAA",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:bizarrerie"
+    }
+  },
+  "result": {
+    "item": "minecraft:redstone",
+    "count": 32
+  }
+}

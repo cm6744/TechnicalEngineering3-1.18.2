@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "ten3:gold_dust"
+  },
+  "result": "minecraft:gold_ingot",
+  "experience": 0,
+  "cookingtime": 100
+}

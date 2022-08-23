@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "C C",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:ingots/powered_tin"
+    }
+  },
+  "result": {
+    "item": "ten3:powered_tin_gear"
+  }
+}

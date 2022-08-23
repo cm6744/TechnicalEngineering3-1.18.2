@@ -1,0 +1,12 @@
+ modLoader="javafml"
+loaderVersion="[34,)" 
+license="All Right Reserved"
+[[mods]]
+modId="ten3"
+version="18.0.0.0"
+displayName="Technical Engineering 3"
+authors="cm (Programming), Nova-Committee (Dev team)"
+description='''
+~
+'''
+logoFile="logo.png"

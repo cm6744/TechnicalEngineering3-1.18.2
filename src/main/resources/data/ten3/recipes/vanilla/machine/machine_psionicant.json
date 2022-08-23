@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "ACA",
+    "BVB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:glowstone"
+    },
+    "B": {
+      "tag": "forge:plates/gold"
+    },
+    "C": {
+      "item": "ten3:redstone_storer"
+    },
+    "V": {
+      "item": "minecraft:ender_eye"
+    },
+    "D": {
+      "item": "ten3:redstone_converter"
+    }
+  },
+  "result": {
+    "item": "ten3:machine_psionicant"
+  }
+}

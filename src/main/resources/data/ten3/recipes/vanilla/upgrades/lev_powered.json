@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DBD",
+    "CAC",
+    "DBD"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:plates/powered_tin"
+    },
+    "B": {
+      "tag": "forge:gears/powered_tin"
+    },
+    "C": {
+      "tag": "forge:glass"
+    },
+    "D": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "result": {
+    "item": "ten3:powered_levelup"
+  }
+}

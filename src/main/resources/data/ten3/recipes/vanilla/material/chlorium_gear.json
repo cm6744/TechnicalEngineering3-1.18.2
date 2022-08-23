@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "C C",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:ingots/chlorium"
+    }
+  },
+  "result": {
+    "item": "ten3:chlorium_gear"
+  }
+}

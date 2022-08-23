@@ -1,0 +1,35 @@
+{
+  "parent": "ten3:compress",
+  "display": {
+    "icon": {
+      "item": "ten3:machine_psionicant"
+    },
+    "title": {
+      "translate": "ten3.adv.psionic"
+    },
+    "description": {
+      "translate": "ten3.adv.psionic.0"
+    },
+    "frame": "goal",
+    "show_toast": false,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "change": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "ten3:machine_psionicant"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "change"
+    ]
+  ]
+}
