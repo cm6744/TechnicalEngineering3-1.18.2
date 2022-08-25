@@ -8,10 +8,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import ten3.TConst;
 import ten3.core.block.*;
-import ten3.core.machine.Engine;
-import ten3.core.machine.Machine;
-import ten3.core.machine.Cable;
-import ten3.core.machine.Cell;
+import ten3.core.machine.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,11 +43,9 @@ public class BlockInit {
         regMachine("psionicant");
         regMachine("induction_furnace");
 
-        regCable("cable_glass", Material.GLASS, SoundType.GLASS);
-        regCable("cable_golden", Material.METAL, SoundType.STONE);
-
-        regCell("cell_glass", Material.GLASS, SoundType.GLASS);
-        regCell("cell_golden", Material.METAL, SoundType.STONE);
+        regCable("cable", Material.GLASS, SoundType.GLASS);
+        regPipe("pipe", Material.METAL, SoundType.METAL);
+        regCell("cell", Material.GLASS, SoundType.GLASS);
     }
 
     public static void regMachine(String id_out) {
@@ -80,7 +75,15 @@ public class BlockInit {
 
     public static void regCable(String id, Material m, SoundType s) {
 
-        Supplier<Block> c = () -> new Cable(m, s, id);
+        Supplier<Block> c = () -> new CableBased(m, s, id);
+        RegistryObject<Block> reg = BLOCKS.register(id, c);
+        regs.put(id, reg);
+
+    }
+
+    public static void regPipe(String id, Material m, SoundType s) {
+
+        Supplier<Block> c = () -> new PipeBased(m, s, id);
         RegistryObject<Block> reg = BLOCKS.register(id, c);
         regs.put(id, reg);
 

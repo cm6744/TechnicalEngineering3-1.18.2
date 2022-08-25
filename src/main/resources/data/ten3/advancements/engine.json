@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:engine_extraction"
+            "items": ["ten3:engine_extraction"]
           }
         ]
       }

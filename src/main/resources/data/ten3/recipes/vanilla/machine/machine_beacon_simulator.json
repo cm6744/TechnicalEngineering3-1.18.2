@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:diamond"
+      "item": "ten3:azure_glass"
     },
     "B": {
       "tag": "forge:plates/powered_tin"

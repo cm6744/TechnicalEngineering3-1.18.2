@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABA"
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:glass"
+    },
+    "B": {
+      "tag": "forge:ingots/gold"
+    }
+  },
+  "result": {
+    "item": "ten3:pipe",
+    "count": 4
+  }
+}

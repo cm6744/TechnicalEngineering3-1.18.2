@@ -76,7 +76,7 @@ public class CmItemList {
     private static CmItemList GET_ITEM(String i, int im) {
         ResourceLocation rl = new ResourceLocation(i);
         Optional<Item> item = Registry.ITEM.getOptional(rl);
-        if(item.isPresent()) {
+        if(item.isPresent() && item.get() != Items.AIR) {
             return new CmItemList(item.get(), im, rl);
         }
         return new CmItemList();

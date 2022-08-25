@@ -43,6 +43,12 @@ public abstract class CmTileMachineProcessed extends CmTileMachine {
 
     }
 
+    @Override
+    public boolean customFitStackIn(ItemStack s, int slot)
+    {
+        return getRcp(recipeType, s) != null;
+    }
+
     public abstract int getTimeCook();
 
     //need to override sometimes
@@ -55,7 +61,9 @@ public abstract class CmTileMachineProcessed extends CmTileMachine {
             ItemStack stack = inventory.getItem(i);
             int c1 = ((IBaseRecipeCm<?>) recipeNow).inputLimit(stack);
             if(!stack.getContainerItem().isEmpty()) {
-                Block.popResource(world, pos, stack.getContainerItem());
+                ItemStack s2 = stack.getContainerItem();
+                s2.setCount(c1);
+                Block.popResource(world, pos, s2);
             }
             stack.shrink(c1);
         }

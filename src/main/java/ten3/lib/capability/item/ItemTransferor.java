@@ -88,7 +88,7 @@ public class ItemTransferor {
 
     //s - the extract item from src
     //return - src's max cap for <s>
-    public int getRemainSize(IItemHandler src, ItemStack s) {
+    public static int getRemainSize(IItemHandler src, ItemStack s) {
 
         ItemStack sin = s.copy();
 
@@ -98,6 +98,21 @@ public class ItemTransferor {
         }
 
         return s.getCount() - sin.getCount();
+
+    }
+
+    public static int getRemainStacks(IItemHandler src, ItemStack s) {
+
+        int total = 0;
+
+        for(int i = 0; i < src.getSlots(); i++) {
+            ItemStack s2 = src.extractItem(i, s.getMaxStackSize(), true);
+            if(s2.getItem() == s.getItem()) {
+                total += s2.getCount();
+            }
+        }
+
+        return total;
 
     }
 

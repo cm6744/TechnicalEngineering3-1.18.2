@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "ACA",
+    "BVB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:bricks"
+    },
+    "B": {
+      "tag": "forge:plates/iron"
+    },
+    "C": {
+      "item": "ten3:redstone_storer"
+    },
+    "V": {
+      "item": "minecraft:lava_bucket"
+    },
+    "D": {
+      "item": "ten3:redstone_converter"
+    }
+  },
+  "result": {
+    "item": "ten3:machine_induction_furnace"
+  }
+}

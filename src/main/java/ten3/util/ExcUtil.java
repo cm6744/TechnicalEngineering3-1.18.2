@@ -75,6 +75,9 @@ public class ExcUtil {
     @SuppressWarnings("all")
     public static <T> T randomInCollection(Collection<T> col) {
 
+        if(col == null) return null;
+        if(col.size() == 0) return null;
+
         Object[] items = col.toArray();
         Object j = Util.getRandom(items, random);
         return (T) j;

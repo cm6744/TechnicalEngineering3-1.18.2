@@ -1,0 +1,11 @@
+{
+  "type": "ten3:psionicant",
+  "ingredient0": {
+    "item": "minecraft:magma_cream"
+  },
+  "ingredient1": {
+    "item": "minecraft:honey_bottle"
+  },
+  "output": "ten3:spicy_jelly",
+  "time": 150
+}

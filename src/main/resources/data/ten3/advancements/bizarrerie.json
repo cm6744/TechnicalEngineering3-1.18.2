@@ -17,11 +17,13 @@
   },
   "criteria": {
     "change": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "minecraft:inventory;_changed",
       "conditions": {
         "items": [
           {
-            "item": "ten3:bizarrerie"
+            "items": [
+              "ten3:bizarrerie"
+            ]
           }
         ]
       }

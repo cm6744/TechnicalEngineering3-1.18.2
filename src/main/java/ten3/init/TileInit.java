@@ -9,13 +9,12 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import ten3.TConst;
 import ten3.TechnicalEngineering;
-import ten3.core.machine.cell.CellTileGolden;
 import ten3.core.machine.engine.biomass.BiomassTile;
 import ten3.core.machine.engine.extractor.ExtractorTile;
 import ten3.core.machine.engine.metalizer.MetalizerTile;
 import ten3.core.machine.cable.CableTile;
-import ten3.core.machine.cable.CableTileGolden;
 import ten3.core.machine.cell.CellTile;
+import ten3.core.machine.pipe.PipeTile;
 import ten3.core.machine.useenergy.beacon.BeaconTile;
 import ten3.core.machine.useenergy.compressor.CompressorTile;
 import ten3.core.machine.useenergy.farm.FarmTile;
@@ -51,10 +50,9 @@ public class TileInit {
         regTile("machine_psionicant", PsionicantTile::new);
         regTile("machine_induction_furnace", IndfurTile::new);
 
-        regTile("cable_glass", CableTile::new);
-        regTile("cable_golden", CableTileGolden::new);
-        regTile("cell_glass", CellTile::new);
-        regTile("cell_golden", CellTileGolden::new);
+        regTile("cable", CableTile::new);
+        regTile("pipe", PipeTile::new);
+        regTile("cell", CellTile::new);
     }
 
     @Deprecated

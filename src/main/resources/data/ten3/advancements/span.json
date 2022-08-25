@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:spanner"
+            "items": ["ten3:spanner"]
           }
         ]
       }

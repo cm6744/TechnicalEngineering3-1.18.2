@@ -48,7 +48,7 @@ public class CmContainerMachine extends CmContainer {
                     int[] iarr = tile.getItemFirstTransferSlot(itemstack1.getItem());
                     if(iarr.length == 2) {
                         int p1 = slots.indexOf(tileInv.match(iarr[0]));
-                        int p2 = slots.indexOf(tileInv.match(iarr[1]));
+                        int p2 = slots.indexOf(tileInv.match(iarr[1] + 1));
                         if(!moveItemStackTo(itemstack1, p1, p2, false)) {
                             return ItemStack.EMPTY;
                         }

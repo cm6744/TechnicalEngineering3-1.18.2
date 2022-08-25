@@ -44,10 +44,8 @@ public class Finder {
             }
         }
 
-        if(callFirst) {
-            nets.put(start.getBlockPos(), result);
-            caps.put(start.getBlockPos(), cap);
-        }
+        nets.put(start.getBlockPos(), result);
+        caps.put(start.getBlockPos(), cap);
 
     }
 

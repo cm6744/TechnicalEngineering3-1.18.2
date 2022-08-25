@@ -42,6 +42,10 @@ public class ItemInit {
         regItemDef("redstone_conductor");
         regItemDef("redstone_converter");
         regItemDef("redstone_storer");
+        regItemDef("indigo");
+        regItemDef("azure_glass");
+        regItemDef("royal_jelly");
+        regItemDef("spicy_jelly");
         regItemDef("bizarrerie");
         //too imba
         //regItem("world_bag", new WorldBag());
@@ -86,11 +90,9 @@ public class ItemInit {
         regItemMachine("psionicant");
         regItemMachine("induction_furnace");
 
-        regItemMachineWithoutID("cell_glass");
-        regItemMachineWithoutID("cell_golden");
-
-        regItemBlockDef("cable_glass");
-        regItemBlockDef("cable_golden");
+        regItemMachineWithoutID("cell");
+        regItemBlockDef("pipe");
+        regItemBlockDef("cable");
 
     }
 

@@ -71,6 +71,10 @@
   "ten3.redstone_storer": "红石转存元件",
   "ten3.redstone_converter": "红石转化元件",
   "ten3.bizarrerie": "奇异物质",
+  "ten3.indigo": "靛青",
+  "ten3.azure_glass": "琉璃",
+  "ten3.royal_jelly": "蜂王浆",
+  "ten3.spicy_jelly": "香料酱",
 
   "ten3.engine_extraction": "萃取引擎",
   "ten3.engine_metal": "金属引擎",
@@ -86,10 +90,9 @@
   "ten3.machine_psionicant": "灵能处理器",
   "ten3.machine_induction_furnace": "感应炉",
 
-  "ten3.cable_glass": "玻璃能量线缆",
-  "ten3.cable_golden": "黄金能量线缆",
-  "ten3.cell_glass": "玻璃能量单元",
-  "ten3.cell_golden": "黄金能量单元",
+  "ten3.cell": "能量单元",
+  "ten3.cable": "能量线缆",
+  "ten3.pipe": "物品管道",
 
   "ten3.spanner": "扳手",
   "ten3.energy_capacity": "FE电容",

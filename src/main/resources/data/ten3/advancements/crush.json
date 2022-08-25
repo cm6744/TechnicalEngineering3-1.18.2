@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:machine_pulverizer"
+            "items": ["ten3:machine_pulverizer"]
           }
         ]
       }

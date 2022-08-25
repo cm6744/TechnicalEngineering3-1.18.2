@@ -17,10 +17,11 @@ public class LevelupSyn extends UpgradeItem {
         boolean a = tile.typeOf() == Type.MACHINE_PROCESS || tile.typeOf() == Type.MACHINE_EFFECT;
         if(a) {
             tile.upgSize += 1;
-            tile.efficientIn -= tile.initialEfficientIn * 0.15;
+            tile.efficientIn -= tile.initialEfficientIn * 0.1;
             tile.levelIn++;
+            return true;
         }
-        return a;
+        return false;
     }
 
 }

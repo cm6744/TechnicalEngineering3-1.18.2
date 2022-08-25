@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:machine_compressor"
+            "items": [
+              "ten3:machine_compressor"
+            ]
           }
         ]
       }

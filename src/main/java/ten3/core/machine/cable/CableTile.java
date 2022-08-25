@@ -8,7 +8,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import ten3.core.machine.Cable;
+import ten3.core.machine.CableBased;
 import ten3.lib.capability.energy.EnergyTransferor;
 import ten3.lib.capability.energy.FEStorageWayFinding;
 import ten3.lib.tile.CmTileMachine;
@@ -43,7 +43,7 @@ public class CableTile extends CmTileMachine {
 
     public int getCapacity() {
 
-        return kFE(1);
+        return kFE(10);
 
     }
 
@@ -53,7 +53,7 @@ public class CableTile extends CmTileMachine {
     public void update() {
 
         if(getTileAliveTime() % 5 == 0) {
-            ((Cable) getBlockState().getBlock()).update(world, pos);
+            ((CableBased) getBlockState().getBlock()).update(world, pos);
             FEStorageWayFinding.updateNet(this);
         }
 

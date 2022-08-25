@@ -71,6 +71,10 @@
   "ten3.redstone_storer": "Redstone Storer",
   "ten3.redstone_converter": "Redstone Converter",
   "ten3.bizarrerie": "Bizarrerie",
+  "ten3.indigo": "Indigo",
+  "ten3.azure_glass": "Azure Glass",
+  "ten3.royal_jelly": "Royal Jelly",
+  "ten3.spicy_jelly": "Spicy Jelly",
 
   "ten3.engine_extraction": "Extraction Engine",
   "ten3.engine_metal": "Metal Engine",
@@ -86,10 +90,9 @@
   "ten3.machine_psionicant": "Psionicant",
   "ten3.machine_induction_furnace": "Induction Furnace",
 
-  "ten3.cell_glass": "Glass Energy Cell",
-  "ten3.cell_golden": "Golden Energy Cell",
-  "ten3.cable_glass": "Glass Energy Cable",
-  "ten3.cable_golden": "Golden Energy Cable",
+  "ten3.cell": "Energy Cell",
+  "ten3.cable": "Energy Cable",
+  "ten3.pipe": "Item Pipe",
 
   "ten3.spanner": "Spanner",
   "ten3.energy_capacity": "FE Capacity",

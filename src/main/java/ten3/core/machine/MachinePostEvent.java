@@ -9,6 +9,7 @@ import ten3.core.item.Spanner;
 import ten3.core.item.upgrades.UpgradeItem;
 import ten3.lib.tile.option.Level;
 import ten3.lib.tile.option.RedstoneMode;
+import ten3.lib.tile.option.Type;
 import ten3.lib.tile.recipe.CmTileMachineRadiused;
 import ten3.util.ItemUtil;
 import ten3.core.network.Network;
@@ -51,15 +52,11 @@ public class MachinePostEvent {
                 tile.setOpenItem(d, itm);
             } else if(ItemUtil.getTag(i, "mode") == Spanner.Modes.REDSTONE.getIndex()) {
                 tile.data.set(RED_MODE, res);
-            } else if(ItemUtil.getTag(i, "mode") == Spanner.Modes.RANGE.getIndex()) {
-                ItemUtil.setTag(i, "bindX", pos.getX());
-                ItemUtil.setTag(i, "bindY", pos.getY());
-                ItemUtil.setTag(i, "bindZ", pos.getZ());
             }
             updateToClient(tile, d, pos);
             return false;
         }
-        else if(i.getItem() instanceof UpgradeItem) {
+        else if(i.getItem() instanceof UpgradeItem && tile.typeOf() != Type.CABLE) {
             boolean success = ((UpgradeItem) i.getItem()).effect(tile);
             boolean giveSuc = tile.itr.selfGive(i.copy(), CmTileMachine.upgSlotFrom, CmTileMachine.upgSlotTo, false);
             if(success && giveSuc) {

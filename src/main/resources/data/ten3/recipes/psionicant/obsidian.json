@@ -4,7 +4,7 @@
     "tag": "forge:stone"
   },
   "ingredient1": {
-    "item": "minecraft:ink_sak"
+    "tag": "forge:dyes/black"
   },
   "output": "minecraft:obsidian",
   "time": 200

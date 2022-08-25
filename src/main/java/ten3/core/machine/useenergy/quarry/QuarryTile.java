@@ -48,6 +48,15 @@ public class QuarryTile extends CmTileMachineRadiused {
     }
 
     @Override
+    public int[] getItemFirstTransferSlot(Item i)
+    {
+        if(i instanceof PickaxeItem) {
+            return new int[] {12, 12};
+        }
+        return super.getItemFirstTransferSlot(i);
+    }
+
+    @Override
     public Type typeOf() {
         return Type.MACHINE_EFFECT;
     }

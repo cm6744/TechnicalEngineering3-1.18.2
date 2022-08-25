@@ -2,7 +2,7 @@
   "parent": "ten3:engine",
   "display": {
     "icon": {
-      "item": "ten3:cable_glass"
+      "item": "ten3:cable"
     },
     "title": {
       "translate": "ten3.adv.cable"
@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:cable_glass"
+            "items": [
+              "ten3:cable"
+            ]
           }
         ]
       }

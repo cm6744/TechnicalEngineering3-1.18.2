@@ -2,7 +2,7 @@
   "parent": "ten3:cable",
   "display": {
     "icon": {
-      "item": "ten3:cell_glass"
+      "item": "ten3:cell"
     },
     "title": {
       "translate": "ten3.adv.cell"
@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:cell_glass"
+            "items": [
+              "ten3:cell"
+            ]
           }
         ]
       }

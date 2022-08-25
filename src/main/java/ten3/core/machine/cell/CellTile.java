@@ -29,7 +29,7 @@ public class CellTile extends CmTileMachine {
 
     public int getCapacity() {
 
-        return kFE(500);
+        return kFE(1000);
 
     }
 

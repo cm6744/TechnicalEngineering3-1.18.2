@@ -276,16 +276,18 @@ public abstract class CmTileMachine extends CmTileEntity {
         levelIn = 0;
     }
 
-    public boolean hasUpgrade(UpgradeItem item) {
+    public int countUpgradeNum(UpgradeItem item) {
+
+        int ic = 0;
 
         for(int i = 0; i < upgSize; i++) {
             ItemStack iks = inventory.getItem(i + upgSlotFrom);
             Item ik = iks.getItem();
             if(ik == item) {
-                return true;
+                ic++;
             }
         }
-        return false;
+        return ic;
 
     }
 

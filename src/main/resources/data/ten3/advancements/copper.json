@@ -2,7 +2,7 @@
   "parent": "ten3:root",
   "display": {
     "icon": {
-      "item": "ten3:copper_ore"
+      "item": "minecraft:copper_ore"
     },
     "title": {
       "translate": "ten3.adv.copper"
@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "ten3:copper_ore"
+            "items": [
+              "minecraft:copper_ore"
+            ]
           }
         ]
       }

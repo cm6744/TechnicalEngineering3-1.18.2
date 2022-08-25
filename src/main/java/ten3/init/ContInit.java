@@ -19,7 +19,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import ten3.TConst;
 import ten3.TechnicalEngineering;
-import ten3.core.machine.cell.CellTileGolden;
 import ten3.core.machine.engine.EngineScreen;
 import ten3.core.machine.engine.biomass.BiomassTile;
 import ten3.core.machine.engine.extractor.ExtractorTile;
@@ -78,8 +77,7 @@ public class ContInit {
         regCont("machine_psionicant");
         regCont("machine_induction_furnace");
 
-        regCont("cell_glass");
-        regCont("cell_golden");
+        regCont("cell");
 
     }
 
@@ -117,10 +115,9 @@ public class ContInit {
     @SuppressWarnings("all")
     public static void doBinding(FMLClientSetupEvent e) {
 
-        translucent.add("cable_golden");
-        translucent.add("cable_glass");
-        translucent.add("cell_glass");
-        translucent.add("cell_golden");
+        translucent.add("cable");
+        translucent.add("pipe");
+        translucent.add("cell");
 
         cutout.add("engine_metal");
         cutout.add("engine_extraction");
@@ -140,8 +137,7 @@ public class ContInit {
         bindScr("machine_psionicant", PsionicantScreen::new);
         bindScr("machine_induction_furnace", IndfurScreen::new);
 
-        bindScr("cell_glass", CellScreen::new);
-        bindScr("cell_golden", CellScreen::new);
+        bindScr("cell", CellScreen::new);
 
         for(String s : translucent) {
             ItemBlockRenderTypes.setRenderLayer(BlockInit.getBlock(s), RenderType.translucent());
