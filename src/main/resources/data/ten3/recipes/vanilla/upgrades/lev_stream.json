@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "DAD",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:starlight_dust"
+    },
+    "B": {
+      "item": "ten3:cable_star"
+    },
+    "C": {
+      "item": "ten3:redstone_conductor"
+    },
+    "D": {
+      "item": "minecraft:chorus_fruit"
+    }
+  },
+  "result": {
+    "item": "ten3:stream_levelup"
+  }
+}

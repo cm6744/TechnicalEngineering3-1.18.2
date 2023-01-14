@@ -1,0 +1,23 @@
+{
+  "type": "ten3:compressor",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:ingots/gold",
+      "count": 4
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "ten3:mould_gear"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:gold_gear"
+    }
+  ],
+  "time": 100
+}

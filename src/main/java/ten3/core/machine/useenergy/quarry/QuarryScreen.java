@@ -3,6 +3,7 @@ package ten3.core.machine.useenergy.quarry;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.network.chat.Component;
 import ten3.lib.client.element.ElementBurnLeft;
+import ten3.lib.client.element.ElementProgress;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.tile.CmScreenMachine;
 
@@ -17,12 +18,14 @@ public class QuarryScreen extends CmScreenMachine {
     }
 
     ElementBurnLeft energy;
+    ElementProgress progress;
 
     public void addWidgets() {
 
         super.addWidgets();
 
         widgets.add(energy = getDefaultEne());
+        widgets.add(progress = new ElementProgress(48, 73, 80, 5, 97, 0, handler, true));
 
     }
 
@@ -30,7 +33,8 @@ public class QuarryScreen extends CmScreenMachine {
 
         energy.setPer(pEnergy());
         energy.setValue(energy(), maxEnergy());
-
+        progress.setPer(pProgress());
     }
+
 
 }

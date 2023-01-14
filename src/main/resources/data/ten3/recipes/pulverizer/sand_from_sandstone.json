@@ -1,9 +1,18 @@
 {
   "type": "ten3:pulverizer",
-  "ingredient": {
-    "item": "minecraft:sandstone"
-  },
-  "output": "minecraft:sand",
-  "count": 1,
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:sandstone"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:sand",
+      "count": 1
+    }
+  ],
+  "time": 120
 }

@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "tag": "forge:stone"
-  },
-  "ingredient1": {
-    "item": "minecraft:nether_wart"
-  },
-  "output": "minecraft:netherrack",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:stone",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:nether_wart",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:netherrack",
+      "count": 1
+    }
+  ],
   "time": 100
 }

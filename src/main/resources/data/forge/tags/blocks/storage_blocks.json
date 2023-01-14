@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:storage_blocks/tin",
+    "#forge:storage_blocks/powered_tin",
+    "#forge:storage_blocks/nickel",
+    "#forge:storage_blocks/chlorium"
+  ]
+}

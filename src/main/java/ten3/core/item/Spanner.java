@@ -9,6 +9,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import ten3.core.machine.IHasMachineTile;
+import ten3.init.tab.DefGroup;
 import ten3.init.template.DefItem;
 import ten3.util.ItemUtil;
 
@@ -16,7 +17,7 @@ public class Spanner extends DefItem {
 
     public Spanner() {
 
-        super(1);
+        super(build(1, DefGroup.TOOL));
 
     }
 
@@ -56,6 +57,7 @@ public class Spanner extends DefItem {
         ENERGY(0),
         ITEM(1),
         REDSTONE(2);
+        //BIND(3);
 
         int index;
         Modes(int index) {

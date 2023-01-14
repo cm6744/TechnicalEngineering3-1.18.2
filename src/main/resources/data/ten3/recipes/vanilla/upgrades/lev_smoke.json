@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "DAD",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:charcoal"
+    },
+    "B": {
+      "tag": "forge:gears/iron"
+    },
+    "C": {
+      "item": "minecraft:blaze_rod"
+    },
+    "D": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "result": {
+    "item": "ten3:smoke_levelup"
+  }
+}

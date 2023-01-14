@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EBE",
+    "DAD",
+    "EBE"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:powered_levelup"
+    },
+    "B": {
+      "tag": "forge:gears/powered_tin"
+    },
+    "D": {
+      "tag": "forge:glass"
+    },
+    "E": {
+      "item": "minecraft:shulker_shell"
+    }
+  },
+  "result": {
+    "item": "ten3:relic_levelup"
+  }
+}

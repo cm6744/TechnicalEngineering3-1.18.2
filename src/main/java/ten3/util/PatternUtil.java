@@ -1,5 +1,6 @@
 package ten3.util;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 
 public class PatternUtil {
@@ -15,7 +16,17 @@ public class PatternUtil {
             }
         }
 
-        return KeyUtil.make("");
+        return KeyUtil.make("ERROR");
+
+    }
+
+    public static Component joinmB(double e, double me) {
+
+        if(e >= 0) {
+            return (KeyUtil.make(e + " mB / " + me + " mB"));
+        }
+
+        return KeyUtil.make("ERROR");
 
     }
 

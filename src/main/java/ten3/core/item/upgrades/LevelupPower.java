@@ -1,7 +1,6 @@
 package ten3.core.item.upgrades;
 
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.option.Level;
+import ten3.lib.tile.mac.CmTileMachine;
 
 public class LevelupPower extends UpgradeItem {
 
@@ -12,7 +11,7 @@ public class LevelupPower extends UpgradeItem {
     @Override
     public boolean effect(CmTileMachine tile)
     {
-        tile.upgSize += 2;
+        tile.upgradeSlots.upgSize += 2;
         return super.effect(tile);
     }
 

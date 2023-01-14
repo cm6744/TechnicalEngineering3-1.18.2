@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "tag": "forge:raw_materials/nickel"
+    }
+  },
+  "result": {
+    "item": "ten3:raw_nickel_block"
+  }
+}

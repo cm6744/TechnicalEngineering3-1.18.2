@@ -8,7 +8,7 @@
       "tag": "forge:glass"
     },
     "B": {
-      "item": "minecraft:redstone"
+      "item": "minecraft:redstone_block"
     }
   },
   "result": {

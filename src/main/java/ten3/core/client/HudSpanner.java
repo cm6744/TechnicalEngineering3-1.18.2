@@ -3,16 +3,11 @@ package ten3.core.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -20,14 +15,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.GuiUtils;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import ten3.core.machine.pole.PoleTile;
 import ten3.lib.tile.option.RedstoneMode;
-import ten3.lib.tile.recipe.CmTileMachineRadiused;
+import ten3.lib.tile.extension.CmTileMachineRadiused;
 import ten3.util.*;
 import ten3.core.item.Spanner;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.client.RenderHelper;
 
@@ -62,19 +57,24 @@ public class HudSpanner extends Screen {
 
         MutableComponent c1 = KeyUtil.translated("ten3.info.spanner.dire.energy");
         MutableComponent c2 = KeyUtil.translated("ten3.info.spanner.dire.item");
+        MutableComponent c25 = KeyUtil.translated("ten3.info.spanner.dire.fluid");
         MutableComponent c3 = KeyUtil.translated("ten3.info.spanner.dire.redstone");
         MutableComponent c4 = KeyUtil.translated("ten3.info.spanner.work_radius")
                 .append(KeyUtil.make(
-                        String.valueOf(ClientHolder.radius.get(pos))
+                        String.valueOf(ExcUtil.safeInt(ClientHolder.radius.get(pos)))
                 ));
-        ((CmTileMachine) t).levelIn = ExcUtil.safeInt(ClientHolder.level.get(pos));
-        Component c0 = ((CmTileMachine) t).getDisplayWith()
+        MutableComponent c5 = KeyUtil.translated("ten3.info.spanner.bind_pos")
+                .append(KeyUtil.make(
+                        String.valueOf(ClientHolder.binds.get(pos))
+                ));
+        MutableComponent c0 = ((CmTileMachine) t).getDisplayWith()
                 .append(KeyUtil.make(" ("))
                 .append(KeyUtil.translated("dire." + d.getSerializedName()))
                 .append(KeyUtil.make(")"));
 
         ArrayList<Integer> ene = ClientHolder.energy.get(pos);
         ArrayList<Integer> itm = ClientHolder.item.get(pos);
+        ArrayList<Integer> fld = ClientHolder.fluid.get(pos);
         int red = ExcUtil.safeInt(ClientHolder.redstone.get(pos));
 
         int di = DireUtil.direToInt(d);
@@ -85,6 +85,10 @@ public class HudSpanner extends Screen {
 
         if(itm != null && itm.get(di) != null) {
             c2.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(itm.get(di))));
+        }
+
+        if(itm != null && itm.get(di) != null) {
+            c25.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(fld.get(di))));
         }
 
         if(red == RedstoneMode.LOW) {
@@ -100,7 +104,19 @@ public class HudSpanner extends Screen {
         int x = w / 2;
         int y = h / 2 + h / 10;
 
-        renderComponentTooltip(s, List.of(c0, c1,c2, c3, c4), x, y, Minecraft.getInstance().font);
+        List<MutableComponent> components = new ArrayList<>();
+        components.add(c0);
+        components.add(c1);
+        components.add(c2);
+        components.add(c3);
+        if(t instanceof CmTileMachineRadiused) {
+            components.add(c4);
+        }
+        if(t instanceof PoleTile && ClientHolder.binds.get(pos) != null) {
+            components.add(c5);
+        }
+
+        renderComponentTooltip(s, components, x, y, Minecraft.getInstance().font);
 
         s.popPose();
 
@@ -127,6 +143,7 @@ public class HudSpanner extends Screen {
             BlockPos hitPos = r.getBlockPos();
             BlockEntity t = world.getBlockEntity(hitPos);
             new HudSpanner().render(t instanceof CmTileMachine, player, e.getMatrixStack(), hitPos, t, d);
+            if(Minecraft.getInstance().isPaused()) return;
             ParticleSpawner.spawnClt(ParticleSpawner.RANGE,
                     hitPos.getX() + Math.random(),
                     hitPos.getY() + Math.random(),

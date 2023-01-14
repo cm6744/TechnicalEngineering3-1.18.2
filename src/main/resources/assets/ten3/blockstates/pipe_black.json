@@ -1,0 +1,264 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_core"
+      }
+    },
+    {
+      "when": {
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_core"
+      }
+    },
+
+
+
+    {
+      "when": {
+        "north": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part"
+      }
+    },
+    {
+      "when": {
+        "east": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "north": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part"
+      }
+    },
+    {
+      "when": {
+        "east": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_part",
+        "x": 90
+      }
+    },
+
+
+
+    {
+      "when": {
+        "north": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect"
+      }
+    },
+    {
+      "when": {
+        "east": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "x": 90
+      }
+    },
+
+
+    {
+      "when": {
+        "north": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect"
+      }
+    },
+    {
+      "when": {
+        "east": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/pipe/pipe_black_connect",
+        "x": 90
+      }
+    }
+  ]
+}

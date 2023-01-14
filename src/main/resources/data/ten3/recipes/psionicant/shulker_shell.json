@@ -1,0 +1,25 @@
+{
+  "type": "ten3:psionicant",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:chorus_fruit",
+      "count": 8
+    },
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:plates/powered_tin",
+      "count": 3
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:shulker_shell",
+      "count": 1
+    }
+  ],
+  "time": 200
+}

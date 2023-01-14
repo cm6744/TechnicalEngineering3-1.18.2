@@ -24,14 +24,22 @@ public class BlockInit {
         //regBlock("state", new State());
 
         regBlock("tin_ore", () -> new OreCm(3));
-        //regBlock("copper_ore", () -> new OreCm(2.5));
         regBlock("nickel_ore", () -> new OreCm(4));
         regBlock("deep_tin_ore", () -> new OreCm(4));
         regBlock("deep_nickel_ore", () -> new OreCm(5));
 
+        regBlock("tin_block", () -> new OreBloCm(4));
+        regBlock("nickel_block", () -> new OreBloCm(5));
+        regBlock("powered_tin_block", () -> new OreBloCm(5.5));
+        regBlock("chlorium_block", () -> new OreBloCm(5));
+
+        regBlock("raw_tin_block", () -> new RawBloCm(3));
+        regBlock("raw_nickel_block", () -> new RawBloCm(4));
+
         regEngine("engine_extraction");
         regEngine("engine_metal");
         regEngine("engine_biomass");
+        regEngine("engine_solar");
 
         regMachine("smelter");
         regMachine("farm_manager");
@@ -42,51 +50,41 @@ public class BlockInit {
         regMachine("quarry");
         regMachine("psionicant");
         regMachine("induction_furnace");
+        regMachine("enchantment_flusher");
 
         regCable("cable", Material.GLASS, SoundType.GLASS);
+        regCable("cable_quartz", Material.STONE, SoundType.STONE);
+        regCable("cable_azure", Material.METAL, SoundType.METAL);
+        regCable("cable_star", Material.GLASS, SoundType.GLASS);
         regPipe("pipe", Material.METAL, SoundType.METAL);
+        regPipe("pipe_white", Material.METAL, SoundType.METAL);
+        regPipe("pipe_black", Material.METAL, SoundType.METAL);
         regCell("cell", Material.GLASS, SoundType.GLASS);
+        //regPole("pole", Material.GLASS, SoundType.GLASS);
     }
 
     public static void regMachine(String id_out) {
 
         String id = "machine_" + id_out;
         Supplier<Block> m = () -> new Machine(id);
-        RegistryObject<Block> reg = BLOCKS.register(id, m);
-        regs.put(id, reg);
+        regBlock(id, m);
 
     }
 
     public static void regEngine(String id) {
-
-        Supplier<Block> m = () -> new Engine(id);
-        RegistryObject<Block> reg = BLOCKS.register(id, m);
-        regs.put(id, reg);
-
+        regBlock(id, () -> new MatedMac(id));
     }
 
     public static void regCell(String id, Material m, SoundType s) {
-
-        Supplier<Block> c = () -> new Cell(m, s, id);
-        RegistryObject<Block> reg = BLOCKS.register(id, c);
-        regs.put(id, reg);
-
+       regBlock(id, () -> new Cell(m, s, id, false));
     }
 
     public static void regCable(String id, Material m, SoundType s) {
-
-        Supplier<Block> c = () -> new CableBased(m, s, id);
-        RegistryObject<Block> reg = BLOCKS.register(id, c);
-        regs.put(id, reg);
-
+        regBlock(id, () -> new CableBased(m, s, id));
     }
 
     public static void regPipe(String id, Material m, SoundType s) {
-
-        Supplier<Block> c = () -> new PipeBased(m, s, id);
-        RegistryObject<Block> reg = BLOCKS.register(id, c);
-        regs.put(id, reg);
-
+        regBlock(id, () -> new PipeBased(m, s, id));
     }
 
     public static void regBlock(String id, Supplier<Block> im) {

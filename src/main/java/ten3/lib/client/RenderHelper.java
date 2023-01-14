@@ -8,8 +8,11 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.client.gui.GuiUtils;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,6 +26,59 @@ import java.util.List;
 import static net.minecraft.client.gui.GuiComponent.*;
 
 public class RenderHelper {
+
+    static ResourceLocation SHADER_BLOCK = new ResourceLocation("textures/atlas/blocks.png");
+
+    //* stolen from CoFH Core thanks *
+    public static void drawFlTil(PoseStack matrixStack, Fluid fluid, int x, int y, int width, int height)
+    {
+        if(fluid == Fluids.EMPTY) return;
+        TextureAtlasSprite icon = Minecraft.getInstance()
+                .getBlockRenderer().getBlockModelShaper()
+                .getBlockModel(fluid.defaultFluidState().createLegacyBlock())
+                .getParticleIcon();
+        RenderSystem.enableBlend();
+        RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        int color = fluid.getAttributes().getColor();
+        float red = (float) (color >> 16 & 255) / 255.0F;
+        float green = (float) (color >> 8 & 255) / 255.0F;
+        float blue = (float) (color & 255) / 255.0F;
+        RenderSystem.setShaderColor(red, green, blue, 1.0F);
+        RenderSystem.setShaderTexture(0, SHADER_BLOCK);
+
+        int drawHeight;
+        int drawWidth;
+
+        for (int i = 0; i < width; i += 16) {
+            for (int j = 0; j < height; j += 16) {
+                drawWidth = Math.min(width - i, 16);
+                drawHeight = Math.min(height - j, 16);
+                drawSprite(matrixStack, icon, x + i, y + j, drawWidth, drawHeight);
+            }
+        }
+    }
+
+    public static void drawSprite(PoseStack matrixStack, TextureAtlasSprite icon, int x, int y, int width, int height)
+    {
+        float minU = icon.getU0();
+        float maxU = icon.getU1();
+        float minV = icon.getV0();
+        float maxV = icon.getV1();
+
+        float u = minU + (maxU - minU) * width / 16F;
+        float v = minV + (maxV - minV) * height / 16F;
+
+        Matrix4f matrix = matrixStack.last().pose();
+
+        BufferBuilder buffer = Tesselator.getInstance().getBuilder();
+        buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+        buffer.vertex(matrix, x, y + height, 0).uv(minU, v).endVertex();
+        buffer.vertex(matrix, x + width, y + height, 0).uv(u, v).endVertex();
+        buffer.vertex(matrix, x + width, y, 0).uv(u, minV).endVertex();
+        buffer.vertex(matrix, x, y, 0).uv(minU, minV).endVertex();
+        Tesselator.getInstance().end();
+    }
 
     public static void drawAll(ArrayList<ElementBase> widgets, PoseStack matrixStack) {
 
@@ -58,8 +114,8 @@ public class RenderHelper {
         for(int i = 0; i < widgets.size(); i++) {
             if (widgets.get(i).checkInstr(mouseX, mouseY) && widgets.get(i).isVisible()) {
                 /*
-                if(widgets.getRcp(i) instanceof ElementSlot) {
-                    ItemStack in = ((ElementSlot) widgets.getRcp(i)).item;
+                if(widgets.getRecipe(i) instanceof ElementSlot) {
+                    ItemStack in = ((ElementSlot) widgets.getRecipe(i)).item;
                     if(!stack.isEmpty() && in.isEmpty()) {
                         in = stack.copy();
                         ret = ItemStack.EMPTY;
@@ -69,7 +125,7 @@ public class RenderHelper {
                         in.setCount(0);
                     }
                     else if(!stack.isEmpty() && !in.isEmpty()) {
-                        if(stack.getRcp() != in.getRcp()) {
+                        if(stack.getRecipe() != in.getRecipe()) {
                             ItemStack cac = stack.copy();
                             ret = in.copy();
                             in = cac;

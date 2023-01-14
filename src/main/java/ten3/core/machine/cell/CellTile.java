@@ -4,8 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.CapabilityEnergy;
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.option.FaceOption;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.Type;
 import ten3.lib.wrapper.SlotCm;
 
@@ -15,7 +14,7 @@ public class CellTile extends CmTileMachine {
 
         super(pos, state);
 
-        setCap(getCapacity(), FaceOption.BE_IN, FaceOption.OFF, 0);
+        info.setCap(getCapacity());
 
         addSlot(new SlotCm(inventory, 0, 42, 32, null, true, true));
         addSlot(new SlotCm(inventory, 1, 115, 32, null, true, true));
@@ -37,7 +36,7 @@ public class CellTile extends CmTileMachine {
 
         super.update();
 
-        if(!checkCanRun()) {
+        if(!signalAllowRun()) {
             return;
         }
 
@@ -48,7 +47,7 @@ public class CellTile extends CmTileMachine {
             stack0.getCapability(CapabilityEnergy.ENERGY).ifPresent(
                     (e) -> {
                         if(e.canExtract()) {
-                            int diff = e.extractEnergy(Math.min(maxReceive, maxStorage - data.get(ENERGY)), false);
+                            int diff = e.extractEnergy(Math.min(info.maxReceiveEnergy, info.maxStorageEnergy - data.get(ENERGY)), false);
                             if(diff != 0) {
                                 data.translate(ENERGY, diff);
                             }
@@ -61,7 +60,7 @@ public class CellTile extends CmTileMachine {
             stack1.getCapability(CapabilityEnergy.ENERGY).ifPresent(
                     (e) -> {
                         if(e.canReceive()) {
-                            int diff = e.receiveEnergy(Math.min(maxExtract, data.get(ENERGY)), false);
+                            int diff = e.receiveEnergy(Math.min(info.maxExtractEnergy, data.get(ENERGY)), false);
                             if(diff != 0) {
                                 data.translate(ENERGY, -diff);
                             }

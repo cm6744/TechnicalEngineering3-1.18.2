@@ -12,17 +12,18 @@ import ten3.util.ExcUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.ToIntFunction;
 
 public class DefBlock extends Block {
 
-    public static Properties build(double h, double r, Material m, SoundType s, int l, int light, boolean solid) {
+    public static Properties build(double h, double r, Material m, SoundType s, ToIntFunction<BlockState> fcl, boolean solid) {
 
         Properties p = Properties
                 .of(m, m.getColor())
                 .destroyTime((float) h)
                 .explosionResistance((float) r)
                 .requiresCorrectToolForDrops()
-                .lightLevel((state) -> light)
+                .lightLevel(fcl)
                 .sound(s);
 
         if(!solid) p.noOcclusion();
@@ -31,9 +32,15 @@ public class DefBlock extends Block {
 
     }
 
-    public DefBlock(double h, double r, Material m, SoundType s, int l, int light, boolean solid) {
+    public static Properties build(double h, double r, Material m, SoundType s, int light, boolean solid) {
 
-        super(build(h, r, m, s, l, light, solid));
+        return build(h, r, m, s, (sts) -> light, solid);
+
+    }
+
+    public DefBlock(double h, double r, Material m, SoundType s, int light, boolean solid) {
+
+        super(build(h, r, m, s, light, solid));
 
     }
 
@@ -42,10 +49,9 @@ public class DefBlock extends Block {
     }
 
     @Override
-    public MutableComponent getName() {
-
+    public String getDescriptionId()
+    {
         return KeyUtil.getKey(ExcUtil.regNameOf(this));
-
     }
 
 }

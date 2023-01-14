@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static ten3.lib.tile.CmTileMachine.*;
+import static ten3.lib.tile.mac.CmTileMachine.*;
 
-public class CmScreen<T extends CmContainer> extends AbstractContainerScreen<T> {
+public class CmScreen<T extends CmContainerMachine> extends AbstractContainerScreen<T> {
 
     //all widgets
     public static final ResourceLocation handler = TConst.guiHandler;

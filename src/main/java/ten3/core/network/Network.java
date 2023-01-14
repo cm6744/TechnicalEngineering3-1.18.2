@@ -59,6 +59,14 @@ public class Network {
                         PTCInfoClientPack::new,
                         PTCInfoClientPack::run
                 );
+        instance.registerMessage
+                (
+                        id++,
+                        PTSModeTransfPack.class,
+                        PTSModeTransfPack::writeBuffer,
+                        PTSModeTransfPack::new,
+                        PTSModeTransfPack::run
+                );
 
     }
 

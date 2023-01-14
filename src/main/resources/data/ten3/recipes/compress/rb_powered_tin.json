@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ten3:powered_tin_block"
+    }
+  ],
+  "result": {
+    "item": "ten3:powered_tin_ingot",
+    "count": 9
+  }
+}

@@ -5,11 +5,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.util.DireUtil;
 
-import static ten3.lib.tile.CmTileMachine.ENERGY;
+import java.util.Queue;
+
+import static ten3.lib.tile.mac.CmTileMachine.ENERGY;
 
 @SuppressWarnings("all")
 public class EnergyTransferor {
@@ -20,6 +22,18 @@ public class EnergyTransferor {
         this.t = t;
     }
 
+    public final Queue<Direction> energyQR = DireUtil.newQueueOffer();
+
+    public void transferEnergy() {
+        //if(getTileAliveTime() % 2 == 0) {
+        energyQR.offer(energyQR.remove());
+        for(Direction d : energyQR) {
+            transferTo(d, t.info.maxExtractEnergy);
+            transferFrom(d, t.info.maxReceiveEnergy);
+        }
+        //}
+    }
+
     public static IEnergyStorage handlerOf(BlockEntity e, Direction d) {
 
         return e.getCapability(CapabilityEnergy.ENERGY, d).orElse(null);
@@ -27,21 +41,17 @@ public class EnergyTransferor {
     }
 
     private BlockEntity checkTile(Direction d) {
-
-        return checkTile(t.pos.offset(d.getNormal()));
-
+        return checkTile(t.getBlockPos().offset(d.getNormal()));
     }
 
     private BlockEntity checkTile(BlockPos pos) {
-
         return t.getLevel().getBlockEntity(pos);
-
     }
 
     public void transferTo(BlockPos p, Direction d, int v) {
 
-        if(FaceOption.isPassive(t.direCheckEnergy(d))) return;
-        if(!FaceOption.isOut(t.direCheckEnergy(d))) return;
+        if(FaceOption.isPassive(t.info.direCheckEnergy(d))) return;
+        if(!FaceOption.isOut(t.info.direCheckEnergy(d))) return;
 
         BlockEntity tile = checkTile(p);
 
@@ -60,8 +70,8 @@ public class EnergyTransferor {
 
     public void transferFrom(BlockPos p, Direction d, int v) {
 
-        if(FaceOption.isPassive(t.direCheckEnergy(d))) return;
-        if(!FaceOption.isIn(t.direCheckEnergy(d))) return;
+        if(FaceOption.isPassive(t.info.direCheckEnergy(d))) return;
+        if(!FaceOption.isIn(t.info.direCheckEnergy(d))) return;
 
         BlockEntity tile = checkTile(p);
 
@@ -69,7 +79,7 @@ public class EnergyTransferor {
             IEnergyStorage e = handlerOf(tile, DireUtil.safeOps(d));
             if(e == null) return;
             if(e.canExtract()) {
-                int diff = e.extractEnergy(Math.min(v, t.maxStorage - t.data.get(ENERGY)), false);
+                int diff = e.extractEnergy(Math.min(v, t.info.maxStorageEnergy - t.data.get(ENERGY)), false);
                 if(diff != 0) {
                     t.data.translate(ENERGY, diff);
                 }
@@ -79,19 +89,14 @@ public class EnergyTransferor {
     }
 
     public void transferTo(Direction d, int v) {
-
-        transferTo(t.pos.offset(d.getNormal()), d, v);
-
+        transferTo(t.getBlockPos().offset(d.getNormal()), d, v);
     }
 
     public void transferFrom(Direction d, int v) {
-
-        transferFrom(t.pos.offset(d.getNormal()), d, v);
-
+        transferFrom(t.getBlockPos().offset(d.getNormal()), d, v);
     }
 
     public int getSizeCan() {
-
         int size = 0;
 
         BlockEntity tile;
@@ -106,37 +111,6 @@ public class EnergyTransferor {
         }
 
         return size;
-
-    }
-
-    public void loopTransferTo(int v) {
-
-        int size = getSizeCan();
-
-        int k = Math.min(v, t.data.get(ENERGY));
-        if(v < size || size == 0) return;
-
-        for(Direction d : Direction.values()) {
-            if(checkTile(d) != null) {
-                transferTo(d, k / size);
-            }
-        }
-
-    }
-
-    public void loopTransferFrom(int v) {
-
-        int size = getSizeCan();
-
-        int k = Math.min(v, t.maxStorage - t.data.get(ENERGY));
-        if(v < size || size == 0) return;
-
-        for(Direction d : Direction.values()) {
-            if(checkTile(d) != null) {
-                transferFrom(d, k / size);
-            }
-        }
-
     }
 
 }

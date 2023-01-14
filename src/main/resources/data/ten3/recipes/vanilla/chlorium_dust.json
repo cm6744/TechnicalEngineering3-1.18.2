@@ -14,7 +14,7 @@
       "item": "minecraft:glowstone_dust"
     },
     {
-      "item": "minecraft:blaze_powder"
+      "tag": "forge:dusts/nickel"
     }
   ],
   "result": {

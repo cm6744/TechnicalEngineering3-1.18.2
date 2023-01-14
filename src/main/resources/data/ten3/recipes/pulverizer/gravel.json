@@ -1,9 +1,18 @@
 {
   "type": "ten3:pulverizer",
-  "ingredient": {
-    "item": "minecraft:cobblestone"
-  },
-  "output": "minecraft:gravel",
-  "count": 1,
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:cobblestone"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:gravel",
+      "count": 1
+    }
+  ],
+  "time": 120
 }

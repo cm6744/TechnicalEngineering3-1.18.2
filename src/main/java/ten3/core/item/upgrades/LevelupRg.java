@@ -1,7 +1,7 @@
 package ten3.core.item.upgrades;
 
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.recipe.CmTileMachineRadiused;
+import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.extension.CmTileMachineRadiused;
 
 public class LevelupRg extends UpgradeItem {
 
@@ -15,7 +15,6 @@ public class LevelupRg extends UpgradeItem {
         boolean a = tile instanceof CmTileMachineRadiused;
         if(a) {
             ((CmTileMachineRadiused) tile).radius += ((CmTileMachineRadiused) tile).initialRadius * 0.5;
-            tile.levelIn++;
         }
         return a;
     }

@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:sugar"
-  },
-  "ingredient1": {
-    "item": "minecraft:honey_bottle"
-  },
-  "output": "ten3:royal_jelly",
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:honey_bottle",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:sugar",
+      "count": 2
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:royal_jelly",
+      "count": 1
+    }
+  ],
+  "time": 400
 }

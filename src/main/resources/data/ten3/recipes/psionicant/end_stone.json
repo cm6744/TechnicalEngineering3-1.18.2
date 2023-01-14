@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "tag": "forge:stone"
-  },
-  "ingredient1": {
-    "item": "minecraft:chorus_fruit"
-  },
-  "output": "minecraft:end_stone",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:stone",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:chorus_fruit",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:end_stone",
+      "count": 1
+    }
+  ],
   "time": 100
 }

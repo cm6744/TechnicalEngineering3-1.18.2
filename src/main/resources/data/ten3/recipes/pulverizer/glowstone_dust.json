@@ -1,9 +1,18 @@
 {
   "type": "ten3:pulverizer",
-  "ingredient": {
-    "item": "minecraft:glowstone"
-  },
-  "output": "minecraft:glowstone_dust",
-  "count": 4,
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:glowstone"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:glowstone_dust",
+      "count": 4
+    }
+  ],
+  "time": 120
 }

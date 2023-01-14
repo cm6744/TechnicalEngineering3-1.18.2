@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:dirt"
-  },
-  "ingredient1": {
-    "item": "minecraft:nether_wart"
-  },
-  "output": "minecraft:soul_soil",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:dirt",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:nether_wart",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:soul_soil",
+      "count": 1
+    }
+  ],
   "time": 100
 }

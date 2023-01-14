@@ -1,9 +1,7 @@
 package ten3.core.item.upgrades;
 
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.Type;
-import ten3.lib.tile.recipe.CmTileEngine;
-import ten3.lib.tile.recipe.CmTileMachineRadiused;
 
 public class LevelupSyn extends UpgradeItem {
 
@@ -16,9 +14,8 @@ public class LevelupSyn extends UpgradeItem {
     {
         boolean a = tile.typeOf() == Type.MACHINE_PROCESS || tile.typeOf() == Type.MACHINE_EFFECT;
         if(a) {
-            tile.upgSize += 1;
+            tile.upgradeSlots.upgSize += 1;
             tile.efficientIn -= tile.initialEfficientIn * 0.1;
-            tile.levelIn++;
             return true;
         }
         return false;

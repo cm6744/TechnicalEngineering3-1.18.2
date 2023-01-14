@@ -6,17 +6,26 @@ import net.minecraft.network.chat.Component;
 import ten3.lib.tile.CmContainerMachine;
 import ten3.lib.client.RenderHelper;
 import ten3.lib.wrapper.IntArrayCm;
+import ten3.util.KeyUtil;
+import ten3.util.PatternUtil;
 
 import java.util.List;
 
 public class ElementProgress extends ElementBase {
 
     double p;
+    boolean dv;
 
     public ElementProgress(int x, int y, int width, int height, int xOff, int yOff, ResourceLocation resourceLocation) {
 
         super(x, y, width, height, xOff, yOff, resourceLocation);
 
+    }
+
+    public ElementProgress(int x, int y, int width, int height, int xOff, int yOff, ResourceLocation resourceLocation, boolean display) {
+
+        super(x, y, width, height, xOff, yOff, resourceLocation);
+        dv = display;
     }
 
     @Override
@@ -30,9 +39,10 @@ public class ElementProgress extends ElementBase {
     }
 
     @Override
-    public void addToolTip(List<Component> tooltips) {
-        //for JEI, disabled
-        //tooltips.add(new StringTextComponent((int)(p * 100) + "%"));
+    public void addToolTip(List<Component> tooltips)
+    {
+        if(dv)
+        tooltips.add(KeyUtil.make((int) (p * 100) + "%"));
     }
 
     int ie;

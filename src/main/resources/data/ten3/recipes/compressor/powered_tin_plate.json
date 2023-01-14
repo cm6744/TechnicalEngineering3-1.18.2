@@ -1,8 +1,22 @@
 {
   "type": "ten3:compressor",
-  "ingredient": {
-    "tag": "forge:ingots/powered_tin"
-  },
-  "output": "ten3:powered_tin_plate",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:ingots/powered_tin"
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "ten3:mould_plate"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:powered_tin_plate"
+    }
+  ],
   "time": 100
 }

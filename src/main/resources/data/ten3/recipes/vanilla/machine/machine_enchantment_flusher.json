@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "ACA",
+    "BVB"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:spicy_jelly"
+    },
+    "B": {
+      "tag": "forge:plates/copper"
+    },
+    "C": {
+      "item": "ten3:redstone_storer"
+    },
+    "V": {
+      "item": "minecraft:grindstone"
+    },
+    "D": {
+      "item": "ten3:redstone_conductor"
+    }
+  },
+  "result": {
+    "item": "ten3:machine_enchantment_flusher"
+  }
+}

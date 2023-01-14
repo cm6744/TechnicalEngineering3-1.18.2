@@ -11,17 +11,16 @@ import ten3.TConst;
 public class KeyUtil {
 
     @OnlyCore
-    public static MutableComponent getKey(String s) {
+    public static String getKey(String s) {
 
-        String test = TConst.modid + "." + s;
-        return translated(test);
+        return TConst.modid + "." + s;
 
     }
 
     @OnlyCore
     public static String exceptMachineOrGiveCell(String s) {
 
-        if(s.startsWith("cell_")) {
+        if(s.startsWith("cell")) {
             return "cell";
         }
 

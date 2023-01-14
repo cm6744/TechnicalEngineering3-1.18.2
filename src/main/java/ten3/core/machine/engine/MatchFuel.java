@@ -71,7 +71,7 @@ public class MatchFuel {
             i.shrink(1);
         }
 
-        return time * 20;
+        return time * 60;
 
     }
 

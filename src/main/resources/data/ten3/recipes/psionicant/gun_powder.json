@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:sugar"
-  },
-  "ingredient1": {
-    "tag": "forge:dyes/gray"
-  },
-  "output": "minecraft:gunpowder",
-  "time": 400
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:sugar",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:dyes/gray",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:gunpowder",
+      "count": 1
+    }
+  ],
+  "time": 300
 }

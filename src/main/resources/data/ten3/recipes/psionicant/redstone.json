@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:sugar"
-  },
-  "ingredient1": {
-    "tag": "forge:dyes/red"
-  },
-  "output": "minecraft:redstone",
-  "time": 100
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:sugar",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:dyes/red",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:redstone",
+      "count": 1
+    }
+  ],
+  "time": 300
 }

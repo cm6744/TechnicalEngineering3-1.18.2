@@ -4,15 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import ten3.core.machine.CableBased;
-import ten3.lib.capability.energy.EnergyTransferor;
-import ten3.lib.capability.energy.FEStorageWayFinding;
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.option.FaceOption;
+import ten3.lib.capability.net.BatteryWayFinding;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.Type;
 
 public class CableTile extends CmTileMachine {
@@ -21,8 +16,6 @@ public class CableTile extends CmTileMachine {
 
         super(pos, state);
 
-        setCap(getCapacity(), FaceOption.BOTH, FaceOption.OFF, getCapacity());
-
     }
 
     @Override
@@ -30,47 +23,47 @@ public class CableTile extends CmTileMachine {
         return Type.CABLE;
     }
 
-    @Override
-    public LazyOptional<IEnergyStorage> crtLazyEne(Direction d) {
-        return LazyOptional.of(() -> new FEStorageWayFinding(d, this));
-    }
-
-    @Override
-    public LazyOptional<IItemHandler> crtLazyItm(Direction d) {
-        return LazyOptional.empty();
-    }
-
-
     public int getCapacity() {
-
-        return kFE(10);
-
+        return kFE(1);
     }
 
     boolean eneWFS;
+    int hangtime;
 
     @Override
     public void update() {
 
-        if(getTileAliveTime() % 5 == 0) {
-            ((CableBased) getBlockState().getBlock()).update(world, pos);
-            FEStorageWayFinding.updateNet(this);
+        if(getTileAliveTime() % 10 == 0) {
+            ((CableBased) getBlockState().getBlock()).update(level, worldPosition);
+            BatteryWayFinding.updateNet(this);
         }
 
-        if(getTileAliveTime() % 15 == 0) {
-            eneWFS = EnergyTransferor.handlerOf(this, null).getEnergyStored() > 0;
-        }
+        eneWFS = hangtime > 0;
+        hangtime--;
 
-        setActive(eneWFS && checkCanRun());
+        reflection.setActive(eneWFS && signalAllowRun());
 
     }
 
+    public void hangUp() {
+        hangtime = 15;
+    }
+
     @Override
-    protected boolean can(Capability<?> cap, Direction d) {
+    public void initHandlers()
+    {
+        handlerEnergyNull = new BatteryWayFinding(null, this);
+        for(Direction d : Direction.values()) {
+            handlerEnergy.put(d, new BatteryWayFinding(d, this));
+        }
+    }
+
+    @Override
+    protected boolean hasFaceCapability(Capability<?> cap, Direction d) {
         if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return false;
         }
-        return super.can(cap, d);
+        return super.hasFaceCapability(cap, d);
     }
 
 }

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "ten3:mould_gear",
+    "ten3:mould_plate",
+    "ten3:mould_rod",
+    "ten3:mould_string"
+  ]
+}

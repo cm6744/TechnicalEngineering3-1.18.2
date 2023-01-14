@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "ten3:block/storage/chlorium_block",
+    "particle": "ten3:block/storage/chlorium_block"
+  }
+}

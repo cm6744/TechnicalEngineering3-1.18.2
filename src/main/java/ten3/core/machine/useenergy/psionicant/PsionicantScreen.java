@@ -27,7 +27,7 @@ public class PsionicantScreen extends CmScreenMachine {
 
         widgets.add(energy = getDefaultEne());
         widgets.add(left = new ElementBurnLeft(45, 48, 13, 13, 14, 0, handler));
-        widgets.add(progress = new ElementProgress(76, 35, 22, 16, 27, 0, handler));
+        widgets.add(progress = new ElementProgress(76, 35, 22, 16, 27, 95, handler));
 
     }
 

@@ -1,0 +1,6 @@
+{
+	"parent": "ten3:block/cable/ccna",
+	"textures": {
+		"texture": "ten3:machine/cable_azure"
+	}
+}

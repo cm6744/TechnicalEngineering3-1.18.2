@@ -1,12 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:dragon_breath"
-  },
-  "ingredient1": {
-    "item": "minecraft:blaze_powder",
-    "count": 3
-  },
-  "output": "ten3:bizarrerie",
-  "time": 5000
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:dragon_breath",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:blaze_powder",
+      "count": 3
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:bizarrerie",
+      "count": 1
+    }
+  ],
+  "time": 4000
 }

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EBE",
+    "DAD",
+    "EBE"
+  ],
+  "key": {
+    "A": {
+      "item": "ten3:augmented_levelup"
+    },
+    "B": {
+      "tag": "forge:gears/tin"
+    },
+    "D": {
+      "tag": "forge:glass"
+    },
+    "E": {
+      "item": "ten3:azure_glass"
+    }
+  },
+  "result": {
+    "item": "ten3:powered_levelup"
+  }
+}

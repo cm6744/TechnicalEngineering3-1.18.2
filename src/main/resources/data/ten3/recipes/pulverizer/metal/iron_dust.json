@@ -1,0 +1,18 @@
+{
+  "type": "ten3:pulverizer",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:ingots/iron"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:iron_dust",
+      "count": 1
+    }
+  ],
+  "time": 100
+}

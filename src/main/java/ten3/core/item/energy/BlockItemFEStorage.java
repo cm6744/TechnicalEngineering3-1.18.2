@@ -12,15 +12,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import ten3.core.machine.Cell;
+import ten3.init.tab.DefGroup;
 import ten3.init.template.DefItemBlock;
 import ten3.init.TileInit;
-import ten3.lib.tile.CmTileEntity;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileEntity;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.util.ExcUtil;
 import ten3.util.ItemUtil;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static ten3.init.template.DefItem.build;
 
 public class BlockItemFEStorage extends DefItemBlock {
 
@@ -31,19 +34,17 @@ public class BlockItemFEStorage extends DefItemBlock {
     }
 
     public BlockItemFEStorage(Block b) {
-        super(b, 1);
+        super(b, build(1, DefGroup.MAC));
     }
 
     @Override
     public Component getName(ItemStack stack)
     {
-        int level = ItemUtil.getTag(stack, "level");
         CmTileMachine t = getBind();
-        t.levelIn = level;
         return t.getDisplayWith();
     }
 
-    //in init item do(Tab or crafting...)
+    //in whenPlaceToWorld item do(Tab or crafting...)
 
     @Nullable
     @Override
@@ -54,7 +55,7 @@ public class BlockItemFEStorage extends DefItemBlock {
     @Override
     public ItemStack getDefaultInstance() {
         CmTileMachine t = getBind();
-        return EnergyItemHelper.getState(this, t.maxStorage, t.maxReceive, t.maxExtract);
+        return EnergyItemHelper.getState(this, t.info.maxStorageEnergy, t.info.maxReceiveEnergy, t.info.maxExtractEnergy);
     }
 
     @Override
@@ -81,10 +82,10 @@ public class BlockItemFEStorage extends DefItemBlock {
     {
         if(allowdedIn(tab)) {
             CmTileMachine t = getBind();
-            EnergyItemHelper.fillEmpty(this, stacks, t.maxStorage, t.maxReceive, t.maxExtract);
+            EnergyItemHelper.fillEmpty(this, stacks, t.info.maxStorageEnergy, t.info.maxReceiveEnergy, t.info.maxExtractEnergy);
 
             if(getBlock() instanceof Cell) {
-                EnergyItemHelper.fillFull(this, stacks, t.maxStorage, t.maxReceive, t.maxExtract);
+                EnergyItemHelper.fillFull(this, stacks, t.info.maxStorageEnergy, t.info.maxReceiveEnergy, t.info.maxExtractEnergy);
             }
         }
     }
@@ -99,7 +100,7 @@ public class BlockItemFEStorage extends DefItemBlock {
     public void onCraftedBy(ItemStack stack, Level p_41448_, Player p_41449_)
     {
         CmTileMachine t = getBind();
-        EnergyItemHelper.setState(stack, t.maxStorage, t.maxReceive, t.maxExtract);
+        EnergyItemHelper.setState(stack, t.info.maxStorageEnergy, t.info.maxReceiveEnergy, t.info.maxExtractEnergy);
     }
 
 }

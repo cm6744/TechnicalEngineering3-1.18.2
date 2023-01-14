@@ -13,10 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,17 +26,14 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 import ten3.core.item.energy.EnergyItemHelper;
+import ten3.init.ContInit;
 import ten3.init.template.DefBlock;
 import ten3.init.TileInit;
-import ten3.lib.tile.CmTileEntity;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileEntity;
+import ten3.lib.tile.mac.CmTileMachine;
 
 import java.util.List;
 
@@ -59,7 +53,12 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
 
     public Machine(Material m, SoundType s, String name, boolean solid) {
 
-        super(3, 5, m, s, 2, 0, solid);
+        super(build(3, 5, m, s, (state) -> {
+            if(state.hasProperty(active)) {
+                return state.getValue(active) ? 6 : 0;
+            }
+            return 0;
+        }, solid));
         tileName = name;
 
     }
@@ -90,10 +89,23 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
         ItemStack stack = EnergyItemHelper.fromMachine(tile, asItem().getDefaultInstance());
 
         List<ItemStack> ret = Lists.newArrayList(stack);
-        ret.addAll(tile.drops());
 
         return ret;
 
+    }
+
+    @Override
+    public void onRemove(BlockState s1, Level level, BlockPos pos, BlockState s2, boolean p_60519_)
+    {
+        if (s1.is(s2.getBlock())) return;
+        CmTileMachine tile = ((CmTileMachine) level.getBlockEntity(pos));
+
+        if(tile != null) {
+            for(ItemStack s : tile.drops()) {
+                popResource(level, pos, s);
+            }
+        }
+        super.onRemove(s1, level, pos, s2, p_60519_);
     }
 
     @Override
@@ -139,8 +151,10 @@ public class Machine extends DefBlock implements EntityBlock, IHasMachineTile {
             if(MachinePostEvent.clickMachineEvent(worldIn, pos, player, hit)) {
                 CmTileMachine tile = (CmTileMachine)worldIn.getBlockEntity(pos);
                 if(tile == null) {
-                    return InteractionResult.FAIL;
+                    return InteractionResult.PASS;
                 }
+
+                if(!ContInit.hasType(tileName)) return InteractionResult.PASS;
 
                 NetworkHooks.openGui((ServerPlayer) player, tile, (FriendlyByteBuf packerBuffer) -> {
                     packerBuffer.writeBlockPos(tile.getBlockPos());

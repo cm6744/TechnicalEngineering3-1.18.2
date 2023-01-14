@@ -13,7 +13,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_core_active"
+        "model": "ten3:block/pipe/pipe_core"
       }
     },
 
@@ -84,7 +84,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_part_active"
+        "model": "ten3:block/pipe/pipe_part"
       }
     },
     {
@@ -93,7 +93,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_part_active",
+        "model": "ten3:block/pipe/pipe_part",
         "y": 90
       }
     },
@@ -103,7 +103,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_part_active",
+        "model": "ten3:block/pipe/pipe_part",
         "y": 180
       }
     },
@@ -113,7 +113,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_part_active",
+        "model": "ten3:block/pipe/pipe_part",
         "y": 270
       }
     },
@@ -123,7 +123,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_part_active",
+        "model": "ten3:block/pipe/pipe_part",
         "x": 270
       }
     },
@@ -133,7 +133,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_part_active",
+        "model": "ten3:block/pipe/pipe_part",
         "x": 90
       }
     },
@@ -146,7 +146,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_connect_active"
+        "model": "ten3:block/pipe/pipe_connect"
       }
     },
     {
@@ -155,7 +155,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_connect_active",
+        "model": "ten3:block/pipe/pipe_connect",
         "y": 90
       }
     },
@@ -165,7 +165,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_connect_active",
+        "model": "ten3:block/pipe/pipe_connect",
         "y": 180
       }
     },
@@ -175,7 +175,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_connect_active",
+        "model": "ten3:block/pipe/pipe_connect",
         "y": 270
       }
     },
@@ -185,7 +185,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_connect_active",
+        "model": "ten3:block/pipe/pipe_connect",
         "x": 270
       }
     },
@@ -195,7 +195,7 @@
         "active": "true"
       },
       "apply": {
-        "model": "ten3:block/pipe/pipe_connect_active",
+        "model": "ten3:block/pipe/pipe_connect",
         "x": 90
       }
     },

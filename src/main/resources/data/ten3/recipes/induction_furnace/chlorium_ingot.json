@@ -1,0 +1,30 @@
+{
+  "type": "ten3:induction_furnace",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "ten3:mats/powered_tin",
+      "count": 2
+    },
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "ten3:mats/nickel"
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:glowstone_dust",
+      "count": 2
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:chlorium_ingot",
+      "count": 3
+    }
+  ],
+  "time": 300
+}

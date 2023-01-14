@@ -1,0 +1,264 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_core"
+      }
+    },
+    {
+      "when": {
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_core_active"
+      }
+    },
+
+
+
+    {
+      "when": {
+        "north": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part"
+      }
+    },
+    {
+      "when": {
+        "east": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 1,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "north": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part_active"
+      }
+    },
+    {
+      "when": {
+        "east": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part_active",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part_active",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part_active",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part_active",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 1,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_part_active",
+        "x": 90
+      }
+    },
+
+
+
+    {
+      "when": {
+        "north": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect_active"
+      }
+    },
+    {
+      "when": {
+        "east": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect_active",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect_active",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect_active",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect_active",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 2,
+        "active": "true"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect_active",
+        "x": 90
+      }
+    },
+
+
+    {
+      "when": {
+        "north": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect"
+      }
+    },
+    {
+      "when": {
+        "east": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": 2,
+        "active": "false"
+      },
+      "apply": {
+        "model": "ten3:block/cable/cable_quartz_connect",
+        "x": 90
+      }
+    }
+  ]
+}

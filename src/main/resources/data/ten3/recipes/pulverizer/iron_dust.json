@@ -1,8 +1,0 @@
-{
-  "type": "ten3:pulverizer",
-  "ingredient": {
-    "tag": "forge:ingots/iron"
-  },
-  "output": "ten3:iron_dust",
-  "time": 150
-}

@@ -1,9 +1,18 @@
 {
   "type": "ten3:pulverizer",
-  "ingredient": {
-    "item": "minecraft:blue_ice"
-  },
-  "output": "minecraft:snow_block",
-  "count": 4,
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:blue_ice"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:snow_block",
+      "count": 8
+    }
+  ],
+  "time": 200
 }

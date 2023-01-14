@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ten3:item/nugget/tin_nugget"
+  }
+}

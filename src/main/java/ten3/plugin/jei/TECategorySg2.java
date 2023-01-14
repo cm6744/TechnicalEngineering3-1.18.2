@@ -1,13 +1,13 @@
 package ten3.plugin.jei;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import ten3.core.recipe.MTSRecipe;
+import ten3.lib.recipe.FormsCombinedRecipe;
 
-import java.util.List;
-
-public class TECategorySg2 extends TECategory<MTSRecipe> {
+public class TECategorySg2 extends TECategory<FormsCombinedRecipe> {
 
     public TECategorySg2(String name, int ru, int rv)
     {
@@ -16,17 +16,26 @@ public class TECategorySg2 extends TECategory<MTSRecipe> {
 
     @SuppressWarnings("removal")
     @Override
-    public Class<? extends MTSRecipe> getRecipeClass()
+    public Class<? extends FormsCombinedRecipe> getRecipeClass()
     {
-        return MTSRecipe.class;
+        return FormsCombinedRecipe.class;
+    }
+
+    public void draw(FormsCombinedRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY)
+    {
+        super.draw(recipe, recipeSlotsView, stack, mouseX, mouseY);
+        chance(82, 18, 0, recipe, stack);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, MTSRecipe recipe, IFocusGroup focuses)
+    public void setRecipe(IRecipeLayoutBuilder builder, FormsCombinedRecipe recipe, IFocusGroup focuses)
     {
-        builder.addSlot(RecipeIngredientRole.INPUT, 2 + 1, 22 + 1).addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.INPUT, 20 + 1, 22 + 1).addIngredients(recipe.getIngredients().get(1));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 79 + 1, 22 + 1).addItemStack(recipe.assemble(null));
+        builder.addSlot(RecipeIngredientRole.INPUT, 2 + 1, 22 + 1)
+                .addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.INPUT, 20 + 1, 22 + 1)
+                .addIngredients(recipe.getIngredients().get(1));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 79 + 1, 22 + 1)
+                .addItemStack(recipe.output().get(0).symbolItem());
     }
 
 }

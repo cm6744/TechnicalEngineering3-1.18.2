@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:nuggets/tin",
+    "#forge:nuggets/powered_tin",
+    "#forge:nuggets/chlorium",
+    "#forge:nuggets/nickel"
+  ]
+}

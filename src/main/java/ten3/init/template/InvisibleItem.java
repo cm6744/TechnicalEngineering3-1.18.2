@@ -8,7 +8,7 @@ public class InvisibleItem extends DefItem {
 
     public InvisibleItem() {
 
-        super(true);
+        super(new Properties());
 
     }
 

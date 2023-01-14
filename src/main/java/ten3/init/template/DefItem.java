@@ -19,32 +19,20 @@ import java.util.List;
 
 public class DefItem extends Item {
 
+    public static Properties build(int stack, CreativeModeTab tab) {
+        return new Properties().tab(tab).stacksTo(stack);
+    }
+
     public DefItem() {
-
-        this(DefGroup.ITEM);
-
+        this(build(64, DefGroup.ITEM));
     }
 
-    public DefItem(int stack) {
-
-        super(new Properties().tab(DefGroup.ITEM).stacksTo(stack));
-
-    }
-
-    public DefItem(CreativeModeTab g) {
-
-        super(new Properties().tab(g));
-
-    }
-
-    public DefItem(boolean noGroup) {
-
-        super(new Properties());
-
+    public DefItem(Properties prp) {
+        super(prp);
     }
 
     @Override
-    public Component getName(ItemStack p_41458_)
+    public String getDescriptionId()
     {
         return KeyUtil.getKey(ExcUtil.regNameOf(this));
     }
@@ -70,7 +58,7 @@ public class DefItem extends Item {
         }
     }
 
-    public boolean shift() {
+    public static boolean shift() {
         return GLFW.glfwGetKey(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT) == GLFW.GLFW_PRESS;
     }
 

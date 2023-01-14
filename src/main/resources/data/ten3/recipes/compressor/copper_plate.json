@@ -1,8 +1,22 @@
 {
   "type": "ten3:compressor",
-  "ingredient": {
-    "tag": "forge:ingots/copper"
-  },
-  "output": "ten3:copper_plate",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:ingots/copper"
+    },
+    {
+      "form": "item",
+      "type": "static",
+      "key": "ten3:mould_plate"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:copper_plate"
+    }
+  ],
   "time": 100
 }

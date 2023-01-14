@@ -11,26 +11,26 @@ import java.util.function.Supplier;
 
 public class ServerIntSetterPacket {
 
-    int mode;
+    int value;
     BlockPos pos;
 
     public ServerIntSetterPacket(FriendlyByteBuf b) {
 
-        mode = b.readInt();
+        value = b.readInt();
         pos = b.readBlockPos();
 
     }
 
-    public ServerIntSetterPacket(int mode, BlockPos pos) {
+    public ServerIntSetterPacket(int v, BlockPos pos) {
 
-        this.mode = mode;
+        this.value = v;
         this.pos = pos;
 
     }
 
     public final void writeBuffer(FriendlyByteBuf b) {
 
-        b.writeInt(mode);
+        b.writeInt(value);
         b.writeBlockPos(pos);
 
     }
@@ -38,7 +38,11 @@ public class ServerIntSetterPacket {
     public final void run(Supplier<NetworkEvent.Context> cs) {
 
         cs.get().enqueueWork(() -> {
-            handler(cs.get().getSender());
+            try {
+                handler(cs.get().getSender());
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         });
         cs.get().setPacketHandled(true);
 
@@ -46,6 +50,7 @@ public class ServerIntSetterPacket {
 
     protected final void handler(Player player) {
 
+        if(player == null) return;
         Level world = player.level;
         BlockEntity e = world.getBlockEntity(pos);
         if(e != null) {

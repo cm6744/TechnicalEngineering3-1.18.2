@@ -1,11 +1,19 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:glass_bottle"
-  },
-  "ingredient1": {
-    "item": "minecraft:air"
-  },
-  "output": "minecraft:experience_bottle",
-  "time": 2500
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:glass_bottle",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:experience_bottle",
+      "count": 1
+    }
+  ],
+  "time": 2400
 }

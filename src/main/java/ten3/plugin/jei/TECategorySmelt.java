@@ -40,8 +40,10 @@ public class TECategorySmelt extends CmCtgr<SmeltingRecipe> {
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, SmeltingRecipe recipe, IFocusGroup focuses)
     {
-        builder.addSlot(RecipeIngredientRole.INPUT, 8 + 1, 22 + 1).addIngredients(recipe.getIngredients().get(0));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 79 + 1, 22 + 1).addItemStack(recipe.assemble(null));
+        builder.addSlot(RecipeIngredientRole.INPUT, 8 + 1, 22 + 1)
+                .addIngredients(recipe.getIngredients().get(0));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 79 + 1, 22 + 1)
+                .addItemStack(recipe.assemble(null).copy());
     }
 
 }

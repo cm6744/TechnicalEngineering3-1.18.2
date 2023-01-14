@@ -3,7 +3,7 @@ package ten3.core.network.packets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileMachine;
 
 public class PTSRedStatePack extends ServerIntSetterPacket {
 
@@ -17,7 +17,7 @@ public class PTSRedStatePack extends ServerIntSetterPacket {
 
     @Override
     protected void run(BlockEntity tile) {
-        ((CmTileMachine) tile).data.set(CmTileMachine.RED_MODE, mode);
+        ((CmTileMachine) tile).data.set(CmTileMachine.RED_MODE, value);
     }
 
 }

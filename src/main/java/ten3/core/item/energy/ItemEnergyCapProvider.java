@@ -6,7 +6,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
-import ten3.lib.capability.energy.FEStorageItem;
+import ten3.lib.capability.energy.BatteryItem;
 import ten3.util.ItemUtil;
 
 import javax.annotation.Nonnull;
@@ -26,7 +26,7 @@ public class ItemEnergyCapProvider implements ICapabilityProvider {
     @SuppressWarnings("all")
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if(Objects.equals(cap, CapabilityEnergy.ENERGY)) {
-            return (LazyOptional<T>) LazyOptional.of(() -> new FEStorageItem(
+            return (LazyOptional<T>) LazyOptional.of(() -> new BatteryItem(
                     ItemUtil.getTag(stack, "maxEnergy"),
                     ItemUtil.getTag(stack, "receive"),
                     ItemUtil.getTag(stack, "extract"),

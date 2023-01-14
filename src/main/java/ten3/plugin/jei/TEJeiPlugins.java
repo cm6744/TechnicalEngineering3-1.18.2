@@ -2,7 +2,6 @@ package ten3.plugin.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -12,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
@@ -22,8 +20,7 @@ import ten3.core.machine.useenergy.indfur.IndfurScreen;
 import ten3.core.machine.useenergy.psionicant.PsionicantScreen;
 import ten3.core.machine.useenergy.pulverizer.PulverizerScreen;
 import ten3.core.machine.useenergy.smelter.FurnaceScreen;
-import ten3.core.recipe.MTSRecipe;
-import ten3.core.recipe.SingleRecipe;
+import ten3.lib.recipe.FormsCombinedRecipe;
 import ten3.init.ItemInit;
 import ten3.init.RecipeInit;
 
@@ -32,11 +29,11 @@ import java.util.List;
 @JeiPlugin
 public class TEJeiPlugins implements IModPlugin {
 
-    static RecipeType<SingleRecipe> PULV = getType(SingleRecipe.class, "pulverizer");
-    static RecipeType<SingleRecipe> COMP = getType(SingleRecipe.class, "compressor");
+    static RecipeType<FormsCombinedRecipe> PULV = getType(FormsCombinedRecipe.class, "pulverizer");
+    static RecipeType<FormsCombinedRecipe> COMP = getType(FormsCombinedRecipe.class, "compressor");
     static RecipeType<SmeltingRecipe> SMLT = getType(SmeltingRecipe.class, "smelter");
-    static RecipeType<MTSRecipe> PSIO = getType(MTSRecipe.class, "psionicant");
-    static RecipeType<MTSRecipe> INDF = getType(MTSRecipe.class, "induction_furnace");
+    static RecipeType<FormsCombinedRecipe> PSIO = getType(FormsCombinedRecipe.class, "psionicant");
+    static RecipeType<FormsCombinedRecipe> INDF = getType(FormsCombinedRecipe.class, "induction_furnace");
 
     private static<T> mezz.jei.api.recipe.RecipeType<T> getType(Class<T> recipe, String name) {
         return mezz.jei.api.recipe.RecipeType.create(TConst.modid, name, recipe);
@@ -74,9 +71,9 @@ public class TEJeiPlugins implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration)
     {
         registration.addRecipeCategories(new TECategorySgAddition( "pulverizer", 27, 32));
-        registration.addRecipeCategories(new TECategorySg( "compressor", 27, 63));
+        registration.addRecipeCategories(new TECategorySg2( "compressor", 27, 63));
         registration.addRecipeCategories(new TECategorySmelt("smelter", 27, 0));
-        registration.addRecipeCategories(new TECategorySg2("psionicant", 27, 0));
+        registration.addRecipeCategories(new TECategorySg2("psionicant", 27, 95));
         registration.addRecipeCategories(new TECategorySg3("induction_furnace", 27, 0));
     }
 

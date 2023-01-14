@@ -4,6 +4,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import ten3.core.client.ClientHolder;
 import ten3.core.item.upgrades.UpgradeItem;
+import ten3.core.network.packets.PTCInfoClientPack;
 
 public class SlotUpgCm extends SlotCm {
 

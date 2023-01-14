@@ -55,11 +55,11 @@ public class WorkUtil {
 
     }
 
-    public static LootContext.Builder getLoot(Level world, BlockPos pos) {
+    public static LootContext.Builder getLoot(Level world, BlockPos pos, ItemStack tol) {
         return new LootContext.Builder((ServerLevel) world)
                 .withRandom(world.getRandom())
                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
-                .withParameter(LootContextParams.TOOL, ItemStack.EMPTY);
+                .withParameter(LootContextParams.TOOL, tol);
     }
 
     public interface RunWithPos {

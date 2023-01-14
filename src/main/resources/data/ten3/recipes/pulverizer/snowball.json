@@ -1,9 +1,18 @@
 {
   "type": "ten3:pulverizer",
-  "ingredient": {
-    "item": "minecraft:snow_block"
-  },
-  "output": "minecraft:snowball",
-  "count": 4,
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:snow_block"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:snowball",
+      "count": 4
+    }
+  ],
+  "time": 120
 }

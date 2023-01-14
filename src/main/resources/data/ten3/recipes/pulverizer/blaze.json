@@ -1,11 +1,35 @@
 {
   "type": "ten3:pulverizer",
-  "ingredient": {
-    "item": "minecraft:blaze_rod"
-  },
-  "output": "minecraft:blaze_powder",
-  "count": 3,
-  "addition": "minecraft:blaze_powder",
-  "chance": 0.5,
-  "time": 150
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:blaze_rod"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:blaze_powder",
+      "count": 3
+    },
+    {
+      "form": "item",
+      "key": "minecraft:blaze_powder",
+      "count": 1,
+      "chance": 0.5
+    },
+    {
+      "form": "item",
+      "key": "minecraft:blaze_powder",
+      "count": 1,
+      "chance": 0.2
+    },
+    {
+      "form": "fluid",
+      "key": "minecraft:lava",
+      "count": 50
+    }
+  ],
+  "time": 100
 }

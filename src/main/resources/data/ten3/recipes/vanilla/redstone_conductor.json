@@ -1,15 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "C C",
     "CAC",
-    "BCB"
+    "C C"
   ],
   "key": {
     "A": {
-      "item": "minecraft:gold_ingot"
-    },
-    "B": {
-      "item": "minecraft:gold_nugget"
+      "tag": "forge:ingots/copper"
     },
     "C": {
       "item": "minecraft:redstone"

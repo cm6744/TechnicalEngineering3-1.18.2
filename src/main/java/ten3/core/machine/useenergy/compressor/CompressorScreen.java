@@ -11,7 +11,7 @@ public class CompressorScreen extends CmScreenMachine {
 
     public CompressorScreen(CmContainerMachine screenContainer, Inventory inv, Component titleIn) {
 
-        super(screenContainer, inv, titleIn, "textures/gui/one_to_one.png", 256, 256);
+        super(screenContainer, inv, titleIn, "textures/gui/compressor.png", 256, 256);
         xSize = 176;
         ySize = 166;
 
@@ -26,7 +26,7 @@ public class CompressorScreen extends CmScreenMachine {
         super.addWidgets();
 
         widgets.add(energy = getDefaultEne());
-        widgets.add(left = new ElementBurnLeft(45, 48, 13, 13, 14, 0, handler));
+        widgets.add(left = new ElementBurnLeft(45, 36, 13, 13, 14, 0, handler));
         widgets.add(progress = new ElementProgress(76, 35, 22, 16, 27, 63, handler));
 
     }
@@ -34,7 +34,6 @@ public class CompressorScreen extends CmScreenMachine {
     public void update() {
 
         energy.setPer(pEnergy());
-        energy.setValue(energy(), maxEnergy());
         left.setPer(pEnergy());
         progress.setPer(pProgress());
 

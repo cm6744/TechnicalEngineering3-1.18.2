@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:sugar"
-  },
-  "ingredient1": {
-    "tag": "forge:dyes/yellow"
-  },
-  "output": "minecraft:glowstone_dust",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:sugar",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:dyes/yellow",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:glowstone_dust",
+      "count": 1
+    }
+  ],
   "time": 300
 }

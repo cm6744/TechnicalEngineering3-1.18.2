@@ -1,0 +1,24 @@
+{
+  "type": "ten3:pulverizer",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:ores/copper"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:copper_dust",
+      "count": 2
+    },
+    {
+      "form": "item",
+      "key": "minecraft:gravel",
+      "count": 1,
+      "chance": 0.2
+    }
+  ],
+  "time": 180
+}

@@ -11,21 +11,20 @@ import static ten3.TConst.guiHandler;
 import static ten3.TConst.jeiHandler;
 
 public class ProcessDraw implements IDrawable {
+
     int u, v, wi, hi, ru, rv, rx, ry;
     double per;
     String n;
-    double chance;
-    public ProcessDraw(int u, int v, int w, int h, String name, int rowU, int rowV, int rowX, int rowY) {
+
+    public ProcessDraw(int u, int v, int w, int h, String name, int rowU, int rowV, int rowX, int rowY)
+    {
         wi = w;hi = h;ru = rowU;rv = rowV;rx = rowX;ry = rowY;n = name;this.u=u;this.v=v;
         progress = new ElementProgress(rx, ry, 22, 16, ru, rv, guiHandler);
     }
 
-    public void cacheTime(int t) {
+    public void cacheTime(int t)
+    {
         per = 1.0 / t;
-    }
-
-    public void cacheOpt(double opt) {
-        chance = opt;
     }
 
     @Override
@@ -53,11 +52,5 @@ public class ProcessDraw implements IDrawable {
 
         progress.draw(matrixStack);
         progress.setPer(p);
-
-        if(chance > 0) {
-            RenderHelper.renderString(matrixStack, 2, 50, Mth.color(1f, 1f, 1f),
-                    KeyUtil.translated("ten3.jei_addition_chance")
-                            .append(KeyUtil.make((int)(chance * 100) + "%")));
-        }
     }
 }

@@ -2,16 +2,16 @@ package ten3.lib.capability.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import ten3.lib.tile.CmTileMachine;
+import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.util.DireUtil;
 
 import java.util.List;
+import java.util.Queue;
 
 @SuppressWarnings("all")
 public class ItemTransferor {
@@ -22,9 +22,22 @@ public class ItemTransferor {
         this.t = t;
     }
 
+    public final Queue<Direction> itemQR = DireUtil.newQueueOffer();
+
+    public void transferItem() {
+        //if(getTileAliveTime() % 10 == 0) {
+        itemQR.offer(itemQR.remove());
+        for(Direction d : itemQR) {
+            transferTo(d);
+            transferFrom(d);
+            break;
+        }
+        //}
+    }
+
     private BlockEntity checkTile(Direction d) {
 
-        return checkTile(t.pos.offset(d.getNormal()));
+        return checkTile(t.getBlockPos().offset(d.getNormal()));
 
     }
 
@@ -42,8 +55,8 @@ public class ItemTransferor {
 
     public void transferTo(BlockPos p, Direction d) {
 
-        if(FaceOption.isPassive(t.direCheckItem(d))) return;
-        if(!FaceOption.isOut(t.direCheckItem(d))) return;
+        if(FaceOption.isPassive(t.info.direCheckItem(d))) return;
+        if(!FaceOption.isOut(t.info.direCheckItem(d))) return;
 
         BlockEntity tile = checkTile(p);
         if(tile != null) {
@@ -59,8 +72,8 @@ public class ItemTransferor {
 
     public void transferFrom(BlockPos p, Direction d) {
 
-        if(FaceOption.isPassive(t.direCheckItem(d))) return;
-        if(!FaceOption.isIn(t.direCheckItem(d))) return;
+        if(FaceOption.isPassive(t.info.direCheckItem(d))) return;
+        if(!FaceOption.isIn(t.info.direCheckItem(d))) return;
 
         BlockEntity tile = checkTile(p);
         if(tile != null) {
@@ -76,75 +89,85 @@ public class ItemTransferor {
 
     public void transferTo(Direction d) {
 
-        transferTo(t.pos.offset(d.getNormal()), d);
+        transferTo(t.getBlockPos().offset(d.getNormal()), d);
 
     }
 
     public void transferFrom(Direction d) {
 
-        transferFrom(t.pos.offset(d.getNormal()), d);
+        transferFrom(t.getBlockPos().offset(d.getNormal()), d);
 
     }
 
     //s - the extract item from src
     //return - src's max cap for <s>
-    public static int getRemainSize(IItemHandler src, ItemStack s) {
+    public static int getFirstSlotFit(IItemHandler src, ItemStack s) {
 
         ItemStack sin = s.copy();
+        int orid = sin.getCount();
 
         for(int i = 0; i < src.getSlots(); i++) {
             sin = src.insertItem(i, sin, true);
-            if(sin.isEmpty()) break;
-        }
-
-        return s.getCount() - sin.getCount();
-
-    }
-
-    public static int getRemainStacks(IItemHandler src, ItemStack s) {
-
-        int total = 0;
-
-        for(int i = 0; i < src.getSlots(); i++) {
-            ItemStack s2 = src.extractItem(i, s.getMaxStackSize(), true);
-            if(s2.getItem() == s.getItem()) {
-                total += s2.getCount();
+            if(orid > sin.getCount()) {
+                return i;
             }
         }
 
-        return total;
+        return -1;
 
     }
 
     public void srcToDest(IItemHandler src, IItemHandler dest, boolean into) {
 
-        ItemStack s = ItemStack.EMPTY;
-        int i = -1;
-        while(s.isEmpty()) {
-            i++;
-            if(i >= src.getSlots()) break;
+        srcToDest(-1, src, dest, into);
 
-            s = src.extractItem(i, Math.min(into ? t.maxReceiveItem : t.maxExtractItem,
-                    getRemainSize(dest, src.getStackInSlot(i))), false);
+    }
+
+    public void srcToDest(int init, IItemHandler src, IItemHandler dest, boolean into) {
+
+        int iniSlot = init == -1 ? 0 : init;
+
+        if(iniSlot >= src.getSlots()) return;
+
+        ItemStack stack = ItemStack.EMPTY;
+        for(int i = iniSlot; i < src.getSlots(); i++) {
+            if(!stack.isEmpty()) break;
+            stack = src.extractItem(i, into ? t.info.maxReceiveItem : t.info.maxExtractItem, true);
         }
 
-        int k = -1;
-        while(true) {
-            k++;
-            if(k >= dest.getSlots()) break;
+        int cache = stack.getCount();
 
-            s = dest.insertItem(k, s, false);
-            if(s.isEmpty()) break;
+        for(int i = 0; i < dest.getSlots(); i++) {
+            if(stack.isEmpty()) break;
+            stack = dest.insertItem(i, stack, true);
+        }
+
+        int ins = cache - stack.getCount();
+        if(ins == 0) {
+            srcToDest(iniSlot + 1, src, dest, into);
+        }
+
+        ItemStack s2 = ItemStack.EMPTY;
+
+        for(int i = iniSlot; i < src.getSlots(); i++) {
+            if(!s2.isEmpty()) break;
+            s2 = src.extractItem(i, ins, false);
+        }
+
+        for(int i = 0; i < dest.getSlots(); i++) {
+            if(s2.isEmpty()) break;
+            s2 = dest.insertItem(i, s2, false);
         }
 
     }
+
 
     //return : stack is completely given.
     public boolean selfGive(ItemStack stack, int from, int to, boolean sim) {
 
         if(stack.isEmpty()) return true;
 
-        InventoryWrapperCm dest = (InventoryWrapperCm) handlerOf(t, null);
+        InvHandler dest = (InvHandler) handlerOf(t, null);
         if(dest == null) return false;
 
         int k = from - 1;
@@ -182,7 +205,7 @@ public class ItemTransferor {
 
     public ItemStack selfGet(int max, int from, int to, boolean sim) {
 
-        InventoryWrapperCm src = (InventoryWrapperCm) handlerOf(t, null);
+        InvHandler src = (InvHandler) handlerOf(t, null);
         if(src == null) return ItemStack.EMPTY;
 
         ItemStack s = ItemStack.EMPTY;

@@ -5,6 +5,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 import ten3.core.client.ClientHolder;
+import ten3.core.network.Network;
+import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.extension.CmTileMachineRadiused;
 import ten3.util.DireUtil;
 
 import java.util.ArrayList;
@@ -15,31 +18,39 @@ public class PTCInfoClientPack {
     int ene;
     int itm;
     int res;
-    int level;
     int rd;
+    int fld;
     BlockPos pos;
     Direction d;
+
+    public static void send(CmTileMachine t) {
+        for(Direction d : Direction.values()) {
+            Network.sendToClient(new PTCInfoClientPack(t, d));
+        }
+    }
 
     public PTCInfoClientPack(FriendlyByteBuf b) {
 
         ene = b.readInt();
         itm = b.readInt();
+        fld = b.readInt();
         res = b.readInt();
-        level = b.readInt();
         rd = b.readInt();
         pos = b.readBlockPos();
         d = b.readEnum(Direction.class);
 
     }
 
-    public PTCInfoClientPack(int e, int i, int r, int lv, int rd, BlockPos p, Direction d) {
+    public PTCInfoClientPack(CmTileMachine t, Direction d) {
 
-        ene = e;
-        itm = i;
-        res = r;
-        pos = p;
-        level = lv;
-        this.rd = rd;
+        ene = t.info.direCheckEnergy(d);
+        itm = t.info.direCheckItem(d);
+        fld = t.info.direCheckFluid(d);
+        res = t.data.get(CmTileMachine.RED_MODE);
+        pos = t.getBlockPos();
+        if(t instanceof CmTileMachineRadiused) {
+            rd = ((CmTileMachineRadiused) t).radius;
+        }
         this.d = d;
 
     }
@@ -48,8 +59,8 @@ public class PTCInfoClientPack {
 
         b.writeInt(ene);
         b.writeInt(itm);
+        b.writeInt(fld);
         b.writeInt(res);
-        b.writeInt(level);
         b.writeInt(rd);
         b.writeBlockPos(pos);
         b.writeEnum(d);
@@ -67,32 +78,37 @@ public class PTCInfoClientPack {
 
         ArrayList<Integer> energy = ClientHolder.energy.get(pos);
         ArrayList<Integer> item = ClientHolder.item.get(pos);
-        int redstone;
-        int lev;
+        ArrayList<Integer> fluid = ClientHolder.fluid.get(pos);
 
         if(energy == null) {
-            energy = new ArrayList<>();
-            for(int i = 0; i < Direction.values().length; i++)
+            energy = new ArrayList<>(6);
+            for(Direction ignore : Direction.values()) {
                 energy.add(0);
+            }
         }
         if(item == null) {
-            item = new ArrayList<>();
-            for(int i = 0; i < Direction.values().length; i++)
+            item = new ArrayList<>(6);
+            for(Direction ignore : Direction.values()) {
                 item.add(0);
+            }
+        }
+        if(fluid == null) {
+            fluid = new ArrayList<>(6);
+            for(Direction ignore : Direction.values()) {
+                fluid.add(0);
+            }
         }
 
         int i = DireUtil.direToInt(d);
         energy.set(i, ene);
         item.set(i, itm);
-        redstone = res;
-        lev = level;
+        fluid.set(i, fld);
 
         ClientHolder.energy.put(pos, energy);
         ClientHolder.item.put(pos, item);
-        ClientHolder.redstone.put(pos, redstone);
-        ClientHolder.level.put(pos, lev);
+        ClientHolder.fluid.put(pos, fluid);
+        ClientHolder.redstone.put(pos, res);
         ClientHolder.radius.put(pos, rd);
-
     }
 
 }

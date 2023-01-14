@@ -10,9 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import ten3.init.tab.DefGroup;
 import ten3.init.template.DefItem;
-import ten3.lib.tile.CmTileMachine;
-import ten3.lib.tile.PacketCapData;
 import ten3.util.ItemUtil;
 
 import javax.annotation.Nullable;
@@ -23,7 +22,7 @@ public class ItemFEStorage extends DefItem {
     int sto, rec, ext;
 
     public ItemFEStorage(int s, int r, int e) {
-        super(1);
+        super(build(1, DefGroup.TOOL));
         sto = s; rec = r; ext = e;
     }
 

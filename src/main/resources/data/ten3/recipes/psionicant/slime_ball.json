@@ -1,11 +1,25 @@
 {
   "type": "ten3:psionicant",
-  "ingredient0": {
-    "item": "minecraft:clay"
-  },
-  "ingredient1": {
-    "tag": "forge:dyes/lime"
-  },
-  "output": "minecraft:slime_ball",
-  "time": 400
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:clay",
+      "count": 1
+    },
+    {
+      "form": "item",
+      "type": "tag",
+      "key": "forge:dyes/lime",
+      "count": 1
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:slime_ball",
+      "count": 1
+    }
+  ],
+  "time": 200
 }
