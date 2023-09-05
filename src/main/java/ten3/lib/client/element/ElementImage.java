@@ -2,7 +2,7 @@ package ten3.lib.client.element;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
-import ten3.lib.client.RenderHelper;
+import ten3.util.RenderHelper;
 
 public class ElementImage extends ElementBase {
 

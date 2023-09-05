@@ -6,6 +6,6 @@ public enum Type {
     MACHINE_PROCESS,
     MACHINE_EFFECT,
     CELL,
-    CABLE
+    NON_MAC
 
 }

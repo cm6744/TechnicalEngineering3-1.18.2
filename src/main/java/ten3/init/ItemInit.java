@@ -11,6 +11,7 @@ import ten3.core.item.upgrades.*;
 import ten3.core.item.*;
 import ten3.core.machine.useenergy.compressor.Mould;
 import ten3.init.tab.DefGroup;
+import ten3.init.template.Bucket;
 import ten3.init.template.DefItem;
 import ten3.init.template.DefItemBlock;
 
@@ -32,7 +33,11 @@ public class ItemInit {
         //regItem("technical_item", InvisibleItem::new);
         //regItem("technical_block", InvisibleItem::new);
 
+        regItem("liquid_xp_bucket", () -> new Bucket("liquid_xp"));
+        regItem("liquid_bizarrerie_bucket", () -> new Bucket("liquid_bizarrerie"));
+
         regItem("spanner", Spanner::new);
+        regItem("channel_connector", Connector::new);
         regItem("mould_gear", Mould::new);
         regItem("mould_plate", Mould::new);
         regItem("mould_rod", Mould::new);
@@ -47,10 +52,14 @@ public class ItemInit {
         regItemDef("redstone_storer");
         regItemDef("indigo");
         regItemDef("azure_glass");
-        regItemDef("royal_jelly");
-        regItemDef("spicy_jelly");
+        //regItemDef("royal_jelly");
+        //regItemDef("spicy_jelly");//removed
         regItemDef("bizarrerie");
-        regItemDef("starlight_dust");
+        //regItemDef("starlight_dust");
+        regItemDef("redstone_ai");
+        regItemDef("redstone_ai_advanced");
+        regItemDef("hydraulic_widget");
+        regItemDef("detector");
 
         //too imba
         //regItem("world_bag", new WorldBag());
@@ -104,6 +113,8 @@ public class ItemInit {
         regItemMachine("psionicant");
         regItemMachine("induction_furnace");
         regItemMachine("enchantment_flusher");
+        regItemMachine("refiner");
+        regItemMachine("matter_condenser");
 
         regItemMachineWithoutID("cell");
         regItemBlockDefInMac("pipe");
@@ -113,6 +124,10 @@ public class ItemInit {
         regItemBlockDefInMac("cable_quartz");
         regItemBlockDefInMac("cable_azure");
         regItemBlockDefInMac("cable_star");
+
+        regItemMachineWithoutID("channel_energy");
+        regItemMachineWithoutID("channel_item");
+        regItemMachineWithoutID("channel_fluid");
         //regItemBlockDef("pole");
 
     }

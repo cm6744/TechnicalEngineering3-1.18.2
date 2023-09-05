@@ -24,7 +24,7 @@ import ten3.util.*;
 import ten3.core.item.Spanner;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
-import ten3.lib.client.RenderHelper;
+import ten3.util.RenderHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class HudSpanner extends Screen {
     static int h;
 
     public HudSpanner() {
-        super(KeyUtil.make(""));
+        super(ComponentHelper.make(""));
     }
 
     public void render(boolean catchIt, Player player, PoseStack s, BlockPos pos, BlockEntity t, Direction d) {
@@ -47,58 +47,47 @@ public class HudSpanner extends Screen {
         h = Minecraft.getInstance().getWindow().getGuiScaledHeight();
         init(Minecraft.getInstance(), w, h);//&*&
 
-        Component tc = KeyUtil.translated("ten3.info.spanner.mode", "ten3.info.mode." + ItemUtil.getTag(player.getMainHandItem(), "mode"));
+        Component tc = ComponentHelper.translated("ten3.info.spanner.mode", "ten3.info.mode." + ItemNBTHelper.getTag(player.getMainHandItem(), "mode"));
 
         int hp = player.isCreative() ? (int) (h / 3 * 2.6) : (int) (h / 3 * 2.42);
         //RenderHelper.render(s, w / 2 - 29, hp - 3, 58, 13, 256, 256, 0, 198, TConst.guiHandler);
-        RenderHelper.renderCString(s, w / 2, hp, ExcUtil.safeInt(KeyUtil.GOLD.getColor()), tc);
+        RenderHelper.renderCString(s, w / 2, hp, SafeOperationHelper.safeInt(ComponentHelper.GOLD.getColor()), tc);
 
         if(!catchIt) return;
 
-        MutableComponent c1 = KeyUtil.translated("ten3.info.spanner.dire.energy");
-        MutableComponent c2 = KeyUtil.translated("ten3.info.spanner.dire.item");
-        MutableComponent c25 = KeyUtil.translated("ten3.info.spanner.dire.fluid");
-        MutableComponent c3 = KeyUtil.translated("ten3.info.spanner.dire.redstone");
-        MutableComponent c4 = KeyUtil.translated("ten3.info.spanner.work_radius")
-                .append(KeyUtil.make(
-                        String.valueOf(ExcUtil.safeInt(ClientHolder.radius.get(pos)))
+        MutableComponent c1 = ComponentHelper.translated("ten3.info.spanner.dire.energy");
+        MutableComponent c2 = ComponentHelper.translated("ten3.info.spanner.dire.item");
+        MutableComponent c25 = ComponentHelper.translated("ten3.info.spanner.dire.fluid");
+        MutableComponent c3 = ComponentHelper.translated("ten3.info.spanner.dire.redstone");
+        MutableComponent c4 = ComponentHelper.translated("ten3.info.spanner.work_radius")
+                .append(ComponentHelper.make(
+                        String.valueOf(SafeOperationHelper.safeInt(ClientHolder.radius.get(pos)))
                 ));
-        MutableComponent c5 = KeyUtil.translated("ten3.info.spanner.bind_pos")
-                .append(KeyUtil.make(
+        MutableComponent c5 = ComponentHelper.translated("ten3.info.spanner.bind_pos")
+                .append(ComponentHelper.make(
                         String.valueOf(ClientHolder.binds.get(pos))
                 ));
         MutableComponent c0 = ((CmTileMachine) t).getDisplayWith()
-                .append(KeyUtil.make(" ("))
-                .append(KeyUtil.translated("dire." + d.getSerializedName()))
-                .append(KeyUtil.make(")"));
+                .append(ComponentHelper.make(" ("))
+                .append(ComponentHelper.translated("dire." + d.getSerializedName()))
+                .append(ComponentHelper.make(")"));
 
-        ArrayList<Integer> ene = ClientHolder.energy.get(pos);
-        ArrayList<Integer> itm = ClientHolder.item.get(pos);
-        ArrayList<Integer> fld = ClientHolder.fluid.get(pos);
-        int red = ExcUtil.safeInt(ClientHolder.redstone.get(pos));
+        int red = ClientHolder.redstone.get(pos);
 
-        int di = DireUtil.direToInt(d);
+        int di = DirectionHelper.direToInt(d);
 
-        if(ene != null && ene.get(di) != null) {
-            c1.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(ene.get(di))));
-        }
-
-        if(itm != null && itm.get(di) != null) {
-            c2.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(itm.get(di))));
-        }
-
-        if(itm != null && itm.get(di) != null) {
-            c25.append(KeyUtil.translated("ten3.info." + FaceOption.toStr(fld.get(di))));
-        }
+        c1.append(ComponentHelper.translated("ten3.info." + FaceOption.toStr(ClientHolder.energy.getOrFill(pos, 6).get(di))));
+        c2.append(ComponentHelper.translated("ten3.info." + FaceOption.toStr(ClientHolder.item.getOrFill(pos, 6).get(di))));
+        c25.append(ComponentHelper.translated("ten3.info." + FaceOption.toStr(ClientHolder.fluid.getOrFill(pos, 6).get(di))));
 
         if(red == RedstoneMode.LOW) {
-            c3.append(KeyUtil.translated("ten3.info.low"));
+            c3.append(ComponentHelper.translated("ten3.info.low"));
         }
         else if(red == RedstoneMode.HIGH) {
-            c3.append(KeyUtil.translated("ten3.info.high"));
+            c3.append(ComponentHelper.translated("ten3.info.high"));
         }
         else {
-            c3.append(KeyUtil.translated("ten3.info.off"));
+            c3.append(ComponentHelper.translated("ten3.info.off"));
         }
 
         int x = w / 2;

@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import ten3.init.tab.DefGroup;
 import ten3.init.template.DefItem;
-import ten3.util.ItemUtil;
+import ten3.util.ItemNBTHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -40,14 +40,14 @@ public class ItemFEStorage extends DefItem {
     @Override
     public boolean isBarVisible(ItemStack stack)
     {
-        return ItemUtil.getTag(stack, "energy") != 0;
+        return ItemNBTHelper.getTag(stack, "energy") != 0;
     }
 
     @Override
     public int getBarWidth(ItemStack stack)
     {
-        if(ItemUtil.getTag(stack, "maxEnergy") == 0) return 0;
-        return (int)(13 * (ItemUtil.getTag(stack, "energy") / (double) sto));
+        if(ItemNBTHelper.getTag(stack, "maxEnergy") == 0) return 0;
+        return (int)(13 * (ItemNBTHelper.getTag(stack, "energy") / (double) sto));
     }
 
     @Override

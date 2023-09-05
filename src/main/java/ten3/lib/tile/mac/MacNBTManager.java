@@ -27,10 +27,13 @@ public class MacNBTManager {
         for(int i = 0; i < t.inventory.getContainerSize(); i++) {
             t.inventory.setItem(i, ItemStack.of(nbt.getCompound("item" + i)));
         }
-        for(int i = 0; i < t.tanks.size(); i++) {
-            t.tanks.get(i).readFromNBT(nbt);
+        for(int i = 0; i < t.upgradeSlots.inventory.getContainerSize(); i++) {
+            t.upgradeSlots.inventory.setItem(i, ItemStack.of(nbt.getCompound("upgrade" + i)));
         }
-        t.init = nbt.getBoolean("whenPlaceToWorld");
+        for(int i = 0; i < t.tanks.size(); i++) {
+            t.tanks.get(i).readFromNBT(nbt.getCompound("tank" + i));
+        }
+        t.init = nbt.getBoolean("init");
 
         data.set(PROGRESS, nbt.getInt("progress"));
         data.set(MAX_PROGRESS, nbt.getInt("seconds"));
@@ -58,10 +61,15 @@ public class MacNBTManager {
         for(int i = 0; i < t.inventory.getContainerSize(); i++) {
             nbt.put("item" + i, t.inventory.getItem(i).copy().serializeNBT());
         }
-        for(int i = 0; i < t.tanks.size(); i++) {
-            t.tanks.get(i).writeToNBT(nbt);
+        for(int i = 0; i < t.upgradeSlots.inventory.getContainerSize(); i++) {
+            nbt.put("upgrade" + i, t.upgradeSlots.inventory.getItem(i).copy().serializeNBT());
         }
-        nbt.putBoolean("whenPlaceToWorld", t.init);
+        for(int i = 0; i < t.tanks.size(); i++) {
+            CompoundTag tag = new CompoundTag();
+            t.tanks.get(i).writeToNBT(tag);
+            nbt.put("tank" + i, tag);
+        }
+        nbt.putBoolean("init", t.init);
 
         nbt.putInt("progress", data.get(PROGRESS));
         nbt.putInt("seconds", data.get(MAX_PROGRESS));

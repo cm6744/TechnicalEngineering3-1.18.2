@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "ten3:machine/cell_core",
+		"0": "ten3:fluid/liquid_redstone",
 		"1": "ten3:machine/cell_frame",
 		"2": "ten3:machine/cell_meter",
-		"particle": "ten3:machine/cell_core"
+		"particle": "ten3:fluid/liquid_redstone"
 	},
 	"elements": [
 		{

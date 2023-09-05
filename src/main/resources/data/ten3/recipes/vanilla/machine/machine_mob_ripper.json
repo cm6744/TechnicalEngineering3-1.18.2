@@ -16,10 +16,10 @@
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "item": "minecraft:iron_sword"
+      "item": "ten3:redstone_ai"
     },
     "D": {
-      "item": "ten3:redstone_conductor"
+      "item": "ten3:hydraulic_widget"
     }
   },
   "result": {

@@ -7,8 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import org.lwjgl.glfw.GLFW;
 import ten3.TConst;
-import ten3.lib.client.GuiHelper;
-import ten3.lib.client.RenderHelper;
+import ten3.util.GuiHelper;
+import ten3.util.RenderHelper;
 import ten3.lib.client.element.ElementBase;
 import ten3.lib.wrapper.IntArrayCm;
 
@@ -88,6 +88,12 @@ public class CmScreen<T extends CmContainerMachine> extends AbstractContainerScr
         if(!init) addWidgets();
         init = true;
 
+        updateIJ();
+
+    }
+
+    protected void updateIJ()
+    {
         int i = GuiHelper.getI(width, getXSize());
         int j = GuiHelper.getJ(height, getYSize());
 
@@ -96,7 +102,6 @@ public class CmScreen<T extends CmContainerMachine> extends AbstractContainerScr
             e = widgets.get(k);
             e.updateLocWhenFrameResize(i, j);
         }
-
     }
 
     @Override

@@ -1,7 +1,7 @@
 package ten3.lib.capability.energy;
 
 import net.minecraft.world.item.ItemStack;
-import ten3.util.ItemUtil;
+import ten3.util.ItemNBTHelper;
 
 public class BatteryItem extends Battery
 {
@@ -15,15 +15,15 @@ public class BatteryItem extends Battery
 
     @Override
     public int getEnergyStored() {
-        return ItemUtil.getTag(stackIn, "energy");
+        return ItemNBTHelper.getTag(stackIn, "energy");
     }
 
     public void translateEnergy(int diff) {
-        ItemUtil.tranTag(stackIn, "energy", diff);
+        ItemNBTHelper.tranTag(stackIn, "energy", diff);
     }
 
     public void setEnergy(int diff) {
-        ItemUtil.setTag(stackIn, "energy", diff);
+        ItemNBTHelper.setTag(stackIn, "energy", diff);
     }
 
 }

@@ -8,8 +8,9 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.option.FaceOption;
-import ten3.util.DireUtil;
+import ten3.util.DirectionHelper;
 
 import java.util.Queue;
 
@@ -23,7 +24,7 @@ public class FluidTransferor
         this.t = t;
     }
 
-    public final Queue<Direction> fluidQR = DireUtil.newQueueOffer();
+    public final Queue<Direction> fluidQR = DirectionHelper.newQueueOffer();
 
     public void transferFluid() {
         //if(getTileAliveTime() % 10 == 0) {
@@ -56,85 +57,72 @@ public class FluidTransferor
 
     public void transferTo(BlockPos p, Direction d, int v) {
 
-        if(FaceOption.isPassive(t.info.direCheckFluid(d))) return;
-        if(!FaceOption.isOut(t.info.direCheckFluid(d))) return;
-
+        if(d != null) {
+            if(FaceOption.isPassive(t.info.direCheckFluid(d))) return;
+            if(!FaceOption.isOut(t.info.direCheckFluid(d))) return;
+        }
         BlockEntity tile = checkTile(p);
         if(tile != null) {
             IFluidHandler src = handlerOf(t, d);
             if(src == null) return;
-            IFluidHandler dest = handlerOf(tile, DireUtil.safeOps(d));
+            IFluidHandler dest = handlerOf(tile, DirectionHelper.safeOps(d));
             if(dest == null) return;
 
-            int min = -1;
             int i = 0;
             for(Tank tank : t.tanks) {
-                if(!tank.isEmpty()) {
-                    min = i;
+                if(!tank.isEmpty() && t.tankType(i).canOut()) {
+                    FluidStack insert = tank.getFluid().copy();
+                    insert.setAmount(Math.min(insert.getAmount(), v));
+
+                    FluidStack s = FluidUtil.tryFluidTransfer(dest, src, insert, true);
+                    if(!s.isEmpty())
                     break;
                 }
                 i++;
             }
-            if(min == -1) return;
-            FluidStack res = t.tanks.get(min).getFluid();
-            res.setAmount(Math.min(res.getAmount(), v));
-            FluidStack s = FluidUtil.tryFluidTransfer(dest, src, res, true);
-            t.tanks.get(min).getFluid().shrink(s.getAmount());
         }
 
     }
 
     public void transferFrom(BlockPos p, Direction d, int v) {
 
-        if(FaceOption.isPassive(t.info.direCheckFluid(d))) return;
-        if(!FaceOption.isIn(t.info.direCheckFluid(d))) return;
+        if(d != null) {
+            if(FaceOption.isPassive(t.info.direCheckFluid(d))) return;
+            if(!FaceOption.isIn(t.info.direCheckFluid(d))) return;
+        }
 
         BlockEntity tile = checkTile(p);
         if(tile != null) {
-            IFluidHandler src = handlerOf(tile, DireUtil.safeOps(d));
+            IFluidHandler src = handlerOf(tile, DirectionHelper.safeOps(d));
             if(src == null) return;
             IFluidHandler dest = handlerOf(t, d);
             if(dest == null) return;
 
-            int min = -1;
-            int i = 0;
-            for(; i < src.getTanks(); i++) {
-                if(!src.getFluidInTank(i).isEmpty()) {
-                    min = i;
-                    break;
-                }
-            }
-            if(min == -1) return;
-
-            int size = t.tanks.get(min).getCapacity() - t.tanks.get(min).getFluidAmount();
-            FluidStack res = src.getFluidInTank(min);
-            res.setAmount(size);
-            FluidStack s = FluidUtil.tryFluidTransfer(dest, src, Math.min(size, v), true);
-            t.tanks.get(min).getFluid().grow(s.getAmount());
+            FluidUtil.tryFluidTransfer(dest, src, v, true);
         }
 
     }
 
-    public boolean selfGive(FluidStack stack, boolean sim)
+    public boolean selfGive(FluidStack stack, int from, int to, boolean sim)
     {
         if(stack.isEmpty()) return true;
         TankArray tka = (TankArray) handlerOf(t, null);
         if(tka == null) return false;
-        int amt = tka.forceFill(stack, IFluidHandler.FluidAction.SIMULATE);
+        int amt = tka.forceFill(stack, from, to, IFluidHandler.FluidAction.SIMULATE);
         boolean can = amt == stack.getAmount();
         if(!sim) {
-            tka.forceFill(stack, IFluidHandler.FluidAction.EXECUTE);
+            tka.forceFill(stack, from, to, IFluidHandler.FluidAction.EXECUTE);
         }
         return can;
     }
 
-    public FluidStack selfGet(FluidStack stack, boolean sim)
+    public FluidStack selfGet(FluidStack stack, int from, int to,boolean sim)
     {
         TankArray tka = (TankArray) handlerOf(t, null);
         if(tka == null) return FluidStack.EMPTY;
-        FluidStack s = tka.forceDrain(stack, IFluidHandler.FluidAction.SIMULATE);
+        FluidStack s = tka.forceDrain(stack, from, to, IFluidHandler.FluidAction.SIMULATE);
         if(!sim) {
-            tka.forceDrain(stack, IFluidHandler.FluidAction.EXECUTE);
+            tka.forceDrain(stack, from, to, IFluidHandler.FluidAction.EXECUTE);
         }
         return s;
     }

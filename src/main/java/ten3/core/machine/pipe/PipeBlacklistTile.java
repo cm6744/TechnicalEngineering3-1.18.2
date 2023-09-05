@@ -10,12 +10,17 @@ import ten3.lib.wrapper.SlotCm;
 
 public class PipeBlacklistTile extends PipeTile {
 
+    public int inventorySize()
+    {
+        return 9;
+    }
+
     public PipeBlacklistTile(BlockPos pos, BlockState state) {
 
         super(pos, state);
 
         for(int x = 7, y = 35, i = 0; i < 9; i++) {
-            addSlot(new SlotCm(inventory, i, x + 18 * i, y, SlotCm.RECEIVE_ALL_INPUT, false, false));
+            addSlot(new SlotCm(this, i, x + 18 * i, y));
         }
 
     }

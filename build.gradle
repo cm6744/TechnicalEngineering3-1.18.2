@@ -4,7 +4,7 @@ plugins {
 
 
 group = 'TechnicalEngineering3'
-version = '18.17dev'
+version = '18.21a'
 
 java {
     archivesBaseName = 'TechnicalEngineering3'

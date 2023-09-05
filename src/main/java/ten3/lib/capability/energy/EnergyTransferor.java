@@ -7,7 +7,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
-import ten3.util.DireUtil;
+import ten3.util.DirectionHelper;
 
 import java.util.Queue;
 
@@ -22,7 +22,7 @@ public class EnergyTransferor {
         this.t = t;
     }
 
-    public final Queue<Direction> energyQR = DireUtil.newQueueOffer();
+    public final Queue<Direction> energyQR = DirectionHelper.newQueueOffer();
 
     public void transferEnergy() {
         //if(getTileAliveTime() % 2 == 0) {
@@ -50,13 +50,15 @@ public class EnergyTransferor {
 
     public void transferTo(BlockPos p, Direction d, int v) {
 
-        if(FaceOption.isPassive(t.info.direCheckEnergy(d))) return;
-        if(!FaceOption.isOut(t.info.direCheckEnergy(d))) return;
+        if(d != null) {
+            if(FaceOption.isPassive(t.info.direCheckEnergy(d))) return;
+            if(!FaceOption.isOut(t.info.direCheckEnergy(d))) return;
+        }
 
         BlockEntity tile = checkTile(p);
 
         if(tile != null) {
-            IEnergyStorage e = handlerOf(tile, DireUtil.safeOps(d));
+            IEnergyStorage e = handlerOf(tile, DirectionHelper.safeOps(d));
             if(e == null) return;
             if(e.canReceive()) {
                 int diff = e.receiveEnergy(Math.min(v, t.data.get(ENERGY)), false);
@@ -70,13 +72,15 @@ public class EnergyTransferor {
 
     public void transferFrom(BlockPos p, Direction d, int v) {
 
-        if(FaceOption.isPassive(t.info.direCheckEnergy(d))) return;
-        if(!FaceOption.isIn(t.info.direCheckEnergy(d))) return;
+        if(d != null) {
+            if(FaceOption.isPassive(t.info.direCheckEnergy(d))) return;
+            if(!FaceOption.isIn(t.info.direCheckEnergy(d))) return;
+        }
 
         BlockEntity tile = checkTile(p);
 
         if(tile != null) {
-            IEnergyStorage e = handlerOf(tile, DireUtil.safeOps(d));
+            IEnergyStorage e = handlerOf(tile, DirectionHelper.safeOps(d));
             if(e == null) return;
             if(e.canExtract()) {
                 int diff = e.extractEnergy(Math.min(v, t.info.maxStorageEnergy - t.data.get(ENERGY)), false);
@@ -104,7 +108,7 @@ public class EnergyTransferor {
         for(Direction d : Direction.values()) {
             tile = checkTile(d);
             if(tile != null) {
-                if(handlerOf(tile, DireUtil.safeOps(d)) != null) {
+                if(handlerOf(tile, DirectionHelper.safeOps(d)) != null) {
                     size++;
                 }
             }

@@ -20,32 +20,12 @@ public interface RandRecipe<T extends Container> extends IBaseRecipeCm<T> {
         return ss;
     }
 
-    default List<ItemStack> allOutputItems()
-    {
-        List<ItemStack> ss = new ArrayList<>();
-        for(int i = 0; i < output().size(); i++) {
-            FormsCombinedIngredient ing = output().get(i);
-            ss.add(ing.symbolItem());
-        }
-        return ss;
-    }
-
     default List<FluidStack> generateFluids()
     {
         List<FluidStack> ss = new ArrayList<>();
         for(int i = 0; i < output().size(); i++) {
             FormsCombinedIngredient ing = output().get(i);
             ss.add(ing.genFluid());
-        }
-        return ss;
-    }
-
-    default List<FluidStack> allOutputFluids()
-    {
-        List<FluidStack> ss = new ArrayList<>();
-        for(int i = 0; i < output().size(); i++) {
-            FormsCombinedIngredient ing = output().get(i);
-            ss.add(ing.symbolFluid());
         }
         return ss;
     }

@@ -4,8 +4,6 @@ import ten3.lib.tile.mac.CmTileMachine;
 
 public class LevelupStream extends UpgradeItem {
 
-    static int cached = 10000;
-
     public LevelupStream() {
         super(0);
     }
@@ -13,10 +11,12 @@ public class LevelupStream extends UpgradeItem {
     @Override
     public boolean effect(CmTileMachine tile)
     {
-        tile.info.maxReceiveEnergy = Integer.MAX_VALUE - cached;
-        tile.info.maxExtractEnergy = Integer.MAX_VALUE - cached;
-        tile.info.maxReceiveItem = Integer.MAX_VALUE - cached;
-        tile.info.maxExtractItem = Integer.MAX_VALUE - cached;
+        tile.info.maxReceiveEnergy = 1000000000;
+        tile.info.maxExtractEnergy = 1000000000;
+        tile.info.maxReceiveItem = 64;
+        tile.info.maxExtractItem = 64;
+        tile.info.maxReceiveFluid = 10000;
+        tile.info.maxExtractFluid = 10000;
         return true;
     }
 }

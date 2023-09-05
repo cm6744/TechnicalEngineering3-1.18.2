@@ -27,47 +27,20 @@ public class Network {
                         (v) -> true,
                         (v) -> true
                 );
-        instance.registerMessage
-                (
-                        id++,
-                        PTSRedStatePack.class,
-                        PTSRedStatePack::writeBuffer,
-                        PTSRedStatePack::new,
-                        PTSRedStatePack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTSCheckPack.class,
-                        PTSCheckPack::writeBuffer,
-                        PTSCheckPack::new,
-                        PTSCheckPack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTCCheckPack.class,
-                        PTCCheckPack::writeBuffer,
-                        PTCCheckPack::new,
-                        PTCCheckPack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTCInfoClientPack.class,
-                        PTCInfoClientPack::writeBuffer,
-                        PTCInfoClientPack::new,
-                        PTCInfoClientPack::run
-                );
-        instance.registerMessage
-                (
-                        id++,
-                        PTSModeTransfPack.class,
-                        PTSModeTransfPack::writeBuffer,
-                        PTSModeTransfPack::new,
-                        PTSModeTransfPack::run
-                );
-
+        instance.registerMessage(id++, PTSRedStatePack.class, PTSRedStatePack::writeBuffer,
+                        PTSRedStatePack::new, PTSRedStatePack::run);
+        instance.registerMessage(id++, PTSCheckPack.class, PTSCheckPack::writeBuffer,
+                        PTSCheckPack::new, PTSCheckPack::run);
+        instance.registerMessage(id++, PTCCheckPack.class, PTCCheckPack::writeBuffer,
+                        PTCCheckPack::new, PTCCheckPack::run);
+        instance.registerMessage(id++, PTCInfoClientPack.class, PTCInfoClientPack::writeBuffer,
+                        PTCInfoClientPack::new, PTCInfoClientPack::run);
+        instance.registerMessage(id++, PTSModeTransfPack.class, PTSModeTransfPack::writeBuffer,
+                        PTSModeTransfPack::new, PTSModeTransfPack::run);
+        instance.registerMessage(id++, PTCInfoChannelPack.class, PTCInfoChannelPack::writeBuffer,
+                                 PTCInfoChannelPack::new, PTCInfoChannelPack::run);
+        instance.registerMessage(id++, PTSChangeModePack.class, PTSChangeModePack::writeBuffer,
+                                 PTSChangeModePack::new, PTSChangeModePack::run);
     }
 
     public static void sendToServer(Object o) {

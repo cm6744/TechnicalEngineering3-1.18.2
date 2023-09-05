@@ -34,6 +34,7 @@ public class CompressorScreen extends CmScreenMachine {
     public void update() {
 
         energy.setPer(pEnergy());
+        energy.setValue(energy(), maxEnergy());
         left.setPer(pEnergy());
         progress.setPer(pProgress());
 

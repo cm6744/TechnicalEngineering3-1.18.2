@@ -1,15 +1,13 @@
 package ten3.core.machine.engine;
 
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ForgeHooks;
-import ten3.util.TagUtil;
+import ten3.util.TagHelper;
 
 public class MatchFuel {
 
@@ -41,10 +39,10 @@ public class MatchFuel {
 
         int time = 0;
 
-        boolean t1 = TagUtil.containsItem(i.getItem(), ItemTags.LEAVES);
-        boolean t2 = TagUtil.containsItem(i.getItem(), ItemTags.LOGS);
-        boolean t3 = TagUtil.containsItem(i.getItem(), ItemTags.FLOWERS);
-        boolean t4 = TagUtil.containsItem(i.getItem(), ItemTags.SAPLINGS);
+        boolean t1 = TagHelper.containsItem(i.getItem(), ItemTags.LEAVES);
+        boolean t2 = TagHelper.containsItem(i.getItem(), ItemTags.LOGS);
+        boolean t3 = TagHelper.containsItem(i.getItem(), ItemTags.FLOWERS);
+        boolean t4 = TagHelper.containsItem(i.getItem(), ItemTags.SAPLINGS);
 
         if(t1) {
             time = 20;
@@ -82,9 +80,9 @@ public class MatchFuel {
         int time = 0;
 
         //ITag<Item> ig = ItemTags.getCollection().getTagByID(new ResourceLocation("forge:ingots"));
-        boolean cn = TagUtil.containsItem(i.getItem(), "ten3:common_ingots");
-        boolean uc = TagUtil.containsItem(i.getItem(), ("ten3:uncommon_ingots"));
-        boolean vc = TagUtil.containsItem(i.getItem(), ("ten3:valuable_ingots"));
+        boolean cn = TagHelper.containsItem(i.getItem(), TagHelper.keyItem("ten3:common_ingots"));
+        boolean uc = TagHelper.containsItem(i.getItem(), TagHelper.keyItem("ten3:uncommon_ingots"));
+        boolean vc = TagHelper.containsItem(i.getItem(), TagHelper.keyItem("ten3:valuable_ingots"));
 
         if(cn) {
             time = 1000;

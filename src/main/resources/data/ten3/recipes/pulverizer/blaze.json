@@ -24,11 +24,6 @@
       "key": "minecraft:blaze_powder",
       "count": 1,
       "chance": 0.2
-    },
-    {
-      "form": "fluid",
-      "key": "minecraft:lava",
-      "count": 50
     }
   ],
   "time": 100

@@ -7,11 +7,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import ten3.lib.tile.option.Type;
+import net.minecraftforge.fluids.FluidStack;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.extension.CmTileMachineRadiused;
-import ten3.lib.wrapper.SlotCustomCm;
-import ten3.util.ExcUtil;
-import ten3.util.ItemUtil;
+import ten3.lib.wrapper.SlotCm;
+import ten3.util.SafeOperationHelper;
+import ten3.util.ItemNBTHelper;
 
 import java.util.List;
 
@@ -25,15 +26,33 @@ public class MobRipTile extends CmTileMachineRadiused {
         setEfficiency(15);
         initialRadius = 8;
 
-        addSlot(new SlotCustomCm(inventory, 0, 79, 31, (e) -> {
-            return e.getItem() instanceof DiggerItem || e.getItem() instanceof SwordItem;
-        }, false, false));
+        addSlot(new SlotCm(this, 0, 79, 31));
 
     }
 
-    @Override
-    public Type typeOf() {
-        return Type.MACHINE_EFFECT;
+    public IngredientType slotType(int slot)
+    {
+        return IngredientType.INPUT;
+    }
+
+    public boolean valid(int slot, ItemStack stack)
+    {
+        return stack.getItem() instanceof DiggerItem || stack.getItem() instanceof SwordItem;
+    }
+
+    public IngredientType tankType(int tank)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, FluidStack stack)
+    {
+        return true;
+    }
+
+    public int inventorySize()
+    {
+        return 1;
     }
 
     public void effect()
@@ -45,7 +64,7 @@ public class MobRipTile extends CmTileMachineRadiused {
 
         if(list.size() == 0) return;
 
-        LivingEntity entity = ExcUtil.randomInCollection(list);
+        LivingEntity entity = SafeOperationHelper.randomInCollection(list);
 
         if(entity instanceof Player && ((Player) entity).isCreative()) return;
 
@@ -60,7 +79,7 @@ public class MobRipTile extends CmTileMachineRadiused {
             }
         }
         entity.hurt(DamageSource.CACTUS, damage);
-        ItemUtil.damage(st1, level, 1);
+        ItemNBTHelper.damage(st1, level, 1);
     }
 
     public double seconds()

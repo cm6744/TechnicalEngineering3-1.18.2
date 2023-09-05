@@ -6,7 +6,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import ten3.core.machine.cable.CableTile;
 import ten3.lib.capability.energy.EnergyTransferor;
 import ten3.lib.capability.energy.BatteryTile;
-import ten3.util.ExcUtil;
+import ten3.util.SafeOperationHelper;
 
 import java.util.*;
 
@@ -50,7 +50,7 @@ public class BatteryWayFinding extends BatteryTile
     public BatteryWayFinding(Direction d, CableTile t) {
 
         super(d, t);
-        object = ExcUtil.randomInCollection(hand());
+        object = SafeOperationHelper.randomInCollection(hand());
 
     }
 
@@ -102,7 +102,7 @@ public class BatteryWayFinding extends BatteryTile
         if(size == 0) return 0;
 
         if(v < size) {
-            return ExcUtil.randomInCollection(es).receiveEnergy(Math.min(cap(), v), s);
+            return SafeOperationHelper.randomInCollection(es).receiveEnergy(Math.min(cap(), v), s);
         }
 
         int total = 0;
@@ -129,7 +129,7 @@ public class BatteryWayFinding extends BatteryTile
         if(size == 0) return 0;
 
         if(v < size) {
-            return ExcUtil.randomInCollection(es).extractEnergy(Math.min(cap(), v), s);
+            return SafeOperationHelper.randomInCollection(es).extractEnergy(Math.min(cap(), v), s);
         }
 
         int total = 0;

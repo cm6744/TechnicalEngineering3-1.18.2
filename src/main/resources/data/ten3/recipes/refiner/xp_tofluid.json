@@ -1,0 +1,22 @@
+{
+  "type": "ten3:refiner",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:experience_bottle"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:glass_bottle"
+    },
+    {
+      "form": "fluid",
+      "key": "ten3:liquid_xp",
+      "amount": 10
+    }
+  ],
+  "time": 50
+}

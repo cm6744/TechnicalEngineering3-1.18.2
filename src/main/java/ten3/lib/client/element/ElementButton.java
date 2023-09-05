@@ -3,8 +3,8 @@ package ten3.lib.client.element;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import ten3.lib.client.RenderHelper;
-import ten3.util.KeyUtil;
+import ten3.util.RenderHelper;
+import ten3.util.ComponentHelper;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ElementButton extends ElementBase {
 
     public void setTxt(String... key) {
 
-        text = KeyUtil.translated(KeyUtil.GOLD, key);
+        text = ComponentHelper.translated(ComponentHelper.GOLD, key);
 
     }
 

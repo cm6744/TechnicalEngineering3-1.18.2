@@ -1,62 +1,68 @@
 package ten3.core.machine.useenergy.indfur;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.FluidStack;
+import ten3.lib.recipe.FormsCombinedRecipe;
 import ten3.lib.recipe.IBaseRecipeCm;
 import ten3.lib.tile.extension.CmTileMachineRecipe;
+import ten3.util.RecipeHelper;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.extension.SlotInfo;
 import ten3.lib.wrapper.SlotCm;
-import ten3.lib.wrapper.SlotCustomCm;
-import ten3.util.ExcUtil;
 
-import java.util.Collection;
-import java.util.List;
-
-import static ten3.util.ExcUtil.hasRcpUseThisItem;
-
-public class IndfurTile extends CmTileMachineRecipe
+public class IndfurTile extends CmTileMachineRecipe<FormsCombinedRecipe>
 {
 
     public IndfurTile(BlockPos pos, BlockState state) {
 
-        super(pos, state, new SlotInfo(0, 2, 3, 3));
+        super(pos, state, new SlotInfo(0, 2, 3, 3, 0, 0, 0, 0));
 
         info.setCap(kFE(20));
         setEfficiency(35);
 
-        addSlot(new SlotCustomCm(inventory, 0, 33, 20, (s) -> true, false, true));
-        addSlot(new SlotCustomCm(inventory, 1, 51, 20, (s) -> true, false, true));
-        addSlot(new SlotCustomCm(inventory, 2, 69, 20, (s) -> true, false, true));
-        addSlot(new SlotCm(inventory, 3, 127, 34, SlotCm.RECEIVE_ALL_INPUT, true, false).withIsResultSlot());
+        addSlot(new SlotCm(this, 0, 33, 20));
+        addSlot(new SlotCm(this, 1, 51, 20));
+        addSlot(new SlotCm(this, 2, 69, 20));
+        addSlot(new SlotCm(this, 3, 127, 34).withIsResultSlot());
+    }
+
+    public int inventorySize()
+    {
+        return 4;
     }
 
     @Override
     public boolean customFitStackIn(ItemStack s, int slot)
     {
-        List<ItemStack> lst = inventory.getStackInRange(0, 2);
-        for(ItemStack s2 : lst) {
-            if(s2.getItem() == s.getItem()) return false;
-        }
-        if(lst.size() == 0) {
-            return ExcUtil.hasRcpUseThisItem(level, recipeType, s);
-        }
-        Collection<Recipe<Container>> recs = ExcUtil.getRcpUseThisItem(level, recipeType, lst.get(0));
-        return ExcUtil.hasRcpUseThisItem(level, recipeType, recs, s);
+        var o1 = RecipeHelper.getRecipeUsing(level, recipeType, inventory.getItem(0));
+        var o2 = RecipeHelper.getRecipeUsing(o1, inventory.getItem(1));
+        var o3 = RecipeHelper.getRecipeUsing(o2, inventory.getItem(2));
+        return !RecipeHelper.getRecipeUsing(o3, s).isEmpty()
+                && RecipeHelper.checkItemNotExistInTile(this, s);
     }
 
-    public RecipeCheckType slotType(int slot)
+    public IngredientType slotType(int slot)
     {
-        if(slot == 0 || slot == 1 || slot == 2) return RecipeCheckType.INPUT;
-        if(slot == 3) return RecipeCheckType.OUTPUT;
-        return RecipeCheckType.IGNORE;
+        if(slot == 0 || slot == 1 || slot == 2) return IngredientType.INPUT;
+        if(slot == 3) return IngredientType.OUTPUT;
+        return IngredientType.IGNORE;
     }
 
-    public RecipeCheckType tankType(int tank)
+    public boolean valid(int slot, ItemStack stack)
     {
-        return RecipeCheckType.IGNORE;
+        return true;
+    }
+
+    public IngredientType tankType(int tank)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, FluidStack stack)
+    {
+        return true;
     }
 
     @Override

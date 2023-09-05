@@ -12,8 +12,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
-import ten3.lib.tile.extension.CmTileMachineRecipe;
-import ten3.util.TagUtil;
+import ten3.lib.capability.fluid.Tank;
+import ten3.lib.capability.item.AdvancedInventory;
+import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.mac.IngredientType;
+import ten3.util.TagHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +25,8 @@ import java.util.Optional;
 
 public class FormsCombinedIngredient
 {
+
+    boolean ALLOW_ALL;
 
     String type;//inputUsed
     String form;
@@ -37,8 +42,16 @@ public class FormsCombinedIngredient
     int amountOrCount;
     double chance;//outputUsed
 
+    public int amountOrCount()
+    {
+        return amountOrCount;
+    }
+
     public List<ItemStack> itemStacks()
     {
+        if(ALLOW_ALL) {
+            return List.of(ItemStack.EMPTY);
+        }
         List<ItemStack> lst = new ArrayList<>();
         for(Item i : matchItems) {
             lst.add(new ItemStack(i, amountOrCount));
@@ -48,6 +61,9 @@ public class FormsCombinedIngredient
 
     public List<FluidStack> fluidStacks()
     {
+        if(ALLOW_ALL) {
+            return List.of(FluidStack.EMPTY);
+        }
         List<FluidStack> lst = new ArrayList<>();
         for(Fluid i : matchFluids) {
             lst.add(new FluidStack(i, amountOrCount));
@@ -55,52 +71,72 @@ public class FormsCombinedIngredient
         return lst;
     }
 
-    public boolean check(CmTileMachineRecipe tile)
+    public boolean contains(Item i)
     {
+        //if(ALLOW_ALL) return true;
+        switch(type) {
+            case "tag":
+                if(TagHelper.containsItem(i, ifTagItem)) {
+                    return true;
+                }
+                break;
+            case "static":
+                if(matchItems.contains(i)) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    public boolean contains(Fluid f)
+    {
+        //if(ALLOW_ALL) return true;
+        switch(type) {
+            case "tag":
+                if(TagHelper.containsFluid(f, ifTagFluid)) {
+                    return true;
+                }
+                break;
+            case "static":
+                if(matchFluids.contains(f)) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+    public boolean check(CmTileMachine tile, AdvancedInventory inventory, List<Tank> tanks)
+    {
+        if(ALLOW_ALL) {
+            return true;
+        }
         boolean ret = false;
         switch(form) {
             case "item":
                 ItemStack k;
-                for(int i = 0; i < tile.inventory.getContainerSize(); i++) {
-                    if(!tile.inventory.isUsed(i)
-                    || tile.slotType(i) != CmTileMachineRecipe.RecipeCheckType.INPUT) continue;
-                    k = tile.inventory.getItem(i);
+                for(int i = 0; i < inventory.getContainerSize(); i++) {
+                    if(!tile.slotType(i).canIn()) continue;
+                    k = inventory.getItem(i);
                     if(k.getCount() < amountOrCount) {
                         continue;
                     }
-                    switch(type) {
-                        case "tag":
-                            if(TagUtil.containsItem(k.getItem(), ifTagItem)) {
-                                ret = true;
-                            }
-                            break;
-                        case "static":
-                            if(matchItems.contains(k.getItem())) {
-                                ret = true;
-                            }
-                            break;
+                    if(contains(k.getItem())) {
+                        ret = true;
                     }
                 }
                 break;
             case "fluid":
                 FluidStack f;
-                for(int i = 0; i < tile.tanks.size(); i++) {
-                    f = tile.tanks.get(i).getFluid();
-                    if(tile.tankType(i) != CmTileMachineRecipe.RecipeCheckType.INPUT) continue;
+                for(int i = 0; i < tanks.size(); i++) {
+                    f = tanks.get(i).getFluid();
+                    if(!tile.tankType(i).canIn()) continue;
                     if(f.getAmount() < amountOrCount) {
                         continue;
                     }
-                    switch(type) {
-                        case "tag":
-                            if(TagUtil.containsFluid(f.getFluid(), ifTagFluid)) {
-                                ret = true;
-                            }
-                            break;
-                        case "static":
-                            if(matchFluids.contains(f.getFluid())) {
-                                ret = true;
-                            }
-                            break;
+                    if(contains(f.getFluid())) {
+                        ret = true;
                     }
                 }
         }
@@ -144,13 +180,13 @@ public class FormsCombinedIngredient
     private static TagKey<Item> parseItemTag(String i)
     {
         ResourceLocation rl = new ResourceLocation(i);
-        return TagUtil.keyItem(rl.toString());
+        return TagHelper.keyItem(rl.toString());
     }
 
     private static TagKey<Fluid> parseFluidTag(String i)
     {
         ResourceLocation rl = new ResourceLocation(i);
-        return TagUtil.keyFluid(rl.toString());
+        return TagHelper.keyFluid(rl.toString());
     }
 
     public static FormsCombinedIngredient parseFrom(JsonObject json) {
@@ -158,7 +194,15 @@ public class FormsCombinedIngredient
         String form = JsonParser.getString(json, "form");
         String type = JsonParser.getString(json, "type");
         String key = JsonParser.getString(json, "key");
-        int lm = JsonParser.getIntOr(json, "count", 1);
+        int lm = 0;
+        switch(form) {
+            case "fluid":
+                lm = JsonParser.getIntOr(json, "amount", 0);
+                break;
+            case "item":
+                lm = JsonParser.getIntOr(json, "count", 1);
+                break;
+        }
         double chance = JsonParser.getFloatOr(json, "chance", 1);
 
         return create(lm, form, type, key, chance);
@@ -189,7 +233,7 @@ public class FormsCombinedIngredient
                 switch(type) {
                     case "tag" -> {
                         ingredient.ifTagItem = parseItemTag(key);
-                        ingredient.matchItems = TagUtil.getItemsTag(key);
+                        ingredient.matchItems = TagHelper.getItems(ingredient.ifTagItem);
                     }
                     case "static" -> ingredient.matchItems = List.of(parseItem(key));
                 }
@@ -198,7 +242,7 @@ public class FormsCombinedIngredient
                 switch(type) {
                     case "tag" -> {
                         ingredient.ifTagFluid = parseFluidTag(key);
-                        ingredient.matchFluids = TagUtil.getFluidsTag(key);
+                        ingredient.matchFluids = TagHelper.getFluids(ingredient.ifTagFluid);
                     }
                     case "static" -> ingredient.matchFluids = List.of(parseFluid(key));
                 }

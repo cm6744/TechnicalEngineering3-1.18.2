@@ -16,10 +16,10 @@
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "tag": "forge:gears/copper"
+      "item": "ten3:redstone_ai"
     },
     "D": {
-      "item": "ten3:redstone_converter"
+      "tag": "forge:gears/copper"
     }
   },
   "result": {

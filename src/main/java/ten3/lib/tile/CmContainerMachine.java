@@ -7,10 +7,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import ten3.core.item.upgrades.UpgradeItem;
 import ten3.init.ContInit;
 import ten3.lib.tile.mac.CmTileEntity;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.wrapper.IntArrayCm;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CmContainerMachine extends AbstractContainerMenu
 {
@@ -23,14 +27,16 @@ public class CmContainerMachine extends AbstractContainerMenu
     public BlockPos pos;
     public CmTileMachine tile;
 
-    public CmContainerMachine(int cid, String id, CmTileMachine ti, Inventory pi, BlockPos pos, IntArrayCm data, IntArrayCm f1, IntArrayCm f2) {
+    public List<Slot> slotUpg = new ArrayList<>();
+
+    public CmContainerMachine(int cid, String id, CmTileMachine ti, Inventory pi, BlockPos pos) {
 
         super(ContInit.getType(id), cid);
 
-        this.data = data;
+        this.data = ti.data;
         this.pos = pos;
-        fluidData = f1;
-        fluidAmount = f2;
+        fluidData = ti.fluidData;
+        fluidAmount = ti.fluidAmount;
 
         layoutInventorySlots(pi, 141, 0);
         layoutInventorySlots(pi, 83, 9);
@@ -41,6 +47,12 @@ public class CmContainerMachine extends AbstractContainerMenu
         this.tile = ti;
         for(Slot slot : tile.slots) {
             addSlot(slot);
+        }
+        if(tile.hasUpgrade()) {
+            for(Slot slot : tile.upgradeSlots.slots) {
+                addSlot(slot);
+            }
+            slotUpg.addAll(tile.upgradeSlots.slots);
         }
 
         if(data != null) {
@@ -56,9 +68,11 @@ public class CmContainerMachine extends AbstractContainerMenu
         this.name = id;
     }
 
-    public void layoutInventorySlots(Container ct, int y, int from) {
+    public void layoutInventorySlots(Container ct, int y, int from)
+    {
         for(int k = 0; k < 9; ++k) {
-            this.addSlot(new Slot(ct, k + from, 7 + 1 + k * 18, y + 1));
+            this.addSlot(new Slot(ct, k + from, 7 + 1 + k * 18
+                    + ContInit.containerInvOffset.get(name), y + 1));
         }
     }
 
@@ -84,21 +98,43 @@ public class CmContainerMachine extends AbstractContainerMenu
                 ItemStack itemstack1 = slot.getItem();
                 itemstack = itemstack1.copy();
                 //from: crafting table menu
-                if (isInBackpack(index)) {
-                    if(!this.moveItemStackTo(itemstack1, playerMax, slots.size(), false)) {
-                        if(!isInFastBar(index)) {
-                            if(!this.moveItemStackTo(itemstack1, fastMin, fastMax, false)) {
-                                //to fast bar
-                                return ItemStack.EMPTY;
+                //if is upg, move to upg bar
+                if(itemstack.getItem() instanceof UpgradeItem && tile.hasUpgrade()) {
+                    if(isInBackpack(index)) {
+                        for(Slot s2 : slotUpg) {
+                            if(!s2.hasItem()) {
+                                s2.set(itemstack1);
+                                s2.setChanged();
+                                slot.set(ItemStack.EMPTY);
+                                break;
                             }
-                        } else if(!this.moveItemStackTo(itemstack1, fastMax, playerMax, false)) {
-                            //to other backpack slots
+                        }
+                    }
+                    else {
+                        if(!moveItemStackTo(itemstack1, playerMin, playerMax, false)) {
                             return ItemStack.EMPTY;
                         }
                     }
                 }
-                else if (!this.moveItemStackTo(itemstack1, playerMin, playerMax, false)) {
-                    return ItemStack.EMPTY;
+                //else default mc transfer impl
+                else {
+                    if(isInBackpack(index)) {
+                        if(!this.moveItemStackTo(itemstack1, playerMax, slots.size(), false)) {
+                            if(!isInFastBar(index)) {
+                                if(!this.moveItemStackTo(itemstack1, fastMin, fastMax, false)) {
+                                    //to fast bar
+                                    return ItemStack.EMPTY;
+                                }
+                            }
+                            else if(!this.moveItemStackTo(itemstack1, fastMax, playerMax, false)) {
+                                //to other backpack slots
+                                return ItemStack.EMPTY;
+                            }
+                        }
+                    }
+                    else if(!this.moveItemStackTo(itemstack1, playerMin, playerMax, false)) {
+                        return ItemStack.EMPTY;
+                    }
                 }
                 if(itemstack1.getCount() == 0) {
                     slot.set(ItemStack.EMPTY);

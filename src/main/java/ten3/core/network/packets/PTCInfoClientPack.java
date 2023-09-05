@@ -8,9 +8,9 @@ import ten3.core.client.ClientHolder;
 import ten3.core.network.Network;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.extension.CmTileMachineRadiused;
-import ten3.util.DireUtil;
+import ten3.util.DirectionHelper;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class PTCInfoClientPack {
@@ -76,37 +76,15 @@ public class PTCInfoClientPack {
 
     public void handler() {
 
-        ArrayList<Integer> energy = ClientHolder.energy.get(pos);
-        ArrayList<Integer> item = ClientHolder.item.get(pos);
-        ArrayList<Integer> fluid = ClientHolder.fluid.get(pos);
+        List<Integer> energy = ClientHolder.energy.getOrFill(pos, 6);
+        List<Integer> item = ClientHolder.item.getOrFill(pos, 6);
+        List<Integer> fluid = ClientHolder.fluid.getOrFill(pos, 6);
 
-        if(energy == null) {
-            energy = new ArrayList<>(6);
-            for(Direction ignore : Direction.values()) {
-                energy.add(0);
-            }
-        }
-        if(item == null) {
-            item = new ArrayList<>(6);
-            for(Direction ignore : Direction.values()) {
-                item.add(0);
-            }
-        }
-        if(fluid == null) {
-            fluid = new ArrayList<>(6);
-            for(Direction ignore : Direction.values()) {
-                fluid.add(0);
-            }
-        }
-
-        int i = DireUtil.direToInt(d);
+        int i = DirectionHelper.direToInt(d);
         energy.set(i, ene);
         item.set(i, itm);
         fluid.set(i, fld);
 
-        ClientHolder.energy.put(pos, energy);
-        ClientHolder.item.put(pos, item);
-        ClientHolder.fluid.put(pos, fluid);
         ClientHolder.redstone.put(pos, res);
         ClientHolder.radius.put(pos, rd);
     }

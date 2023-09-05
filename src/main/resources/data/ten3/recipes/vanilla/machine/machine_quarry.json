@@ -16,10 +16,10 @@
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "item": "minecraft:lapis_lazuli"
+      "item": "ten3:redstone_ai"
     },
     "D": {
-      "item": "ten3:redstone_converter"
+      "item": "ten3:hydraulic_widget"
     }
   },
   "result": {

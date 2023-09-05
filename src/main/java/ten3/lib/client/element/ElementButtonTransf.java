@@ -3,9 +3,9 @@ package ten3.lib.client.element;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import ten3.lib.client.RenderHelper;
+import ten3.util.RenderHelper;
 import ten3.lib.tile.option.FaceOption;
-import ten3.util.KeyUtil;
+import ten3.util.ComponentHelper;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class ElementButtonTransf extends ElementButton {
 
     public void setTxt(String... key) {
 
-        text = KeyUtil.translated(KeyUtil.GOLD, key);
+        text = ComponentHelper.translated(ComponentHelper.GOLD, key);
 
     }
 
@@ -31,7 +31,7 @@ public class ElementButtonTransf extends ElementButton {
     public void addToolTip(List<Component> tooltips) {
         if(text != null) {
             tooltips.add(text);
-            tooltips.add(KeyUtil.translated("ten3.info." + FaceOption.toStr(mode)));
+            tooltips.add(ComponentHelper.translated("ten3.info." + FaceOption.toStr(mode)));
         }
     }
 

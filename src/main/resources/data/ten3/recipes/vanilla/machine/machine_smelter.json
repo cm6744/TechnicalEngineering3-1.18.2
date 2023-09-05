@@ -16,7 +16,7 @@
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "item": "minecraft:redstone_block"
+      "item": "ten3:redstone_ai"
     },
     "D": {
       "item": "ten3:redstone_converter"

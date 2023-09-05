@@ -8,11 +8,13 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fluids.FluidStack;
 import ten3.init.RecipeInit;
 import ten3.lib.capability.item.AdvancedInventory;
 import ten3.lib.tile.extension.CmTileMachineRecipe;
-import ten3.util.TagUtil;
+import ten3.util.TagHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FormsCombinedRecipe implements RandRecipe<Container>
@@ -35,6 +37,46 @@ public class FormsCombinedRecipe implements RandRecipe<Container>
         output = op;
     }
 
+    public List<FormsCombinedIngredient> allOutputFluids()
+    {
+        List<FormsCombinedIngredient> ss = new ArrayList<>();
+        for(FormsCombinedIngredient ing : output) {
+            if(ing.form.equals("fluid"))
+                ss.add(ing);
+        }
+        return ss;
+    }
+
+    public List<FormsCombinedIngredient> allInputFluids()
+    {
+        List<FormsCombinedIngredient> ss = new ArrayList<>();
+        for(FormsCombinedIngredient ing : input) {
+            if(ing.form.equals("fluid"))
+                ss.add(ing);
+        }
+        return ss;
+    }
+
+    public List<FormsCombinedIngredient> allOutputItems()
+    {
+        List<FormsCombinedIngredient> ss = new ArrayList<>();
+        for(FormsCombinedIngredient ing : output) {
+            if(ing.form.equals("item"))
+                ss.add(ing);
+        }
+        return ss;
+    }
+
+    public List<FormsCombinedIngredient> allInputItems()
+    {
+        List<FormsCombinedIngredient> ss = new ArrayList<>();
+        for(FormsCombinedIngredient ing : input) {
+            if(ing.form.equals("item"))
+                ss.add(ing);
+        }
+        return ss;
+    }
+
     @Override
     public boolean matches(Container inv, Level worldIn)
     {
@@ -42,7 +84,7 @@ public class FormsCombinedRecipe implements RandRecipe<Container>
         CmTileMachineRecipe mac = (CmTileMachineRecipe) ((AdvancedInventory) inv).tile;
 
         for(FormsCombinedIngredient i : input) {
-            if(!i.check(mac)) return false;
+            if(!i.check(mac, mac.inventory, mac.tanks)) return false;
         }
         return true;
     }
@@ -52,7 +94,7 @@ public class FormsCombinedRecipe implements RandRecipe<Container>
     {
         NonNullList<Ingredient> nonNullList = NonNullList.create();
         for(FormsCombinedIngredient i : input) {
-            if(i != null) {
+            if(i != null && i.form.equals("item")) {
                 nonNullList.add(i.toOriginStackIngredients());
             }
         }
@@ -67,7 +109,22 @@ public class FormsCombinedRecipe implements RandRecipe<Container>
                 return lst.amountOrCount;
             }
             else if(lst.ifTagItem != null
-            && TagUtil.containsItem(stack.getItem(), lst.ifTagItem)) {
+            && TagHelper.containsItem(stack.getItem(), lst.ifTagItem)) {
+                return lst.amountOrCount;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    public int inputLimit(FluidStack stack)
+    {
+        for(FormsCombinedIngredient lst : input) {
+            if(lst.matchFluids.contains(stack.getFluid())) {
+                return lst.amountOrCount;
+            }
+            else if(lst.ifTagFluid != null
+                    && TagHelper.containsFluid(stack.getFluid(), lst.ifTagFluid)) {
                 return lst.amountOrCount;
             }
         }
@@ -107,6 +164,11 @@ public class FormsCombinedRecipe implements RandRecipe<Container>
     public RecipeSerializer<?> getSerializer()
     {
         return RecipeInit.getRcp(getId().getPath());
+    }
+
+    public List<FormsCombinedIngredient> input()
+    {
+        return input;
     }
 
 }

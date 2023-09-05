@@ -86,7 +86,9 @@ public class FormsCombinedRecipeSerializer
 
     private static FormsCombinedIngredient EMPTY()
     {
-        return FormsCombinedIngredient.create(0, "item", "static", "air", 1);
+        FormsCombinedIngredient ig = FormsCombinedIngredient.create(0, "item", "static", "air", 1);
+        ig.ALLOW_ALL = true;
+        return ig;
     }
 
     public List<FormsCombinedIngredient> getOutputs(JsonObject json)
@@ -97,7 +99,15 @@ public class FormsCombinedRecipeSerializer
             JsonObject o = e.getAsJsonObject();
             String form = JsonParser.getString(o, "form");
             String key = JsonParser.getString(o, "key");
-            int count = JsonParser.getIntOr(o, "count", 1);
+            int count = 0;
+            switch(form) {
+                case "fluid":
+                    count = JsonParser.getIntOr(o, "amount", 0);
+                    break;
+                case "item":
+                    count = JsonParser.getIntOr(o, "count", 1);
+                    break;
+            }
             double chance = JsonParser.getFloatOr(o, "chance", 1);
             lst.add(FormsCombinedIngredient.create(count, form, "static", key, chance));
         }

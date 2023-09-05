@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
 import ten3.lib.tile.option.Type;
@@ -62,7 +63,11 @@ public abstract class CmTileEngine extends CmTileMachine {
     }
 
     @Override
-    protected boolean hasFaceCapability(Capability<?> cap, Direction d) {
+    protected boolean hasFaceCapability(Capability<?> cap, Direction d)
+    {
+        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return false;
+        }
         if(cap == CapabilityEnergy.ENERGY) {
             return d == null || d == Direction.UP;
         }

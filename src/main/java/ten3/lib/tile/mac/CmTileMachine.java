@@ -6,24 +6,23 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.Container;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidActionResult;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import ten3.TConst;
-import ten3.core.network.packets.PTCInfoClientPack;
 import ten3.init.ContInit;
 import ten3.lib.capability.energy.BatteryTile;
 import ten3.lib.capability.fluid.FluidTransferor;
@@ -41,10 +40,9 @@ import ten3.lib.tile.option.Type;
 import ten3.lib.wrapper.*;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.*;
 
-public abstract class CmTileMachine extends CmTileEntity
+public abstract class CmTileMachine extends CmTileEntity implements ISlotAcceptor
 {
 
     public EnergyTransferor etr;
@@ -52,10 +50,12 @@ public abstract class CmTileMachine extends CmTileEntity
     public FluidTransferor ftr;
 
     public List<SlotCm> slots = new ArrayList<>();
-    public AdvancedInventory inventory = new AdvancedInventory(64, slots, this);
+    public AdvancedInventory inventory = new AdvancedInventory(inventorySize(), slots, this);
     public List<Tank> tanks = new ArrayList<>();
     public IntArrayCm fluidData = ContInit.createDefaultIntArr();
     public IntArrayCm fluidAmount = ContInit.createDefaultIntArr();
+
+    public abstract int inventorySize();
 
     public static int kFE(double k)
     {
@@ -75,11 +75,13 @@ public abstract class CmTileMachine extends CmTileEntity
     public static final int E_EXT = 7;
     public static final int I_REC = 8;
     public static final int I_EXT = 9;
+    public static final int F_REC = 10;
+    public static final int F_EXT = 11;
 
-    public static final int RED_MODE = 10;
-    public static final int FACE = 11;
-    public static final int EFF_AUC = 12;
-    public static final int EFF = 13;
+    public static final int RED_MODE = 12;
+    public static final int FACE = 13;
+    public static final int EFF_AUC = 14;
+    public static final int EFF = 15;
     public static final int UPGSIZE = 16;
     //public static int tranMode = 11;
 
@@ -95,7 +97,7 @@ public abstract class CmTileMachine extends CmTileEntity
 
     public CmTileMachine(BlockPos pos, BlockState state)
     {
-        super(state.getBlock().getRegistryName().getPath(), pos, state);
+        super(SafeOperationHelper.regNameOf(state.getBlock()), pos, state);
 
         initHandlers();
         info = new TransferManager(this);
@@ -105,15 +107,16 @@ public abstract class CmTileMachine extends CmTileEntity
         ftr = new FluidTransferor(this);
         nbtManager = new MacNBTManager(this);
         reflection = new MachineReflection(this);
+    }
 
-        if(typeOf() != Type.CABLE) {
-            addSlot(new SlotUpgCm(inventory, 34, 32, -28));
-            addSlot(new SlotUpgCm(inventory, 35, 51, -28));
-            addSlot(new SlotUpgCm(inventory, 36, 70, -28));
-            addSlot(new SlotUpgCm(inventory, 37, 89, -28));
-            addSlot(new SlotUpgCm(inventory, 38, 108, -28));
-            addSlot(new SlotUpgCm(inventory, 39, 127, -28));
-        }
+    public boolean hasUpgrade()
+    {
+        return true;
+    }
+
+    public boolean hasSideBar()
+    {
+        return true;
     }
 
     public List<ItemStack> drops()
@@ -121,7 +124,6 @@ public abstract class CmTileMachine extends CmTileEntity
         List<ItemStack> stacks = new ArrayList<>();
 
         for(int i = 0; i < inventory.getContainerSize(); i++) {
-            if(!canDrop(inventory.getItem(i), i)) continue;
             stacks.add(inventory.getItem(i));
         }
 
@@ -138,16 +140,12 @@ public abstract class CmTileMachine extends CmTileEntity
         tanks.add(s);
     }
 
-    @Nullable
-    public <T extends Recipe<Container>> T getRecipe(RecipeType<T> type, ItemStack... stacks)
+    public List<Tank> copyTank()
     {
-        return ExcUtil.safeGetRecipe(level, type, new SimpleContainer(stacks)).orElse(null);
-    }
-
-    @Nullable
-    public <T extends Recipe<Container>> T getRecipe(RecipeType<T> type, SimpleContainer simpleContainer)
-    {
-        return ExcUtil.safeGetRecipe(level, type, simpleContainer).orElse(null);
+        List<Tank> lst = new ArrayList<>();
+        for(Tank t : tanks)
+            lst.add(t.copy());
+        return lst;
     }
 
     public void setEfficiency(int eff)
@@ -160,7 +158,25 @@ public abstract class CmTileMachine extends CmTileEntity
         return true;
     }
 
+    public boolean customFitStackIn(FluidStack s, int tank)
+    {
+        return true;
+    }
+
     public abstract Type typeOf();
+
+    public abstract IngredientType slotType(int slot);
+
+    public abstract boolean valid(int slot, ItemStack stack);
+
+    public abstract IngredientType tankType(int tank);
+
+    public abstract boolean valid(int slot, FluidStack stack);
+
+    public Container getInv()
+    {
+        return inventory;
+    }
 
     public int initialFaceMode(Capability<?> cap)
     {
@@ -176,18 +192,18 @@ public abstract class CmTileMachine extends CmTileEntity
             info.setOpenFluid(d, initialFaceMode(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY));
         }
 
-        initialFacing = DireUtil.direToInt(reflection.direction());
+        initialFacing = DirectionHelper.direToInt(reflection.direction());
     }
 
-    public void rdt(CompoundTag nbt)
+    public void readTileData(CompoundTag nbt)
     {
-        super.rdt(nbt);
+        super.readTileData(nbt);
         nbtManager.rdt(nbt);
     }
 
-    public void wdt(CompoundTag nbt)
+    public void writeTileData(CompoundTag nbt)
     {
-        super.wdt(nbt);
+        super.writeTileData(nbt);
         nbtManager.wdt(nbt);
     }
 
@@ -195,14 +211,8 @@ public abstract class CmTileMachine extends CmTileEntity
 
     public MutableComponent getDisplayWith()
     {
-        return KeyUtil.translated(TConst.modid + "." + id);
+        return ComponentHelper.translated(TConst.modid + "." + id);
         //TConst.modid + ".level." + levelIn);
-    }
-
-    protected boolean canDrop(ItemStack stack, int slot)
-    {
-        //do not drop upgrades
-        return !upgradeSlots.isUpgradeSlot(slot);
     }
 
     public void resetAll()
@@ -228,10 +238,12 @@ public abstract class CmTileMachine extends CmTileEntity
         data.set(EFF, efficientIn);
         data.set(I_REC, info.maxReceiveItem);
         data.set(I_EXT, info.maxExtractItem);
+        data.set(F_REC, info.maxReceiveFluid);
+        data.set(F_EXT, info.maxExtractFluid);
         data.set(UPGSIZE, upgradeSlots.upgSize);
 
         data.set(FACE, initialFacing);
-        reflection.setFace(DireUtil.intToDire(initialFacing));
+        reflection.setFace(DirectionHelper.intToDire(initialFacing));
 
         if(getTileAliveTime() % 20 == 0) {
             int i = 0;
@@ -267,10 +279,28 @@ public abstract class CmTileMachine extends CmTileEntity
             itr.transferItem();
             ftr.transferFluid();
         }
+    }
 
-        if(getTileAliveTime() % 200 == 0) {
-            PTCInfoClientPack.send(this);//10s send a pack
+    public FluidActionResult handleFluidClick(ItemStack bucket, Player player)
+    {
+        int f = -1;
+        FluidActionResult f1 = FluidActionResult.FAILURE, f2 = FluidActionResult.FAILURE;
+        for(Tank tank : tanks) {
+            f++;
+            if(tankType(f).canIn()) {
+                f1 = FluidUtil.tryEmptyContainer(bucket, tank, tank.getCapacity(), player, true);
+            }
+            if(tankType(f).canOut()) {
+                f2 = FluidUtil.tryFillContainer(bucket, tank, tank.getCapacity(), player, true);
+            }
+            if(f1.isSuccess()) {
+                return f1;
+            }
+            if(f2.isSuccess()) {
+                return f2;
+            }
         }
+        return FluidActionResult.FAILURE;
     }
 
     @Override
@@ -319,7 +349,7 @@ public abstract class CmTileMachine extends CmTileEntity
     @Override
     public AbstractContainerMenu createMenu(int cid, Inventory pi, Player p_createMenu_3_)
     {
-        return new CmContainerMachine(cid, id, this, pi, worldPosition, data, fluidData, fluidAmount);
+        return new CmContainerMachine(cid, id, this, pi, worldPosition);
     }
 
     /*caps*/
@@ -361,6 +391,9 @@ public abstract class CmTileMachine extends CmTileEntity
 
     protected boolean hasFaceCapability(Capability<?> cap, Direction d)
     {
+        if(cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+            return tanks.size() > 0;
+        }
         return true;
     }
 

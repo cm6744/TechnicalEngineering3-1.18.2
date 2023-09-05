@@ -7,6 +7,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import ten3.lib.capability.UtilCap;
 import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.mac.IngredientType;
 
 import javax.annotation.Nonnull;
 
@@ -28,7 +29,8 @@ public class InvHandler extends InvWrapper {
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
 
         if(UtilCap.canInITM(di, tile)) {
-            if(tile.inventory.isIn(slot) && tile.inventory.isUsed(slot) && isItemValid(slot, stack)) {
+            if(tile.slotType(slot).canIn()
+                    && isItemValid(slot, stack)) {
                 return insertWithCap(tile.info.maxReceiveItem, stack, slot, simulate);
             }
         }
@@ -56,23 +58,22 @@ public class InvHandler extends InvWrapper {
     }
 
     //still check item valid(in super)
-    public ItemStack forceInsert(int slot, @Nonnull ItemStack stack, boolean simulate) {
-        if(tile.inventory.isUsed(slot)) {
-            return super.insertItem(slot, stack, simulate);
-        }
-        return stack;
+    public ItemStack forceInsert(int slot, @Nonnull ItemStack stack, boolean simulate)
+    {
+        return super.insertItem(slot, stack, simulate);
     }
 
-    public ItemStack forceExtract(int slot, int value, boolean simulate) {
-        if(tile.inventory.isUsed(slot)) {
-            return super.extractItem(slot, value, simulate);
-        }
-        return ItemStack.EMPTY;
+    public ItemStack forceExtract(int slot, int value, boolean simulate)
+    {
+        return super.extractItem(slot, value, simulate);
     }
 
     @Override
-    public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-        return getInv().canPlaceItem(slot, stack) && tile.customFitStackIn(stack, slot);
+    public boolean isItemValid(int slot, @Nonnull ItemStack stack)
+    {
+        boolean a = getInv().canPlaceItem(slot, stack);
+        boolean b = tile.customFitStackIn(stack, slot);
+        return a && b;
     }
 
     @Nonnull
@@ -82,7 +83,7 @@ public class InvHandler extends InvWrapper {
         amount = Math.min(tile.info.maxExtractItem, amount);
 
         if(UtilCap.canOutITM(di, tile)) {
-            if(tile.inventory.isExt(slot) && tile.inventory.isUsed(slot)) {//!!!!
+            if(tile.slotType(slot).canOut()) {//!!!!
                 return super.extractItem(slot, amount, simulate);
             }
         }

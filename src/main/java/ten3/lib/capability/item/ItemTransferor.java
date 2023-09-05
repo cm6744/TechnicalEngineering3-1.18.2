@@ -8,7 +8,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import ten3.lib.tile.mac.CmTileMachine;
 import ten3.lib.tile.option.FaceOption;
-import ten3.util.DireUtil;
+import ten3.util.DirectionHelper;
 
 import java.util.List;
 import java.util.Queue;
@@ -22,7 +22,7 @@ public class ItemTransferor {
         this.t = t;
     }
 
-    public final Queue<Direction> itemQR = DireUtil.newQueueOffer();
+    public final Queue<Direction> itemQR = DirectionHelper.newQueueOffer();
 
     public void transferItem() {
         //if(getTileAliveTime() % 10 == 0) {
@@ -55,14 +55,16 @@ public class ItemTransferor {
 
     public void transferTo(BlockPos p, Direction d) {
 
-        if(FaceOption.isPassive(t.info.direCheckItem(d))) return;
-        if(!FaceOption.isOut(t.info.direCheckItem(d))) return;
+        if(d != null) {
+            if(FaceOption.isPassive(t.info.direCheckItem(d))) return;
+            if(!FaceOption.isOut(t.info.direCheckItem(d))) return;
+        }
 
         BlockEntity tile = checkTile(p);
         if(tile != null) {
             IItemHandler src = handlerOf(t, d);
             if(src == null) return;
-            IItemHandler dest = handlerOf(tile, DireUtil.safeOps(d));
+            IItemHandler dest = handlerOf(tile, DirectionHelper.safeOps(d));
             if(dest == null) return;
 
             srcToDest(src, dest, false);
@@ -72,12 +74,14 @@ public class ItemTransferor {
 
     public void transferFrom(BlockPos p, Direction d) {
 
-        if(FaceOption.isPassive(t.info.direCheckItem(d))) return;
-        if(!FaceOption.isIn(t.info.direCheckItem(d))) return;
+        if(d != null) {
+            if(FaceOption.isPassive(t.info.direCheckItem(d))) return;
+            if(!FaceOption.isIn(t.info.direCheckItem(d))) return;
+        }
 
         BlockEntity tile = checkTile(p);
         if(tile != null) {
-            IItemHandler src = handlerOf(tile, DireUtil.safeOps(d));
+            IItemHandler src = handlerOf(tile, DirectionHelper.safeOps(d));
             if(src == null) return;
             IItemHandler dest = handlerOf(t, d);
             if(dest == null) return;

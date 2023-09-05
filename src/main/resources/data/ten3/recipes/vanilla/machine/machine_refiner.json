@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BDB",
+    "ACA",
+    "BVB"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:hopper"
+    },
+    "B": {
+      "tag": "forge:plates/powered_tin"
+    },
+    "C": {
+      "item": "ten3:redstone_storer"
+    },
+    "V": {
+      "item": "ten3:redstone_ai"
+    },
+    "D": {
+      "item": "ten3:detector"
+    }
+  },
+  "result": {
+    "item": "ten3:machine_refiner"
+  }
+}

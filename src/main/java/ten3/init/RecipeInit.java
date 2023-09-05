@@ -25,6 +25,7 @@ public class RecipeInit {
         regFormsCombined("compressor", 2, 1);
         regFormsCombined("psionicant", 2, 1);
         regFormsCombined("induction_furnace", 3, 1);
+        regFormsCombined("refiner", 2, 2);
     }
 
     public static void regFormsCombined(String id, int i, int o)

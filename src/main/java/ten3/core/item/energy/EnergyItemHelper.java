@@ -1,13 +1,15 @@
 package ten3.core.item.energy;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import ten3.lib.tile.mac.CmTileMachine;
-import ten3.util.ItemUtil;
-import ten3.util.PatternUtil;
+import ten3.util.ItemNBTHelper;
+import ten3.util.DisplayHelper;
 
 import java.util.List;
 
@@ -17,18 +19,20 @@ public class EnergyItemHelper {
 
     public static void addTooltip(List<Component> tooltips, ItemStack stack) {
 
-        double e = ItemUtil.getTag(stack, "energy");
-        double me = ItemUtil.getTag(stack, "maxEnergy");
+        double e = ItemNBTHelper.getTag(stack, "energy");
+        double me = ItemNBTHelper.getTag(stack, "maxEnergy");
 
-        tooltips.add(PatternUtil.join(e, me));
+        if(e > 0 || me > 0) {
+            tooltips.add(DisplayHelper.join(e, me));
+        }
 
     }
 
     public static void setState(ItemStack s, int sto, int rec, int ext) {
 
-        ItemUtil.setTag(s, "receive", rec);
-        ItemUtil.setTag(s, "extract", ext);
-        ItemUtil.setTag(s, "maxEnergy", sto);
+        ItemNBTHelper.setTag(s, "receive", rec);
+        ItemNBTHelper.setTag(s, "extract", ext);
+        ItemNBTHelper.setTag(s, "maxEnergy", sto);
 
     }
 
@@ -44,9 +48,17 @@ public class EnergyItemHelper {
     public static void fillFull(Item i, NonNullList<ItemStack> stacks, int sto, int rec, int ext) {
 
         ItemStack full = getState(i, sto, rec, ext);
-        ItemUtil.setTag(full, "energy", sto);
+        ItemNBTHelper.setTag(full, "energy", sto);
         stacks.add(full);
 
+    }
+
+    public static void fillCreative(Item i, NonNullList<ItemStack> stacks)
+    {
+        ItemStack full = getState(i, 999999999, 999999999, 999999999);
+        ItemNBTHelper.setTag(full, "energy", 999999999);
+        full.setHoverName(new TextComponent("Cm Debugger").withStyle(ChatFormatting.GOLD));
+        stacks.add(full);
     }
 
     public static void fillEmpty(Item i, NonNullList<ItemStack> stacks, int sto, int rec, int ext) {
@@ -60,15 +72,14 @@ public class EnergyItemHelper {
 
     public static ItemStack fromMachine(CmTileMachine tile, ItemStack stack) {
 
-        ItemUtil.setTag(stack, "energy", tile.data.get(ENERGY));
-        ItemUtil.setTag(stack, "receive", tile.info.maxReceiveEnergy);
-        ItemUtil.setTag(stack, "extract", tile.info.maxExtractEnergy);
-        ItemUtil.setTag(stack, "maxEnergy", tile.info.maxStorageEnergy);
+        ItemNBTHelper.setTag(stack, "energy", tile.data.get(ENERGY));
+        ItemNBTHelper.setTag(stack, "receive", tile.info.maxReceiveEnergy);
+        ItemNBTHelper.setTag(stack, "extract", tile.info.maxExtractEnergy);
+        ItemNBTHelper.setTag(stack, "maxEnergy", tile.info.maxStorageEnergy);
         tile.nbtManager.writeNBTUpg(stack.getOrCreateTag());
 
-        for(int i = 0; i <= tile.inventory.getContainerSize(); i++) {
-            if(!tile.upgradeSlots.isUpgradeSlot(i)) continue;
-            stack.getOrCreateTag().put("upg" + i, tile.inventory.getItem(i).serializeNBT());
+        for(int i = 0; i < tile.upgradeSlots.getInv().getContainerSize(); i++) {
+            stack.getOrCreateTag().put("upg" + i, tile.upgradeSlots.getInv().getItem(i).serializeNBT());
         }
 
         return stack;
@@ -77,13 +88,12 @@ public class EnergyItemHelper {
 
     public static void pushToTile(CmTileMachine tile, ItemStack stack) {
 
-        tile.data.set(ENERGY, ItemUtil.getTag(stack, "energy"));
+        tile.data.set(ENERGY, ItemNBTHelper.getTag(stack, "energy"));
         tile.nbtManager.readNBTUpg(stack.getOrCreateTag());//it's not nec to set caps.
 
-        for(int i = 0; i <= tile.inventory.getContainerSize(); i++) {
-            if(!tile.upgradeSlots.isUpgradeSlot(i)) continue;
+        for(int i = 0; i < tile.upgradeSlots.getInv().getContainerSize(); i++) {
             CompoundTag nbt = stack.getOrCreateTag().getCompound("upg" + i);
-            tile.inventory.setItem(i, ItemStack.of(nbt));
+            tile.upgradeSlots.getInv().setItem(i, ItemStack.of(nbt));
         }
 
     }

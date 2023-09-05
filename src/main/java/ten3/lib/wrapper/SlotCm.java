@@ -5,38 +5,28 @@ import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import ten3.lib.capability.item.AdvancedInventory;
+import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.mac.IngredientType;
 
 import java.util.List;
 
 public class SlotCm extends Slot {
 
-    public static List<Item> DISABLE_ALL_INPUT = Lists.newArrayList();
-    public static List<Item> RECEIVE_ALL_INPUT = null;
-
-    List<Item> list;
-
     boolean isRes;
+    ISlotAcceptor acceptor;
 
-    boolean ext;
-    boolean in;
+    public SlotCm(ISlotAcceptor i, int id, int x, int y) {
 
-    public SlotCm(Container i, int id, int x, int y, List<Item> valid, boolean ext, boolean in) {
-
-        //bug fixed
-        super(i, id, x+1, y+1);
-
-        list = valid;
-
-        this.ext = ext;
-        this.in = in;
-
+        //bug fixed+1
+        super(i.getInv(), id, x+1, y+1);
+        acceptor = i;
     }
 
-    public SlotCm withIsResultSlot() {
-
+    public SlotCm withIsResultSlot()
+    {
         isRes = true;
         return this;
-
     }
 
     //check player input, vanilla method(I cannot change it)
@@ -47,24 +37,10 @@ public class SlotCm extends Slot {
     }
 
     //check handler input
-    public boolean isItemValidInHandler(ItemStack stack) {
-
-        if(list == null) return true;
-
-        return (list.contains(stack.getItem()));
-
-    }
-
-    public boolean canHandlerExt() {
-
-        return ext;
-
-    }
-
-    public boolean canHandlerIn() {
-
-        return in;
-
+    public boolean isItemValidInHandler(ItemStack stack)
+    {
+        int ind = getSlotIndex();
+        return acceptor.valid(ind, stack);
     }
 
 }

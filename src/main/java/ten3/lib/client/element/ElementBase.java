@@ -8,20 +8,20 @@ import java.util.List;
 
 public class ElementBase {
 
-    int ix;
-    int iy;
-    int x;
-    int y;
-    int textureW;
-    int textureH;
-    int xOff;
-    int yOff;
-    int width;
-    int height;
-    boolean visible = true;
+    protected int ix;
+    protected int iy;
+    protected int x;
+    protected int y;
+    protected int textureW;
+    protected int textureH;
+    protected int xOff;
+    protected int yOff;
+    protected int width;
+    protected int height;
+    protected boolean visible = true;
     public boolean hanging;
 
-    ResourceLocation resourceLocation;
+    protected ResourceLocation resourceLocation;
 
     public void updateLocWhenFrameResize(int i, int j) {
 

@@ -2,22 +2,20 @@ package ten3.core.machine.useenergy.quarry;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.FluidStack;
 import ten3.TConst;
 import ten3.core.item.upgrades.LevelupIce;
 import ten3.core.item.upgrades.LevelupMagma;
 import ten3.core.item.upgrades.LevelupMineral;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.option.Type;
 import ten3.lib.tile.extension.CmTileMachineRadiused;
 import ten3.lib.wrapper.SlotCm;
-import ten3.lib.wrapper.SlotCustomCm;
-import ten3.util.ItemUtil;
-import ten3.util.TagUtil;
-import ten3.util.WorkUtil;
+import ten3.util.ItemNBTHelper;
+import ten3.util.TagHelper;
+import ten3.util.WorkingHelper;
 
 import java.util.List;
 
@@ -50,28 +48,56 @@ public class QuarryTile extends CmTileMachineRadiused {
         setEfficiency(10);
         initialRadius = 3;
 
-        List<Item> v1 = SlotCm.RECEIVE_ALL_INPUT;
+        addSlot(new SlotCm(this, 0, 43, 34));
+        addSlot(new SlotCm(this, 1, 79, 16));
+        addSlot(new SlotCm(this, 2, 97, 16));
+        addSlot(new SlotCm(this, 3, 115, 16));
+        addSlot(new SlotCm(this, 4, 133, 16));
+        addSlot(new SlotCm(this, 5, 79, 34));
+        addSlot(new SlotCm(this, 6, 97, 34));
+        addSlot(new SlotCm(this, 7, 115, 34));
+        addSlot(new SlotCm(this, 8, 133, 34));
+        addSlot(new SlotCm(this, 9, 79, 52));
+        addSlot(new SlotCm(this, 10, 97, 52));
+        addSlot(new SlotCm(this, 11, 115, 52));
+        addSlot(new SlotCm(this, 12, 133, 52));
 
-        addSlot(new SlotCustomCm(inventory, 0, 43, 34,
-                                 (s) -> s.getItem() instanceof PickaxeItem, false, false));
-        addSlot(new SlotCm(inventory, 1, 79, 16, v1, true, false));
-        addSlot(new SlotCm(inventory, 2, 97, 16, v1, true, false));
-        addSlot(new SlotCm(inventory, 5, 79, 34, v1, true, false));
-        addSlot(new SlotCm(inventory, 6, 97, 34, v1, true, false));
-        addSlot(new SlotCm(inventory, 9, 79, 52, v1, true, false));
-        addSlot(new SlotCm(inventory, 10, 97, 52, v1, true, false));
-        addSlot(new SlotCm(inventory, 3, 115, 16, v1, true, false));
-        addSlot(new SlotCm(inventory, 4, 133, 16, v1, true, false));
-        addSlot(new SlotCm(inventory, 7, 115, 34, v1, true, false));
-        addSlot(new SlotCm(inventory, 8, 133, 34, v1, true, false));
-        addSlot(new SlotCm(inventory, 11, 115, 52, v1, true, false));
-        addSlot(new SlotCm(inventory, 12, 133, 52, v1, true, false));
+    }
 
+    public int inventorySize()
+    {
+        return 13;
     }
 
     @Override
     public Type typeOf() {
         return Type.MACHINE_EFFECT;
+    }
+
+    public IngredientType slotType(int slot)
+    {
+        if(slot != 0) {
+            return IngredientType.OUTPUT;
+        }
+        return IngredientType.INPUT;
+    }
+
+    public boolean valid(int slot, ItemStack stack)
+    {
+        if(slot == 0) {
+            return stack.getItem() instanceof TieredItem;
+        }
+        return true;
+    }
+
+    public IngredientType tankType(int tank)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, FluidStack stack)
+    {
+        return true;
     }
 
     public void update() {
@@ -107,11 +133,11 @@ public class QuarryTile extends CmTileMachineRadiused {
                 pos2 = pos2.atY(Mth.randomBetweenInclusive(level.getRandom(), TConst.WORLD_MIN, worldPosition.getY() - 1));
                 BlockState bs = level.getBlockState(pos2);
                 if(canBreak(bs)) {
-                    List<ItemStack> ss = bs.getDrops(WorkUtil.getLoot(level, pos2, inventory.getItem(0)));
+                    List<ItemStack> ss = bs.getDrops(WorkingHelper.getLoot(level, pos2, inventory.getItem(0)));
                     if(itr.selfGiveList(ss, true)) {
                         itr.selfGiveList(ss, false);
                         level.destroyBlock(pos2, false);
-                        ItemUtil.damage(inventory.getItem(0), level, 1);
+                        ItemNBTHelper.damage(inventory.getItem(0), level, 1);
                     }
                 }
                 break;
@@ -147,10 +173,10 @@ public class QuarryTile extends CmTileMachineRadiused {
     private boolean canBreak(BlockState s)
     {
         if(mode == 0)
-        return TagUtil.containsBlock(s.getBlock(), "ten3:quarry_valids")
+        return TagHelper.containsBlock(s.getBlock(), TagHelper.keyBlock("ten3:quarry_valids"))
                 && inventory.getItem(0).isCorrectToolForDrops(s);
         if(mode == 3)
-            return TagUtil.containsBlock(s.getBlock(), "forge:ores")
+            return TagHelper.containsBlock(s.getBlock(), TagHelper.keyBlock("forge:ores"))
                     && inventory.getItem(0).isCorrectToolForDrops(s);
         return false;
     }

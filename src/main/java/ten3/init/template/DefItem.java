@@ -2,7 +2,6 @@ package ten3.init.template;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -10,8 +9,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.lwjgl.glfw.GLFW;
 import ten3.init.tab.DefGroup;
-import ten3.util.KeyUtil;
-import ten3.util.ExcUtil;
+import ten3.util.ComponentHelper;
+import ten3.util.SafeOperationHelper;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class DefItem extends Item {
     @Override
     public String getDescriptionId()
     {
-        return KeyUtil.getKey(ExcUtil.regNameOf(this));
+        return ComponentHelper.getKey(SafeOperationHelper.regNameOf(this));
     }
 
     @Override
@@ -45,7 +44,7 @@ public class DefItem extends Item {
         for(int i = 0; true; i++) {
             //*getPATH!
             String k = "ten3."+ getRegistryName().getPath() +"."+i;
-            Component ttc = KeyUtil.translated(KeyUtil.GOLD, k);
+            Component ttc = ComponentHelper.translated(ComponentHelper.GOLD, k);
             if(ttc.getString().equals(k)) break;
 
             list.add(ttc);
@@ -54,7 +53,7 @@ public class DefItem extends Item {
         if(shift()) {
             tooltip.addAll(list);
         } else if(list.size() > 0) {
-            tooltip.add(KeyUtil.translated(KeyUtil.GOLD, "ten3.shift"));
+            tooltip.add(ComponentHelper.translated(ComponentHelper.GOLD, "ten3.shift"));
         }
     }
 

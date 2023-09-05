@@ -1,14 +1,9 @@
 package ten3.core.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.DustParticle;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.RedstoneTorchBlock;
-import ten3.util.WorkUtil;
 
 
 public class ParticleSpawner {

@@ -1,0 +1,24 @@
+{
+  "type": "ten3:refiner",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "ten3:redstone_ai"
+    },
+    {
+      "form": "fluid",
+      "type": "static",
+      "key": "ten3:liquid_bizarrerie",
+      "amount": 20
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "ten3:redstone_ai_advanced",
+      "count": 1
+    }
+  ],
+  "time": 200
+}

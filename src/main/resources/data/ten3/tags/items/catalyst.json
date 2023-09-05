@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:dusts/nickel",
+    "#forge:dusts/iron",
+    "#forge:dusts/copper",
+    "#forge:dusts/gold",
+    "minecraft:nether_wart",
+    "minecraft:chorus_fruit",
+    "minecraft:blaze_powder",
+    "minecraft:redstone",
+    "minecraft:glowstone_dust",
+    "#forge:mushrooms"
+  ]
+}

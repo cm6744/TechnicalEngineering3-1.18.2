@@ -9,10 +9,12 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import ten3.core.item.upgrades.LevelupPotion;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.option.Type;
 import ten3.lib.tile.extension.CmTileMachineRadiused;
-import ten3.lib.wrapper.SlotCustomCm;
+import ten3.lib.wrapper.SlotCm;
 
 import java.util.List;
 
@@ -26,13 +28,38 @@ public class BeaconTile extends CmTileMachineRadiused {
         setEfficiency(300);
         initialRadius = 32;
 
-        addSlot(new SlotCustomCm(inventory, 0, 79, 31, BrewingRecipeRegistry::isValidInput, false, false));
+        addSlot(new SlotCm(this, 0, 79, 31));
 
+    }
+
+    public int inventorySize()
+    {
+        return 1;
     }
 
     @Override
     public Type typeOf() {
         return Type.MACHINE_EFFECT;
+    }
+
+    public IngredientType slotType(int slot)
+    {
+        return IngredientType.INPUT;
+    }
+
+    public boolean valid(int slot, ItemStack stack)
+    {
+        return BrewingRecipeRegistry.isValidIngredient(stack);
+    }
+
+    public IngredientType tankType(int tank)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, FluidStack stack)
+    {
+        return true;
     }
 
     public void effect()

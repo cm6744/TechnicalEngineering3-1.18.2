@@ -1,0 +1,18 @@
+{
+  "type": "ten3:refiner",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:magma_block"
+    }
+  ],
+  "outputs": [
+    {
+      "form": "fluid",
+      "key": "minecraft:lava",
+      "amount": 100
+    }
+  ],
+  "time": 100
+}

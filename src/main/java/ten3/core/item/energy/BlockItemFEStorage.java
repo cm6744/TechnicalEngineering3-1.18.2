@@ -11,14 +11,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import ten3.core.machine.Cell;
+import ten3.core.block.Cell;
 import ten3.init.tab.DefGroup;
 import ten3.init.template.DefItemBlock;
 import ten3.init.TileInit;
 import ten3.lib.tile.mac.CmTileEntity;
 import ten3.lib.tile.mac.CmTileMachine;
-import ten3.util.ExcUtil;
-import ten3.util.ItemUtil;
+import ten3.util.SafeOperationHelper;
+import ten3.util.ItemNBTHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -30,7 +30,7 @@ public class BlockItemFEStorage extends DefItemBlock {
     //in game item do
 
     private CmTileMachine getBind() {
-        return (CmTileMachine) CmTileEntity.ofType(TileInit.getType(ExcUtil.regNameOf(this)));
+        return (CmTileMachine) CmTileEntity.ofType(TileInit.getType(SafeOperationHelper.regNameOf(this)));
     }
 
     public BlockItemFEStorage(Block b) {
@@ -61,14 +61,14 @@ public class BlockItemFEStorage extends DefItemBlock {
     @Override
     public boolean isBarVisible(ItemStack stack)
     {
-        return ItemUtil.getTag(stack, "energy") != 0;
+        return ItemNBTHelper.getTag(stack, "energy") != 0;
     }
 
     @Override
     public int getBarWidth(ItemStack stack)
     {
-        if(ItemUtil.getTag(stack, "maxEnergy") == 0) return 0;
-        return (int)(13 * (ItemUtil.getTag(stack, "energy") / (double) ItemUtil.getTag(stack, "maxEnergy")));
+        if(ItemNBTHelper.getTag(stack, "maxEnergy") == 0) return 0;
+        return (int)(13 * (ItemNBTHelper.getTag(stack, "energy") / (double) ItemNBTHelper.getTag(stack, "maxEnergy")));
     }
 
     @Override

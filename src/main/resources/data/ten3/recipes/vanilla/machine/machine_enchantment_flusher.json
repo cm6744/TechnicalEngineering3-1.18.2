@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "ten3:spicy_jelly"
+      "item": "minecraft:book"
     },
     "B": {
       "tag": "forge:plates/copper"
@@ -16,10 +16,10 @@
       "item": "ten3:redstone_storer"
     },
     "V": {
-      "item": "minecraft:grindstone"
+      "item": "ten3:redstone_ai_advanced"
     },
     "D": {
-      "item": "ten3:redstone_conductor"
+      "item": "minecraft:grindstone"
     }
   },
   "result": {

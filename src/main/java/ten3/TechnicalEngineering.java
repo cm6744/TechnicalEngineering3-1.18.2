@@ -32,6 +32,7 @@ public class TechnicalEngineering {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         BlockInit.regAll();
+        FluidInit.regAll();
         TileInit.regAll();
         ContInit.regAll();
 
@@ -39,6 +40,7 @@ public class TechnicalEngineering {
         RecipeInit.regAll();
 
         BlockInit.BLOCKS.register(bus);
+        FluidInit.FLUIDS.register(bus);
         TileInit.TILES.register(bus);
         ContInit.CONS.register(bus);
 

@@ -1,0 +1,29 @@
+{
+  "type": "ten3:refiner",
+  "inputs": [
+    {
+      "form": "item",
+      "type": "static",
+      "key": "minecraft:magma_cream"
+    },
+    {
+      "form": "fluid",
+      "type": "static",
+      "key": "minecraft:water",
+      "amount": 50
+    }
+  ],
+  "outputs": [
+    {
+      "form": "item",
+      "key": "minecraft:slime_ball",
+      "count": 1
+    },
+    {
+      "form": "fluid",
+      "key": "minecraft:lava",
+      "amount": 50
+    }
+  ],
+  "time": 200
+}

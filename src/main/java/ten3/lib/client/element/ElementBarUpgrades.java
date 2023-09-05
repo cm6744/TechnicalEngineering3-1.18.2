@@ -2,12 +2,9 @@ package ten3.lib.client.element;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import ten3.util.KeyUtil;
+import ten3.util.ComponentHelper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ElementBarUpgrades extends ElementBar {
 
@@ -30,7 +27,7 @@ public class ElementBarUpgrades extends ElementBar {
     @Override
     public void addToolTip(List<Component> tooltips) {
 
-        tooltips.add(KeyUtil.translated(KeyUtil.GOLD, "ten3.info.bar_upgrade"));
+        tooltips.add(ComponentHelper.translated(ComponentHelper.GOLD, "ten3.info.bar_upgrade"));
 
     }
 

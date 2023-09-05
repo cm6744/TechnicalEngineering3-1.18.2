@@ -3,16 +3,9 @@ package ten3.lib.capability.net;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import org.jetbrains.annotations.Nullable;
-import oshi.util.tuples.Pair;
-import ten3.util.DireUtil;
-import ten3.util.ExcUtil;
+import ten3.util.DirectionHelper;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Finder {
 
@@ -37,7 +30,7 @@ public class Finder {
             BlockEntity offset = start.getLevel().getBlockEntity(p1);
             if(offset == null || found.get(p1) != null) continue;
             found.put(p1, offset);
-            T e = getter.get(offset, DireUtil.safeOps(d));//e:offset
+            T e = getter.get(offset, DirectionHelper.safeOps(d));//e:offset
             T e2 = getter.get(start, d);//e2:start
             if(e == null || e2 == null) continue;//have no cap, next
             if(isType.is(offset)) {

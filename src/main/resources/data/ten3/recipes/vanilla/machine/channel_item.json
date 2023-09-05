@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "CBC",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "tag": "forge:glass"
+    },
+    "B": {
+      "item": "ten3:hydraulic_widget"
+    },
+    "C": {
+      "tag": "forge:ingots/tin"
+    }
+  },
+  "result": {
+    "item": "ten3:channel_item",
+    "count": 2
+  }
+}

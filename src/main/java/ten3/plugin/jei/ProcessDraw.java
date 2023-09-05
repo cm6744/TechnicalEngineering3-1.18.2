@@ -2,29 +2,39 @@ package ten3.plugin.jei;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.drawable.IDrawable;
-import net.minecraft.util.Mth;
-import ten3.lib.client.RenderHelper;
-import ten3.lib.client.element.ElementProgress;
-import ten3.util.KeyUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
+import ten3.util.RenderHelper;
+import ten3.lib.client.element.ElementBase;
 
-import static ten3.TConst.guiHandler;
-import static ten3.TConst.jeiHandler;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessDraw implements IDrawable {
 
-    int u, v, wi, hi, ru, rv, rx, ry;
-    double per;
+    int u, v, wi, hi;
     String n;
+    List<ElementBase> elements = new ArrayList<>();
+    ResourceLocation handler;
 
-    public ProcessDraw(int u, int v, int w, int h, String name, int rowU, int rowV, int rowX, int rowY)
+    public void setHandler(ResourceLocation rl)
     {
-        wi = w;hi = h;ru = rowU;rv = rowV;rx = rowX;ry = rowY;n = name;this.u=u;this.v=v;
-        progress = new ElementProgress(rx, ry, 22, 16, ru, rv, guiHandler);
+        handler = rl;
     }
 
-    public void cacheTime(int t)
+    public ProcessDraw(int u, int v, int w, int h, String name)
     {
-        per = 1.0 / t;
+        wi = w;
+        hi = h;
+        n = name;
+        this.u = u;
+        this.v = v;
+    }
+
+    public void add(ElementBase e)
+    {
+        elements.add(e);
     }
 
     @Override
@@ -39,18 +49,17 @@ public class ProcessDraw implements IDrawable {
         return hi;
     }
 
-    double p;
-    ElementProgress progress;
-
     @Override
-    public void draw(PoseStack matrixStack, int i, int i1)
+    public void draw(@NotNull PoseStack matrixStack, int i, int i1)
     {
-        p += per * 0.2;
-        if(p >= 1) p = 0;
+        RenderHelper.render(matrixStack, 0, 0, wi, hi, 256, 256, u, v, handler);
+        List<Component> tooltip = new ArrayList<>();
+        for(ElementBase e : elements)
+        {
+            e.update();
+            e.draw(matrixStack);
+            e.addToolTip(tooltip);
+        }
 
-        RenderHelper.render(matrixStack, 0, 0, wi, hi, 256, 256, u, v, jeiHandler);
-
-        progress.draw(matrixStack);
-        progress.setPer(p);
     }
 }

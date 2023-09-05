@@ -3,14 +3,17 @@ package ten3.core.machine.pole;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandler;
 import ten3.lib.tile.mac.CmTileMachine;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.option.Type;
 
 public class PoleTile extends CmTileMachine {
@@ -23,25 +26,50 @@ public class PoleTile extends CmTileMachine {
 
     }
 
-    @Override
-    public void rdt(CompoundTag nbt)
+    public int inventorySize()
     {
-        super.rdt(nbt);
+        return 0;
+    }
+
+    @Override
+    public void readTileData(CompoundTag nbt)
+    {
+        super.readTileData(nbt);
         if(nbt.contains("bind"))
         bind = BlockPos.of(nbt.getLong("bind"));
     }
 
     @Override
-    public void wdt(CompoundTag nbt)
+    public void writeTileData(CompoundTag nbt)
     {
-        super.wdt(nbt);
+        super.writeTileData(nbt);
         if(bind != null)
         nbt.putLong("bind", bind.asLong());
     }
 
     @Override
     public Type typeOf() {
-        return Type.CABLE;
+        return Type.NON_MAC;
+    }
+
+    public IngredientType slotType(int slot)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, ItemStack stack)
+    {
+        return false;
+    }
+
+    public IngredientType tankType(int tank)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, FluidStack stack)
+    {
+        return false;
     }
 
     @Override

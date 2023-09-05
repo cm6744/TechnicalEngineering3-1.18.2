@@ -16,12 +16,18 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import ten3.TConst;
+import ten3.core.client.IntMap;
+import ten3.core.machine.channel.ChannelScreen;
+import ten3.core.machine.channel.ChannelScreenEnergy;
+import ten3.core.machine.channel.ChannelScreenFluid;
+import ten3.core.machine.channel.ChannelScreenItem;
 import ten3.core.machine.engine.EngineScreen;
 import ten3.core.machine.cell.CellScreen;
 import ten3.core.machine.engine.solar.SolarScreen;
 import ten3.core.machine.pipe.PipeScreen;
 import ten3.core.machine.useenergy.beacon.BeaconScreen;
 import ten3.core.machine.useenergy.compressor.CompressorScreen;
+import ten3.core.machine.useenergy.condenser.CondenserScreen;
 import ten3.core.machine.useenergy.encflu.EncfluScreen;
 import ten3.core.machine.useenergy.farm.FarmScreen;
 import ten3.core.machine.useenergy.indfur.IndfurScreen;
@@ -29,6 +35,7 @@ import ten3.core.machine.useenergy.mobrip.MobRipScreen;
 import ten3.core.machine.useenergy.psionicant.PsionicantScreen;
 import ten3.core.machine.useenergy.pulverizer.PulverizerScreen;
 import ten3.core.machine.useenergy.quarry.QuarryScreen;
+import ten3.core.machine.useenergy.refiner.RefinerScreen;
 import ten3.core.machine.useenergy.smelter.FurnaceScreen;
 import ten3.lib.capability.item.AdvancedInventory;
 import ten3.lib.tile.CmContainerMachine;
@@ -44,10 +51,15 @@ import java.util.Map;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ContInit {
 
+    public static IntMap<String> containerInvOffset = new IntMap<>();
     static Map<String, RegistryObject<MenuType<?>>> regs = new HashMap<>();
     public static final DeferredRegister<MenuType<?>> CONS = DeferredRegister.create(ForgeRegistries.CONTAINERS, TConst.modid);
 
     public static void regAll() {
+        regCont("channel_energy");
+        regCont("channel_item");
+        regCont("channel_fluid");
+
         regCont("engine_extraction");
         regCont("engine_metal");
         regCont("engine_biomass");
@@ -63,6 +75,8 @@ public class ContInit {
         regCont("machine_psionicant");
         regCont("machine_induction_furnace");
         regCont("machine_enchantment_flusher");
+        regCont("machine_refiner");
+        regCont("machine_matter_condenser");
 
         regCont("cell");
         regCont("pipe_white");
@@ -80,7 +94,7 @@ public class ContInit {
                     BlockPos pos = data.readBlockPos();
                         return new CmContainerMachine(windowId, id,
                                 (CmTileMachine) TileInit.getType(id).create(pos, inv.player.level.getBlockState(pos)),
-                                inv, pos, createDefaultIntArr(), createDefaultIntArr(), createDefaultIntArr());
+                                inv, pos);
                         }));
         regs.put(id, reg);
 
@@ -115,6 +129,10 @@ public class ContInit {
         cutout.add("engine_extraction");
         cutout.add("engine_biomass");
 
+        bindScr("channel_energy", ChannelScreenEnergy::new);
+        bindScr("channel_item", ChannelScreenItem::new);
+        bindScr("channel_fluid", ChannelScreenFluid::new);
+
         bindScr("engine_metal", EngineScreen::new);
         bindScr("engine_extraction", EngineScreen::new);
         bindScr("engine_biomass", EngineScreen::new);
@@ -130,6 +148,8 @@ public class ContInit {
         bindScr("machine_psionicant", PsionicantScreen::new);
         bindScr("machine_induction_furnace", IndfurScreen::new);
         bindScr("machine_enchantment_flusher", EncfluScreen::new);
+        bindScr("machine_refiner", RefinerScreen::new);
+        bindScr("machine_matter_condenser", CondenserScreen::new);
 
         bindScr("cell", CellScreen::new);
         bindScr("pipe_white", PipeScreen::new);

@@ -1,17 +1,12 @@
 package ten3.init.template;
 
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
-import ten3.util.KeyUtil;
-import ten3.util.ExcUtil;
+import ten3.util.ComponentHelper;
+import ten3.util.SafeOperationHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.ToIntFunction;
 
 public class DefBlock extends Block {
@@ -51,7 +46,7 @@ public class DefBlock extends Block {
     @Override
     public String getDescriptionId()
     {
-        return KeyUtil.getKey(ExcUtil.regNameOf(this));
+        return ComponentHelper.getKey(SafeOperationHelper.regNameOf(this));
     }
 
 }

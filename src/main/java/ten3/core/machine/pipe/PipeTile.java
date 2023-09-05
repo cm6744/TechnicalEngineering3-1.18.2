@@ -7,14 +7,21 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import ten3.core.machine.PipeBased;
+import ten3.core.block.PipeBased;
 import ten3.lib.capability.net.InvHandlerWayFinding;
 import ten3.lib.tile.mac.CmTileMachine;
-import ten3.lib.tile.option.FaceOption;
+import ten3.lib.tile.mac.IngredientType;
 import ten3.lib.tile.option.Type;
 
 public class PipeTile extends CmTileMachine {
+
+    public int inventorySize()
+    {
+        return 0;
+    }
 
     public PipeTile(BlockPos pos, BlockState state) {
 
@@ -22,9 +29,39 @@ public class PipeTile extends CmTileMachine {
 
     }
 
+    public boolean hasUpgrade()
+    {
+        return false;
+    }
+
+    public boolean hasSideBar()
+    {
+        return false;
+    }
+
+    public IngredientType slotType(int slot)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, ItemStack stack)
+    {
+        return true;
+    }
+
+    public IngredientType tankType(int tank)
+    {
+        return IngredientType.IGNORE;
+    }
+
+    public boolean valid(int slot, FluidStack stack)
+    {
+        return true;
+    }
+
     @Override
     public Type typeOf() {
-        return Type.CABLE;
+        return Type.NON_MAC;
     }
 
     public boolean isItemCanBeTransferred(ItemStack stack) {
@@ -54,7 +91,7 @@ public class PipeTile extends CmTileMachine {
 
     @Override
     protected boolean hasFaceCapability(Capability<?> cap, Direction d) {
-        if(cap == CapabilityEnergy.ENERGY) {
+        if(cap != CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return false;
         }
         return super.hasFaceCapability(cap, d);

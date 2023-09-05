@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "facing=north,active=false": {
+      "model": "ten3:block/channel/channel_fluid"
+    },
+    "facing=east,active=false": {
+      "model": "ten3:block/channel/channel_fluid",
+      "y": 90
+    },
+    "facing=south,active=false": {
+      "model": "ten3:block/channel/channel_fluid",
+      "y": 180
+    },
+    "facing=west,active=false": {
+      "model": "ten3:block/channel/channel_fluid",
+      "y": 270
+    },
+    "facing=up,active=false": {
+      "model": "ten3:block/channel/channel_fluid",
+      "x": 270
+    },
+    "facing=down,active=false": {
+      "model": "ten3:block/channel/channel_fluid",
+      "x": 90
+    },
+    "facing=north,active=true": {
+      "model": "ten3:block/channel/channel_fluid_active"
+    },
+    "facing=east,active=true": {
+      "model": "ten3:block/channel/channel_fluid_active",
+      "y": 90
+    },
+    "facing=south,active=true": {
+      "model": "ten3:block/channel/channel_fluid_active",
+      "y": 180
+    },
+    "facing=west,active=true": {
+      "model": "ten3:block/channel/channel_fluid_active",
+      "y": 270
+    },
+    "facing=up,active=true": {
+      "model": "ten3:block/channel/channel_fluid_active",
+      "x": 270
+    },
+    "facing=down,active=true": {
+      "model": "ten3:block/channel/channel_fluid_active",
+      "x": 90
+    }
+  }
+}

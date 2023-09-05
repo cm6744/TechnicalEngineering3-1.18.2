@@ -8,6 +8,10 @@ import ten3.TConst;
 import ten3.core.machine.cable.CableTileClr;
 import ten3.core.machine.cable.CableTileQtz;
 import ten3.core.machine.cable.CableTileStar;
+import ten3.core.machine.channel.ChannelEnergyTile;
+import ten3.core.machine.channel.ChannelFluidTile;
+import ten3.core.machine.channel.ChannelItemTile;
+import ten3.core.machine.channel.ChannelTile;
 import ten3.core.machine.engine.biomass.BiomassTile;
 import ten3.core.machine.engine.extractor.ExtractorTile;
 import ten3.core.machine.engine.metalizer.MetalizerTile;
@@ -19,6 +23,7 @@ import ten3.core.machine.pipe.PipeTile;
 import ten3.core.machine.pipe.PipeWhitelistTile;
 import ten3.core.machine.useenergy.beacon.BeaconTile;
 import ten3.core.machine.useenergy.compressor.CompressorTile;
+import ten3.core.machine.useenergy.condenser.CondenserTile;
 import ten3.core.machine.useenergy.encflu.EncfluTile;
 import ten3.core.machine.useenergy.farm.FarmTile;
 import ten3.core.machine.useenergy.indfur.IndfurTile;
@@ -26,6 +31,7 @@ import ten3.core.machine.useenergy.mobrip.MobRipTile;
 import ten3.core.machine.useenergy.psionicant.PsionicantTile;
 import ten3.core.machine.useenergy.pulverizer.PulverizerTile;
 import ten3.core.machine.useenergy.quarry.QuarryTile;
+import ten3.core.machine.useenergy.refiner.RefinerTile;
 import ten3.core.machine.useenergy.smelter.FurnaceTile;
 import ten3.lib.tile.mac.CmTileEntity;
 
@@ -38,6 +44,10 @@ public class TileInit {
     public static final DeferredRegister<BlockEntityType<?>> TILES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, TConst.modid);
 
     public static void regAll() {
+        regTile("channel_energy", ChannelEnergyTile::new);
+        regTile("channel_item", ChannelItemTile::new);
+        regTile("channel_fluid", ChannelFluidTile::new);
+
         regTile("engine_extraction", ExtractorTile::new);
         regTile("engine_metal", MetalizerTile::new);
         regTile("engine_biomass", BiomassTile::new);
@@ -53,6 +63,8 @@ public class TileInit {
         regTile("machine_psionicant", PsionicantTile::new);
         regTile("machine_induction_furnace", IndfurTile::new);
         regTile("machine_enchantment_flusher", EncfluTile::new);
+        regTile("machine_refiner", RefinerTile::new);
+        regTile("machine_matter_condenser", CondenserTile::new);
 
         regTile("cable", CableTile::new);
         regTile("cable_quartz", CableTileQtz::new);
