@@ -46,13 +46,13 @@ public class RecipeInit {
 
     }
 
-    public static RecipeSerializer<?> getRcp(String id) {
+    public static RecipeSerializer<?> getSerializer(String id) {
 
         return regs.get(id);
 
     }
 
-    public static RecipeType<?> getRcpType(String id) {
+    public static RecipeType<?> getType(String id) {
 
         return types.get(id);
 

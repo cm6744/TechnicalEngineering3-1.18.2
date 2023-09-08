@@ -54,7 +54,7 @@ public class FormsCombinedRecipeSerializer
         for(int i = 0; i < sizeOut; i++) {
             op.add(FormsCombinedIngredient.parseFrom(buffer));
         }
-        int cook = buffer.readVarInt();
+        int cook = buffer.readInt();
 
         return factory.create(regName, recipeId, ip, op, cook);
     }

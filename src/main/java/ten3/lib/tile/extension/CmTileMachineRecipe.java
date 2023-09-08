@@ -2,19 +2,15 @@ package ten3.lib.tile.extension;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import ten3.core.client.IntMap;
 import ten3.lib.capability.item.AdvancedInventory;
 import ten3.lib.recipe.FormsCombinedIngredient;
 import ten3.lib.recipe.FormsCombinedRecipe;
 import ten3.lib.recipe.IBaseRecipeCm;
-import ten3.lib.recipe.RandRecipe;
 import ten3.init.RecipeInit;
 import ten3.util.ComponentHelper;
 import ten3.util.RecipeHelper;
@@ -22,7 +18,6 @@ import ten3.util.RecipeHelper;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public abstract class CmTileMachineRecipe<T extends Recipe<Container>> extends CmTileMachineProcess {
 
@@ -116,7 +111,7 @@ public abstract class CmTileMachineRecipe<T extends Recipe<Container>> extends C
     @SuppressWarnings("unchecked")
     public void initialRecipeType()
     {
-        recipeType = (RecipeType<T>) RecipeInit.getRcpType(ComponentHelper.exceptMachineOrGiveCell(id));
+        recipeType = (RecipeType<T>) RecipeInit.getType(ComponentHelper.exceptMachineOrGiveCell(id));
     }
 
     @Override

@@ -157,13 +157,13 @@ public class FormsCombinedRecipe implements RandRecipe<Container>
     @Override
     public RecipeType<?> getType()
     {
-        return RecipeInit.getRcpType(reg.getPath());
+        return RecipeInit.getType(reg.getPath());
     }
 
     @Override
     public RecipeSerializer<?> getSerializer()
     {
-        return RecipeInit.getRcp(getId().getPath());
+        return RecipeInit.getSerializer(reg.getPath());
     }
 
     public List<FormsCombinedIngredient> input()

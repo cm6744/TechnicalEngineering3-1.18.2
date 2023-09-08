@@ -2,30 +2,20 @@ package ten3.plugin.jei;
 
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.handlers.IGlobalGuiHandler;
-import mezz.jei.api.ingredients.IIngredientHelper;
-import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.core.Registry;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.Nullable;
 import ten3.TConst;
 import ten3.core.machine.useenergy.compressor.CompressorScreen;
 import ten3.core.machine.useenergy.indfur.IndfurScreen;
@@ -39,7 +29,6 @@ import ten3.init.RecipeInit;
 import ten3.lib.tile.CmScreenMachine;
 import ten3.plugin.jei.impl.*;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -74,7 +63,7 @@ public class TEJeiPlugins implements IModPlugin {
         if(Minecraft.getInstance().level == null) return;
         RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
         net.minecraft.world.item.crafting.RecipeType<? extends Recipe<Container>> typeVl =
-                (net.minecraft.world.item.crafting.RecipeType<? extends Recipe<Container>>) RecipeInit.getRcpType(type.getUid().getPath());
+                (net.minecraft.world.item.crafting.RecipeType<? extends Recipe<Container>>) RecipeInit.getType(type.getUid().getPath());
         List<Recipe<Container>> lst = (List<Recipe<Container>>) manager.getAllRecipesFor(typeVl);
         registration.addRecipes((RecipeType<Recipe<Container>>) type, lst);
     }
